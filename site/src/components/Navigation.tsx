@@ -18,6 +18,7 @@ const pages: { href: string; label: string; sous?: boolean }[] = [
 
 function etapes(accueil: boolean): Etape[] {
   return [
+    { id: "avant", n: "", label: "Avant de lire", href: `${accueil ? "" : base}#avant` },
     ...constats.map((c, i) => ({ id: c.id, n: String(i + 1), label: c.court, href: accueil ? `#${c.id}` : `${base}constats/${c.id}/` })),
     { id: "propositions", n: String(constats.length + 1), label: "Que changer", href: accueil ? "#propositions" : `${base}propositions/` },
     { id: "resume", n: "✓", label: "En résumé", href: `${accueil ? "" : base}#resume` },
@@ -97,7 +98,7 @@ export function Navigation({ page }: { page: PageId }) {
 
   const lienEtape = (e: Etape, inPanel = false) => (
     <a href={e.href} aria-current={actif === e.id ? "step" : undefined} onClick={() => inPanel && setOuvert(false)}>
-      {e.n !== "✓" && <span className="rn">{e.n}</span>}
+      {e.n && e.n !== "✓" && <span className="rn">{e.n}</span>}
       {e.label}
     </a>
   );
@@ -116,7 +117,7 @@ export function Navigation({ page }: { page: PageId }) {
           {liste.map((e) => <li key={e.id}>{lienEtape(e)}</li>)}
         </ol>
         <button type="button" className="cap-current" aria-expanded={ouvert} aria-controls={panneauId} onClick={() => setOuvert(!ouvert)}>
-          {courante ? <>{courante.n !== "✓" && <span className="rn">{courante.n}</span>}{courante.label}<span className="cap-count">{liste.indexOf(courante) + 1}/{liste.length}</span></> : <>Le parcours<span className="cap-count">{liste.length} étapes</span></>}
+          {courante ? <>{courante.n && courante.n !== "✓" && <span className="rn">{courante.n}</span>}{courante.label}<span className="cap-count">{liste.indexOf(courante) + 1}/{liste.length}</span></> : <>Le parcours<span className="cap-count">{liste.length} étapes</span></>}
         </button>
       </div>
       <AnimatePresence>
