@@ -4,7 +4,7 @@ Que faudrait-il changer dans le droit du travail français pour avoir plus d'emp
 de bien-être ? Cet exercice part du texte du Code, chiffre ce qu'il coûte, confronte chaque idée de réforme aux études
 et aux données, et rédige des propositions article par article, avec leurs perdants.
 
-**Page de synthèse** : `06-site/index.html` (site statique, déployable tel quel sur Vercel).
+**Site** : https://tbe-inc.github.io/code-du-travail-preuves/ (code dans `site/`, Vite + React).
 
 > Exercice de pensée indépendant (octobre 2026), réalisé avec l'assistance d'une IA (Claude) à partir de sources
 > publiques. Ce n'est ni un avis juridique ni une étude relue par des pairs.
@@ -29,7 +29,7 @@ et aux données, et rédige des propositions article par article, avec leurs per
                     assurance chômage
 04-propositions/    Une fiche par réforme : texte actuel, texte proposé, gain, perdants, contre-expertise
 05-synthese/        Première page de synthèse
-06-site/            Site pédagogique (index.html, image d'aperçu, données téléchargeables)
+site/               Site (Vite + React) : npm run dev, npm run deploy
 scripts/            Extraction, téléchargement, modèle de coût, analyse ESS
 ```
 
