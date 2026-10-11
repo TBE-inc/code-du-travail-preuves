@@ -1,0 +1,15 @@
+# Sources tierces : non redistribuables (études sous droit d'auteur, microdonnées ESS) ou trop volumineuses.
+# Liste et liens de téléchargement : 00-pilotage/telechargements.md
+01-sources/
+
+# Texte extrait des études sous droit d'auteur
+02-extractions/etudes-texte/
+
+# Lien vers une page privée
+05-synthese/lien.txt
+
+# Système
+Thumbs.db
+desktop.ini
+.DS_Store
+__pycache__/

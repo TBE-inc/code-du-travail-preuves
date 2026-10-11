@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Code du travail, preuves en main</title>
+<meta name="description" content="Que faudrait-il changer dans le droit du travail français pour plus d'emploi, de croissance et de bien-être ? Coûts, études et données européennes, expliqués et sourcés.">
+<meta property="og:title" content="Code du travail, preuves en main">
+<meta property="og:description" content="11 572 articles lus, 51 études, 40 000 Européens interrogés. Ce que les preuves disent vraiment sur le droit du travail français.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="/og.png">
+<meta name="twitter:image" content="/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Code du travail, preuves en main">
+<meta name="twitter:description" content="Le chômage pèse 5 fois plus que le CDD sur le bien-être. La paperasse du Code du travail coûte 1 à 7 Md€ par an. Le seuil de 50 salariés agit comme une taxe de 1,3 %.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : récit en une colonne de lecture (68ch), figures et outils interactifs en pleine largeur de colonne,
+   notes numérotées renvoyant à la liste des sources ; références d'articles en chips monospace */
+:root {
+  --bg: #f4f6f8; --surface: #ffffff; --sunken: #eaeef2;
+  --fg: #18212c; --muted: #566273; --rule: #d6dce4;
+  --accent: #1d5a86; --accent-soft: #e3edf5;
+  --good: #1f6b45; --good-soft: #e1f1e8;
+  --warn: #8a5a00; --warn-soft: #f8edd6;
+  --bad: #9b2c2c; --bad-soft: #f7e4e4;
+  --stop: #6b6f76; --stop-soft: #eceef1;
+  --bar: #9db6cc; --bar-strong: #1d5a86;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #182029; --sunken: #0d1218; --fg: #e4e9ef; --muted: #9aa7b6; --rule: #2c3743;
+    --accent: #7fb3dd; --accent-soft: #1d2e3e; --good: #7fcfa2; --good-soft: #17301f;
+    --warn: #e6b45a; --warn-soft: #33270f; --bad: #ec8f8f; --bad-soft: #3a1c1c;
+    --stop: #a9afb8; --stop-soft: #262c34; --bar: #3d5a74; --bar-strong: #7fb3dd;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #182029; --sunken: #0d1218; --fg: #e4e9ef; --muted: #9aa7b6; --rule: #2c3743;
+  --accent: #7fb3dd; --accent-soft: #1d2e3e; --good: #7fcfa2; --good-soft: #17301f;
+  --warn: #e6b45a; --warn-soft: #33270f; --bad: #ec8f8f; --bad-soft: #3a1c1c;
+  --stop: #a9afb8; --stop-soft: #262c34; --bar: #3d5a74; --bar-strong: #7fb3dd;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 17.5px; line-height: 1.62; padding-inline: 16px; padding-block: 0; }
+.wrap { max-width: 900px; margin: 0 auto; }
+
+/* navigation */
+.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--rule); margin-inline: -16px; padding: 10px 16px; }
+.toc ul { list-style: none; margin: 0 auto; padding: 0; max-width: 900px; display: flex; gap: 6px 18px; overflow-x: auto; white-space: nowrap; font-size: 14.5px; scrollbar-width: none; }
+.toc a { color: var(--muted); text-decoration: none; font-weight: 600; }
+.toc a:hover, .toc a:focus-visible { color: var(--accent); }
+
+/* typographie */
+.eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(36px, 6vw, 58px); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(27px, 3.6vw, 36px); line-height: 1.15; margin: 0; text-wrap: balance; }
+h3 { font-size: 19px; margin: 0; font-weight: 700; line-height: 1.3; }
+p { margin: 0; max-width: 68ch; }
+ul, ol { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 15px; }
+strong { font-weight: 700; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.art { font-family: var(--font-mono); font-size: .8em; background: var(--accent-soft); color: var(--accent); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+sup.ref { font-size: .68em; line-height: 0; }
+sup.ref a { text-decoration: none; font-weight: 700; padding: 0 1px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* sections */
+main { display: grid; gap: 88px; padding-block: 40px 80px; }
+section { display: grid; gap: 20px; min-width: 0; scroll-margin-top: 64px; }
+.section-head { display: grid; gap: 8px; }
+.kicker { font-family: var(--font-mono); font-size: 13px; color: var(--accent); font-weight: 600; letter-spacing: .02em; }
+
+/* héro */
+.hero { display: grid; gap: 22px; padding-top: 24px; }
+.hero .lede { font-size: clamp(19px, 2.4vw, 22px); color: var(--muted); max-width: 60ch; }
+.keys { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.key { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.key .big { font-family: var(--font-display); font-weight: 700; font-size: 34px; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.key p { font-size: 15.5px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-block; font: inherit; font-size: 15.5px; font-weight: 700; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--accent); text-decoration: none; cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--bg); }
+.btn.ghost { background: transparent; color: var(--accent); }
+
+/* encadrés */
+.explain { background: var(--accent-soft); border-radius: 10px; padding: 16px 20px; display: grid; gap: 8px; }
+.explain .label { font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--accent); }
+.explain p { font-size: 16px; }
+.caveat { border-left: 3px solid var(--warn); padding: 4px 0 4px 16px; font-size: 15.5px; color: var(--muted); }
+.caveat strong { color: var(--fg); }
+.card { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 20px; display: grid; gap: 10px; min-width: 0; }
+.formula { font-family: var(--font-mono); font-size: 14px; background: var(--sunken); border-radius: 8px; padding: 12px 14px; overflow-x: auto; white-space: pre; line-height: 1.6; }
+
+/* étapes de méthode : vraie séquence */
+.steps { list-style: none; padding: 0; display: grid; gap: 14px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.4rem 1fr; gap: 12px; }
+.steps li::before { content: counter(s); font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--accent); line-height: 1.2; }
+.steps li div { display: grid; gap: 4px; }
+
+/* niveaux de preuve et verdicts */
+.chip { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; vertical-align: 1px; }
+.chip.good { background: var(--good-soft); color: var(--good); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.stop { background: var(--stop-soft); color: var(--stop); }
+.chip.bad { background: var(--bad-soft); color: var(--bad); }
+.levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.levels .card { gap: 6px; }
+
+/* tableaux */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; background: var(--sunken); }
+tr:last-child td { border-bottom: none; }
+td.r, th.r { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* graphiques */
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 18px 14px; display: grid; gap: 12px; min-width: 0; }
+.figure .fig-title { font-weight: 700; font-size: 16px; }
+.figure .fig-note { font-size: 13.5px; color: var(--muted); }
+.hbar { display: grid; gap: 8px; }
+.hrow { display: grid; grid-template-columns: minmax(0, 14rem) 1fr 4.2rem; gap: 12px; align-items: center; font-size: 14.5px; }
+.hrow .lab { overflow-wrap: anywhere; }
+.hrow .val { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.track { position: relative; height: 16px; }
+.track .zero { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--muted); opacity: .6; }
+.track .fill { position: absolute; top: 3px; height: 10px; border-radius: 3px; background: var(--bar); }
+.track .fill.strong { background: var(--bar-strong); }
+.track .fill.neg { background: var(--bad); opacity: .75; }
+.track .fill.pos { background: var(--good); opacity: .75; }
+.track .whisk { position: absolute; top: 7px; height: 2px; background: var(--fg); opacity: .55; }
+.track .whisk::before, .track .whisk::after { content: ""; position: absolute; top: -4px; width: 2px; height: 10px; background: var(--fg); }
+.track .whisk::before { left: 0; } .track .whisk::after { right: 0; }
+.track .mid { position: absolute; top: 0; width: 3px; height: 16px; background: var(--bar-strong); transform: translateX(-1px); border-radius: 1px; }
+.axis { display: grid; grid-template-columns: minmax(0, 14rem) 1fr 4.2rem; gap: 12px; font-size: 12px; color: var(--muted); }
+.axis .ticks { position: relative; height: 18px; border-top: 1px solid var(--rule); }
+.axis .ticks span { position: absolute; top: 3px; transform: translateX(-50%); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.hrow.highlight .lab { font-weight: 700; }
+@media (max-width: 600px) {
+  .hrow, .axis { grid-template-columns: 1fr 3.6rem; }
+  .hrow .lab { grid-column: 1 / -1; }
+  .axis > span:first-child { display: none; }
+}
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { font: inherit; font-size: 14.5px; font-weight: 600; border: 0; background: transparent; color: var(--muted); padding: 7px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+
+/* outils */
+.tool { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
+.tool-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: baseline; }
+.slider { display: grid; gap: 6px; }
+.slider label { font-weight: 700; font-size: 15.5px; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.readout { font-family: var(--font-display); font-size: 40px; font-weight: 700; color: var(--accent); line-height: 1; font-variant-numeric: tabular-nums; }
+.out { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.out .card { padding: 14px 16px; gap: 4px; }
+.out .v { font-family: var(--font-display); font-weight: 700; font-size: 26px; font-variant-numeric: tabular-nums; }
+.oblist { list-style: none; padding: 0; display: grid; gap: 6px; }
+.oblist li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 10px; align-items: baseline; padding: 8px 12px; border-radius: 8px; background: var(--sunken); font-size: 15px; transition: opacity .2s; }
+.oblist li .th { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--muted); }
+.oblist li.on { background: var(--warn-soft); }
+.oblist li.on .th { color: var(--warn); }
+.oblist li.off { opacity: .45; }
+
+/* timeline assurance chômage */
+.timeline { list-style: none; padding: 0; display: grid; gap: 0; border-left: 2px solid var(--rule); margin-left: 6px; }
+.timeline li { position: relative; padding: 0 0 18px 22px; display: grid; gap: 2px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.timeline .when { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--accent); }
+
+/* propositions */
+.props { display: grid; gap: 14px; }
+details.prop { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; }
+details.prop > summary { list-style: none; cursor: pointer; padding: 16px 20px; display: grid; grid-template-columns: 1fr auto; gap: 6px 14px; align-items: start; }
+details.prop > summary::-webkit-details-marker { display: none; }
+details.prop > summary h3 { grid-column: 1; }
+details.prop > summary .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 14.5px; color: var(--muted); align-items: center; }
+details.prop > summary::after { content: "Voir le détail"; grid-column: 2; grid-row: 1; font-size: 13.5px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+details.prop[open] > summary::after { content: "Replier"; }
+.prop-body { padding: 0 20px 20px; display: grid; gap: 14px; }
+.diff { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.diff > div { border-radius: 8px; padding: 12px 14px; font-size: 15px; display: grid; gap: 6px; min-width: 0; }
+.diff .before { background: var(--bad-soft); }
+.diff .after { background: var(--good-soft); }
+.diff .tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
+.diff .before .tag { color: var(--bad); } .diff .after .tag { color: var(--good); }
+.views { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.views > div { background: var(--sunken); border-radius: 8px; padding: 12px 14px; font-size: 14.5px; display: grid; gap: 4px; }
+.views .who { font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+/* glossaire et sources */
+dl.gloss { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 24px; margin: 0; }
+dl.gloss div { display: grid; gap: 2px; }
+dl.gloss dt { font-weight: 700; }
+dl.gloss dd { margin: 0; font-size: 15.5px; color: var(--muted); }
+ol.sources { padding-left: 1.6em; display: grid; gap: 8px; font-size: 15px; }
+ol.sources li { scroll-margin-top: 70px; padding-left: 4px; }
+ol.sources li:target { background: var(--warn-soft); border-radius: 4px; }
+.files { display: flex; flex-wrap: wrap; gap: 10px; }
+footer { border-top: 1px solid var(--rule); padding-block: 24px 48px; display: grid; gap: 8px; font-size: 14.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="Sommaire">
+  <ul>
+    <li><a href="#methode">Méthode</a></li>
+    <li><a href="#preuve">Niveaux de preuve</a></li>
+    <li><a href="#chomage">1. Le chômage d'abord</a></li>
+    <li><a href="#paperasse">2. La paperasse</a></li>
+    <li><a href="#seuil">3. Le seuil de 50</a></li>
+    <li><a href="#licenciement">4. Le licenciement</a></li>
+    <li><a href="#assurance">5. L'assurance chômage</a></li>
+    <li><a href="#propositions">Propositions</a></li>
+    <li><a href="#limites">Limites</a></li>
+    <li><a href="#glossaire">Glossaire</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+<main>
+
+<!-- HÉRO -->
+<section class="hero" aria-labelledby="titre">
+  <div class="eyebrow">Exercice de pensée · octobre 2026</div>
+  <h1 id="titre">Code du travail, preuves en main</h1>
+  <p class="lede">Que faudrait-il changer dans le droit du travail français pour avoir plus d'emploi, plus de croissance et des gens plus heureux ? Plutôt que de partir d'une opinion, on a lu le Code, chiffré ce qu'il coûte et confronté chaque idée aux études et aux données. Voici ce qui tient, et ce qui ne tient pas.</p>
+  <div class="keys">
+    <div class="key"><div class="big">×5</div><p>Le chômage pèse environ <strong>cinq fois plus</strong> sur le bien-être qu'un CDD, à revenu égal.<sup class="ref"><a href="#src-ess">[1]</a></sup></p></div>
+    <div class="key"><div class="big">1 à 7 Md€</div><p>Coût annuel de la <strong>paperasse</strong> imposée par les principales obligations du Code du travail.<sup class="ref"><a href="#src-scm">[2]</a></sup></p></div>
+    <div class="key"><div class="big">≈ 1,3 %</div><p>Le seuil de <strong>50 salariés</strong> agit comme une taxe implicite sur le travail, payée surtout par les salariés.<sup class="ref"><a href="#src-garicano">[3]</a></sup></p></div>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="#chomage">Lire les 5 constats</a>
+    <a class="btn ghost" href="#propositions">Aller aux propositions</a>
+  </div>
+</section>
+
+<!-- MÉTHODE -->
+<section id="methode" aria-labelledby="h-methode">
+  <div class="section-head">
+    <div class="kicker">Comment on a travaillé</div>
+    <h2 id="h-methode">Six étapes, de la loi aux données</h2>
+  </div>
+  <p>Le point de départ : le Code du travail en vigueur au 8 octobre 2026, téléchargé sur Légifrance.<sup class="ref"><a href="#src-code">[4]</a></sup> Il fait <strong class="num">3 507 pages</strong>, <strong class="num">11 572 articles</strong> et environ <strong class="num">1,1 million de mots</strong>.</p>
+  <ol class="steps">
+    <li><div><h3>Fixer les objectifs avant de regarder les preuves</h3><p>Plus d'emploi, de croissance, de pouvoir d'achat et de bien-être, avec des garde-fous à ne pas dégrader : santé mentale, accidents du travail, inégalités, finances sociales. Les fixer d'abord évite de choisir les objectifs qui arrangent la conclusion.</p></div></li>
+    <li><div><h3>Faire l'inventaire des obligations</h3><p>Un programme a repéré automatiquement <strong class="num">2 847 obligations</strong> pesant sur l'employeur, dans 2 332 articles. On a vérifié à la main 150 articles tirés au hasard : l'outil se trompe environ une fois sur quatre pour les obligations administratives.</p></div></li>
+    <li><div><h3>Chiffrer le coût</h3><p>Avec la méthode utilisée par l'OCDE et l'Union européenne (le « Standard Cost Model »), sur 23 démarches, à partir des volumes réels de 2025.</p></div></li>
+    <li><div><h3>Lire les études, y compris celles qui contredisent</h3><p>51 documents : recherches économiques, rapports publics, évaluations de réformes à l'étranger, et des travaux syndicaux ou critiques de la flexibilisation.</p></div></li>
+    <li><div><h3>Tester sur des données réelles</h3><p>Une analyse de l'enquête européenne ESS (40 000 personnes, 32 pays), avec un plan écrit <em>avant</em> de voir les résultats, pour ne pas chercher le résultat voulu.</p></div></li>
+    <li><div><h3>Rédiger des articles et les faire contredire</h3><p>Chaque proposition est écrite comme un vrai texte de loi, puis passée au crible de trois regards : libéral, syndical, juridique.</p></div></li>
+  </ol>
+</section>
+
+<!-- NIVEAUX DE PREUVE -->
+<section id="preuve" aria-labelledby="h-preuve">
+  <div class="section-head">
+    <div class="kicker">Avant de lire les chiffres</div>
+    <h2 id="h-preuve">Tous les chiffres ne se valent pas</h2>
+  </div>
+  <p>Une corrélation n'est pas une preuve. Pour chaque affirmation, on indique ce qui la soutient.</p>
+  <div class="levels">
+    <div class="card"><h3>Preuve forte</h3><p class="small">Plusieurs études qui isolent la cause et concluent dans le même sens, ou une méta-analyse (une étude qui rassemble des dizaines d'autres).</p></div>
+    <div class="card"><h3>Preuve moyenne</h3><p class="small">Une étude solide, ou plusieurs études concordantes de qualité inégale.</p></div>
+    <div class="card"><h3>Preuve faible</h3><p class="small">Corrélations, témoignages, théorie, ou études qui se contredisent.</p></div>
+  </div>
+  <p>Et pour chaque idée de réforme, un verdict :</p>
+  <div class="levels">
+    <div class="card"><span class="chip good">Gagnant partout</span><p class="small">Améliore au moins un objectif sans rien dégrader. À faire.</p></div>
+    <div class="card"><span class="chip warn">Sous condition</span><p class="small">Gain probable, mais seulement si on l'accompagne d'une autre mesure. Sinon, un garde-fou est touché.</p></div>
+    <div class="card"><span class="chip stop">Non retenu</span><p class="small">Les preuves ne soutiennent pas l'idée, ou c'est déjà fait.</p></div>
+  </div>
+</section>
+
+<!-- CONSTAT 1 -->
+<section id="chomage" aria-labelledby="h-chomage">
+  <div class="section-head">
+    <div class="kicker">Constat 1 · preuve moyenne</div>
+    <h2 id="h-chomage">Le chômage domine tout le reste</h2>
+  </div>
+  <p>Dans l'enquête européenne ESS, on demande aux gens : « Êtes-vous satisfait de votre vie, de 0 à 10 ? ». En moyenne, les Européens répondent 7,1. On a comparé des personnes semblables (même âge, même sexe, mêmes études, <strong>même revenu</strong>, même pays) qui ne diffèrent que par leur situation d'emploi.<sup class="ref"><a href="#src-ess">[1]</a></sup></p>
+
+  <div class="figure" role="img" aria-label="Écarts de satisfaction dans la vie par rapport à un salarié en CDI : chômeur moins 0,74 ; ancien chômeur de longue durée moins 0,36 ; CDD moins 0,15 ; autonomie totale plus 0,6">
+    <div class="fig-title">Écart de satisfaction dans la vie, comparé à un salarié en CDI (sur 10)</div>
+    <div class="hbar" id="ess-chart"></div>
+    <div class="axis"><span></span><div class="ticks" id="ess-axis"></div><span></span></div>
+    <div class="fig-note">Barre : estimation. Trait noir : intervalle de confiance à 95 % (la zone où se trouve probablement la vraie valeur). European Social Survey, vagues 10 et 11 (2020-2024), 18-64 ans.</div>
+  </div>
+
+  <div class="explain">
+    <div class="label">Comment lire ce graphique</div>
+    <p><strong>Perdre son emploi coûte 0,74 point de satisfaction</strong>, même à revenu égal : ce n'est pas seulement une question d'argent, c'est aussi le statut, les liens, l'estime de soi. Être en CDD coûte <strong>cinq fois moins</strong> (0,15 point). Et le chômage long laisse une trace : des personnes qui ont retrouvé un emploi gardent un écart de 0,36 point.</p>
+    <p>Bonne nouvelle inattendue : <strong>l'autonomie au travail</strong> (pouvoir organiser son travail soi-même) pèse presque autant que d'avoir un emploi.</p>
+  </div>
+
+  <p>Ce n'est pas un détail. Les études qui suivent les mêmes personnes dans le temps montrent qu'une perte d'emploi augmente la mortalité de <strong>15 à 20 % sur 20 ans</strong><sup class="ref"><a href="#src-sullivan">[5]</a></sup> et qu'environ un suicide sur cinq dans le monde est associé au chômage.<sup class="ref"><a href="#src-nordt">[6]</a></sup></p>
+
+  <div class="tool" aria-labelledby="h-calc">
+    <div class="tool-head"><h3 id="h-calc">Calculateur : que vaut un chômeur de moins ?</h3><span class="small muted">Bien-être seulement, hors revenus</span></div>
+    <div class="slider">
+      <label for="calc-n">Nombre de chômeurs en moins pendant un an</label>
+      <input type="range" id="calc-n" min="1000" max="300000" step="1000" value="10000">
+      <div class="readout" id="calc-n-out">10 000</div>
+    </div>
+    <div class="out">
+      <div class="card"><span class="small muted">Bien-être gagné</span><span class="v" id="calc-wellby">7 400 WELLBY</span></div>
+      <div class="card"><span class="small muted">Valeur estimée</span><span class="v" id="calc-eur">133 M€</span><span class="small muted" id="calc-range">fourchette 73 à 209 M€</span></div>
+    </div>
+    <div class="formula">chômeurs en moins × 0,74 point × 18 000 € par point et par an
+fourchette : 0,52 à 0,95 point × 14 000 à 22 000 €</div>
+    <p class="small muted">Un « WELLBY », c'est un point de satisfaction de vie pendant un an. Le Trésor britannique lui donne une valeur officielle de 13 000 £ (prix 2019), soit environ 18 000 € aujourd'hui.<sup class="ref"><a href="#src-wellby">[7]</a></sup> Pour comparer : toutes les simplifications sûres du Code du travail proposées plus bas rapportent 100 à 550 M€ par an.</p>
+  </div>
+
+  <p class="caveat"><strong>Ce que ça ne prouve pas :</strong> ces données montrent des associations. Des personnes déjà moins heureuses peuvent aussi être plus souvent au chômage. Les études longitudinales trouvent toutefois des effets du même ordre.</p>
+</section>
+
+<!-- CONSTAT 2 -->
+<section id="paperasse" aria-labelledby="h-paperasse">
+  <div class="section-head">
+    <div class="kicker">Constat 2 · preuve moyenne</div>
+    <h2 id="h-paperasse">La paperasse coûte 1 à 7 milliards par an, pas là où on croit</h2>
+  </div>
+  <p>Pour chiffrer une obligation, on multiplie combien de fois elle se produit par le temps qu'elle prend et le coût d'une heure de travail. C'est la méthode « Standard Cost Model », utilisée par l'OCDE et l'Union européenne.<sup class="ref"><a href="#src-scmmanual">[8]</a></sup></p>
+  <div class="formula">coût = nombre de fois par an × (heures × 44,30 € + prestataire éventuel)
+       × part qu'on ne ferait pas de toute façon
+
+exemple, contrat de CDD :
+  21,9 millions de CDD par an × 0,1 à 0,4 h × 44,30 € × 40 à 70 %
+  = 39 à 272 millions d'euros par an</div>
+  <p>Les volumes sont réels (DARES, 2025<sup class="ref"><a href="#src-dares">[9]</a></sup>), le coût d'une heure aussi (44,30 €, Eurostat<sup class="ref"><a href="#src-eurostat">[10]</a></sup>). Le temps passé par démarche est mesuré pour certaines (document unique, d'après une mesure européenne<sup class="ref"><a href="#src-hlg">[11]</a></sup> ; paie, d'après les tarifs des cabinets) et estimé pour les autres. D'où des fourchettes larges.</p>
+
+  <div class="figure">
+    <div class="tool-head">
+      <div class="fig-title">Coût administratif annuel en France, en millions d'euros</div>
+      <div class="seg" role="group" aria-label="Scénario">
+        <button type="button" data-scen="1" aria-pressed="false">Bas</button>
+        <button type="button" data-scen="2" aria-pressed="true">Central</button>
+        <button type="button" data-scen="3" aria-pressed="false">Haut</button>
+      </div>
+    </div>
+    <div class="hbar" id="cost-chart"></div>
+    <div class="axis"><span></span><div class="ticks" id="cost-axis"></div><span></span></div>
+    <div class="fig-note" id="cost-total"></div>
+  </div>
+
+  <div class="explain">
+    <div class="label">Ce qu'il faut retenir</div>
+    <p>Change de scénario : <strong>l'ordre ne bouge presque pas</strong>. Les gros postes sont toujours la paie, le document d'évaluation des risques, la procédure de licenciement et les instances représentatives (CSE). Les cibles habituelles des discours de simplification, comme le règlement intérieur, le registre du personnel ou l'index égalité, <strong>pèsent très peu</strong>.</p>
+    <p>Au total, c'est 0,05 à 0,25 % du PIB. Réel, mais modeste à côté de l'enjeu du chômage.</p>
+  </div>
+  <p class="caveat"><strong>Limite :</strong> la complexité de la paie vient surtout des cotisations sociales et du prélèvement à la source, qui relèvent du Code de la sécurité sociale, pas du Code du travail.</p>
+</section>
+
+<!-- CONSTAT 3 -->
+<section id="seuil" aria-labelledby="h-seuil">
+  <div class="section-head">
+    <div class="kicker">Constat 3 · preuve moyenne</div>
+    <h2 id="h-seuil">Le seuil de 50 salariés freine les entreprises, et les salariés en paient le prix</h2>
+  </div>
+  <p>En France, beaucoup d'obligations se déclenchent d'un coup quand une entreprise atteint 50 salariés. Résultat observé par des économistes sur les données de toutes les entreprises françaises : <strong>une accumulation anormale d'entreprises à 49 salariés</strong>, qui évitent de grandir.<sup class="ref"><a href="#src-garicano">[3]</a></sup></p>
+
+  <div class="tool" aria-labelledby="h-sim">
+    <div class="tool-head"><h3 id="h-sim">Simulateur : qu'est-ce qui change quand l'entreprise grandit ?</h3></div>
+    <div class="slider">
+      <label for="sim-n">Effectif de l'entreprise</label>
+      <input type="range" id="sim-n" min="5" max="60" step="1" value="49">
+      <div class="readout" id="sim-n-out">49 salariés</div>
+    </div>
+    <ul class="oblist" id="sim-list"></ul>
+    <div class="out">
+      <div class="card"><span class="small muted">Heures de délégation des élus du CSE</span><span class="v" id="sim-hours">20 h / mois</span><span class="small muted">barème légal, <span class="art">R2314-1</span></span></div>
+      <div class="card"><span class="small muted">Surcoût du passage de 49 à 50</span><span class="v">≈ 30 à 42 k€ / an</span><span class="small muted">2 200 à 14 800 € de démarches + 27 600 € d'heures de délégation</span></div>
+    </div>
+    <p class="small muted">Liste simplifiée des principales obligations liées à l'effectif. Certaines ne s'appliquent qu'après 12 mois au-dessus du seuil. Les heures de délégation sont le maximum légal, pas toujours utilisé ; elles n'existent que si un CSE a été élu, ce qui n'est le cas que dans 41 % des entreprises de 10 salariés et plus.<sup class="ref"><a href="#src-fs">[12]</a></sup></p>
+  </div>
+
+  <div class="explain">
+    <div class="label">Pourquoi les salariés en paient le prix</div>
+    <p>L'étude chiffre l'effet du seuil à une <strong>taxe implicite d'environ 1,3 %</strong> sur le travail. Les entreprises qui restent petites pour l'éviter embauchent moins et sont moins productives. Selon les auteurs, les principaux perdants sont <strong>les salariés</strong> (moins d'emplois, salaires plus bas), puis les grandes entreprises.<sup class="ref"><a href="#src-garicano">[3]</a></sup> Notre calcul de coût, fait par une autre méthode, arrive au même ordre de grandeur : 1 à 2 % de la masse salariale d'une entreprise de 50 salariés.</p>
+  </div>
+  <p><strong>Ce qu'on en tire :</strong> <em>lisser</em> le seuil plutôt que le relever. Relever le seuil à 100 déplacerait simplement l'embouteillage à 99. Faire monter les obligations progressivement supprime l'effet de marche.</p>
+  <p class="caveat"><strong>Limite :</strong> l'étude porte sur 2002-2007, avant les réformes de 2017 et 2019 qui ont déjà modifié certains seuils.</p>
+</section>
+
+<!-- CONSTAT 4 -->
+<section id="licenciement" aria-labelledby="h-lic">
+  <div class="section-head">
+    <div class="kicker">Constat 4 · preuve forte</div>
+    <h2 id="h-lic">Faciliter le licenciement ne crée pas d'emplois en soi, mais rend l'économie plus productive</h2>
+  </div>
+  <p>C'est le débat le plus idéologique du droit du travail. Voici ce que disent les études des deux bords quand on les met côte à côte.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Question</th><th>Ce que trouvent les études</th><th>Preuve</th></tr></thead>
+      <tbody>
+        <tr><td>Une protection forte contre le licenciement augmente-t-elle le chômage ?</td><td><strong>Pas d'effet net démontré.</strong> C'est la conclusion des revues favorables à la flexibilité<sup class="ref"><a href="#src-cp">[13]</a></sup> comme de celles qui la critiquent.<sup class="ref"><a href="#src-avdagic">[14]</a></sup><sup class="ref"><a href="#src-howell">[15]</a></sup></td><td><span class="chip good">forte</span></td></tr>
+        <tr><td>Freine-t-elle la productivité ?</td><td><strong>Oui</strong> : les emplois passent moins vite des entreprises en déclin vers celles qui grandissent.<sup class="ref"><a href="#src-bassanini">[16]</a></sup><sup class="ref"><a href="#src-cp">[13]</a></sup> Contre-argument : trop de rotation nuit à l'apprentissage dans l'entreprise.<sup class="ref"><a href="#src-vergeer">[17]</a></sup></td><td><span class="chip warn">moyenne</span></td></tr>
+        <tr><td>Crée-t-elle deux classes de salariés ?</td><td><strong>Oui</strong> : CDI très protégés d'un côté, CDD très précaires de l'autre, surtout pour les jeunes et les moins qualifiés.<sup class="ref"><a href="#src-cp">[13]</a></sup></td><td><span class="chip warn">moyenne</span></td></tr>
+        <tr><td>Qu'ont donné les réformes à l'étranger ?</td><td><strong>Italie (2015)</strong> : plus d'embauches en CDI.<sup class="ref"><a href="#src-boeri">[18]</a></sup> <strong>Allemagne (Hartz)</strong> : chômage plus court mais pas moins de chômeurs au total, et salaires en baisse.<sup class="ref"><a href="#src-hartz">[19]</a></sup> <strong>Danemark</strong> : ça marche, mais avec un accompagnement des chômeurs massif et obligatoire.<sup class="ref"><a href="#src-dk">[20]</a></sup></td><td><span class="chip warn">moyenne</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="figure" role="img" aria-label="Indice OCDE de protection contre le licenciement en 2025 : États-Unis 0,77 ; Royaume-Uni 1,90 ; Danemark 1,94 ; moyenne OCDE 2,21 ; Allemagne 2,33 ; Espagne 2,43 ; Suède 2,51 ; France 2,68 ; Italie 2,86 ; Pays-Bas 2,88">
+    <div class="fig-title">Indice OCDE de protection contre le licenciement (CDI), 2025</div>
+    <div class="hbar" id="epl-chart"></div>
+    <div class="axis"><span></span><div class="ticks" id="epl-axis"></div><span></span></div>
+    <div class="fig-note">De 0 (aucune protection) à 6 (protection maximale). Version 4 de l'indice. Source : OCDE.<sup class="ref"><a href="#src-oecdepl">[21]</a></sup></div>
+  </div>
+
+  <div class="explain">
+    <div class="label">Notre test sur les données européennes</div>
+    <p>Si la protection contre le licenciement protégeait le bien-être, les chômeurs et les salariés en CDD devraient aller mieux dans les pays très protecteurs. <strong>On ne détecte rien de tel</strong> sur 25 pays.<sup class="ref"><a href="#src-ess">[1]</a></sup> Prudence : 25 pays, c'est peu pour conclure.</p>
+  </div>
+  <p><strong>Ce qu'on en tire :</strong> on peut assouplir, <strong>à condition</strong> de sécuriser la transition des personnes licenciées (allocations, accompagnement), sinon on dégrade la santé et les salaires. Une piste cohérente : <strong>« celui qui licencie paie »</strong>. L'entreprise paie le coût réel qu'elle fait porter à l'assurance chômage ; en échange, le juge contrôle moins le motif.<sup class="ref"><a href="#src-bt">[22]</a></sup> Et une bonne partie de la simplification de la procédure est <strong>déjà faite</strong> : depuis 2017, une erreur de forme coûte au plus un mois de salaire (<span class="art">L1235-2</span>).</p>
+</section>
+
+<!-- CONSTAT 5 -->
+<section id="assurance" aria-labelledby="h-ac">
+  <div class="section-head">
+    <div class="kicker">Constat 5 · preuve forte</div>
+    <h2 id="h-ac">Les vrais leviers sur le chômage sont hors du Code du travail</h2>
+  </div>
+  <p>Les règles d'indemnisation des chômeurs sont négociées par les syndicats et le patronat, puis agréées par l'État. On a d'abord vérifié ce qui existe déjà, pour ne pas proposer ce qui est fait. Surprise : <strong>le durcissement des allocations a déjà eu lieu, trois fois</strong>.<sup class="ref"><a href="#src-unedic">[23]</a></sup></p>
+  <ol class="timeline">
+    <li><span class="when">2021</span><span>L'allocation est calculée sur le revenu moyen, jours non travaillés compris. Les hauts revenus voient leur allocation baisser après quelques mois. Création d'un bonus-malus sur les cotisations dans 7 secteurs.</span></li>
+    <li><span class="when">2023</span><span>La durée d'indemnisation est réduite de 25 % quand le marché du travail va bien (548 jours au maximum avant 55 ans).</span></li>
+    <li><span class="when">2026</span><span>Après une rupture conventionnelle, durée ramenée de 18 à 15 mois. Ces ruptures représentent 26 % des dépenses d'allocations, soit 9,4 Md€.<sup class="ref"><a href="#src-senat">[24]</a></sup></span></li>
+  </ol>
+  <p><strong>Aucune de ces réformes n'a d'évaluation solide dans notre corpus.</strong> On ne sait pas encore ce qu'elles ont produit.</p>
+
+  <div class="explain">
+    <div class="label">Ce que disent les études sur les leviers</div>
+    <p><strong>Baisser les allocations</strong> raccourcit le chômage, mais en Allemagne cela n'a pas réduit le nombre total de chômeurs, et les salaires ont baissé.<sup class="ref"><a href="#src-hartz">[19]</a></sup> <strong>L'accompagnement</strong> des chômeurs, lui, a un effet nul à court terme mais positif après 2 à 3 ans, surtout pour le chômage de longue durée (plus de 200 évaluations rassemblées).<sup class="ref"><a href="#src-ckw">[25]</a></sup> C'est exactement le groupe que le constat 1 identifie comme le plus touché.</p>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Exigences envers les chômeurs (OCDE, 2024)</th><th class="r">France</th><th class="r">Danemark</th><th class="r">Allemagne</th><th class="r">Pays-Bas</th></tr></thead>
+      <tbody>
+        <tr><td>Disponibilité : emplois qu'on doit accepter, mobilité</td><td class="r"><strong>0,75</strong></td><td class="r">1,38</td><td class="r">1,25</td><td class="r">1,21</td></tr>
+        <tr><td>Sanctions en cas de refus</td><td class="r"><strong>0,94</strong></td><td class="r">0,72</td><td class="r">0,72</td><td class="r">0,78</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small muted">Plus le score est haut, plus la règle est exigeante.<sup class="ref"><a href="#src-oecdact">[26]</a></sup> La France demande moins d'efforts de mobilité que ses voisins, mais sanctionne plus. Les données 2024 ne reflètent peut-être pas encore la loi « plein emploi » de 2023.</p>
+</section>
+
+<!-- PROPOSITIONS -->
+<section id="propositions" aria-labelledby="h-props">
+  <div class="section-head">
+    <div class="kicker">Ce qu'on propose</div>
+    <h2 id="h-props">Neuf mesures, chacune avec ses perdants</h2>
+  </div>
+  <p>Chaque mesure du Code du travail est écrite comme un vrai article, après relecture du texte en vigueur. Ouvre une carte pour voir l'avant et l'après, le gain, qui perd, et ce qu'en diraient un libéral, un syndicaliste et un juriste.</p>
+
+  <h3>Dans le Code du travail</h3>
+  <div class="props">
+
+    <details class="prop">
+      <summary><h3>Document d'évaluation des risques : garder l'évaluation, alléger la paperasse</h3><div class="meta"><span class="chip good">Gagnant partout</span><span>≈ 140 M€ par an</span><span class="art">R4121-2</span></div></summary>
+      <div class="prop-body">
+        <div class="diff">
+          <div class="before"><span class="tag">Aujourd'hui</span><span>Mise à jour obligatoire <strong>chaque année</strong> dès 11 salariés, souvent confiée à un consultant.</span></div>
+          <div class="after"><span class="tag">Proposé</span><span>Mise à jour annuelle dès <strong>50</strong> salariés ; en dessous, à chaque changement. Un outil numérique officiel et gratuit, présumé conforme.</span></div>
+        </div>
+        <p><strong>Pourquoi :</strong> la directive européenne exige seulement d'avoir une évaluation et autorise l'adaptation à la taille de l'entreprise (article 9.2).<sup class="ref"><a href="#src-dir89">[27]</a></sup> La mesure européenne de 2009 estime que les outils numériques réduisent la charge d'environ 31 %.<sup class="ref"><a href="#src-hlg">[11]</a></sup></p>
+        <p><strong>Ce qu'on ne touche pas :</strong> la conservation pendant 40 ans. Elle sert à prouver une exposition pour des maladies qui apparaissent des décennies plus tard, comme celles liées à l'amiante. Le dépôt sur un portail numérique, déjà prévu par la loi, suffit.</p>
+        <div class="views">
+          <div><span class="who">Regard syndical</span>La mise à jour annuelle force à se reposer la question. Réponse : elle reste obligatoire à chaque changement. Suivre les accidents du travail dans les 11-49 salariés.</div>
+          <div><span class="who">Regard juridique</span>Conforme à la directive. La présomption porte sur la forme, pas sur l'obligation de sécurité.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="prop">
+      <summary><h3>Égalité salariale : transposer la règle européenne sans en rajouter</h3><div class="meta"><span class="chip good">Gagnant partout</span><span>5 à 25 M€ par an</span><span class="art">L1142-8</span></div></summary>
+      <div class="prop-body">
+        <div class="diff">
+          <div class="before"><span class="tag">Aujourd'hui</span><span>Index égalité publié <strong>chaque année dès 50 salariés</strong>.</span></div>
+          <div class="after"><span class="tag">Proposé</span><span>Rapport <strong>dès 100 salariés</strong>, tous les 3 ans jusqu'à 249, chaque année au-delà, calculé à partir des déclarations sociales déjà transmises.</span></div>
+        </div>
+        <p><strong>Pourquoi maintenant :</strong> la France devait transposer la directive sur la transparence des salaires avant le 7 juin 2026 et ne l'a pas encore fait. La directive fixe exactement ces seuils.<sup class="ref"><a href="#src-dir970">[28]</a></sup> Elle donne aussi à <strong>tous</strong> les salariés, quelle que soit la taille de l'entreprise, le droit de demander leur rémunération comparée à celle de leurs collègues de l'autre sexe.</p>
+        <div class="views">
+          <div><span class="who">Qui perd</span>Les salariées des entreprises de 50 à 99 salariés perdent un indicateur public. Condition : vérifier en 2030 que l'écart de salaire ne s'y creuse pas.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="prop">
+      <summary><h3>CDD : une erreur de forme ne transforme plus le contrat en CDI</h3><div class="meta"><span class="chip good">Gagnant partout</span><span>sécurité juridique</span><span class="art">L1245-1</span></div></summary>
+      <div class="prop-body">
+        <div class="diff">
+          <div class="before"><span class="tag">Aujourd'hui</span><span>Une mention manquante peut faire requalifier le CDD en CDI, même si le motif du CDD est réel.</span></div>
+          <div class="after"><span class="tag">Proposé</span><span>Si le motif est réel et précis, une mention secondaire oubliée donne droit à une indemnité d'un mois maximum. Un contrat-type officiel est présumé conforme.</span></div>
+        </div>
+        <p><strong>Inchangé :</strong> un motif absent, flou ou faux entraîne toujours la requalification. C'est la même logique que la réforme de 2017 sur le retard de transmission du contrat.</p>
+        <p><strong>Idée abandonnée :</strong> un contrat unique pour des missions répétées. Il aurait rendu encore plus facile l'enchaînement de contrats très courts, que l'assurance chômage finance déjà largement.<sup class="ref"><a href="#src-cae24">[29]</a></sup></p>
+      </div>
+    </details>
+
+    <details class="prop">
+      <summary><h3>Seuil de 50 : adoucir la marche des heures de délégation</h3><div class="meta"><span class="chip warn">Sous condition</span><span>25 à 150 M€ par an</span><span class="art">R2314-1</span></div></summary>
+      <div class="prop-body">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Effectif</th><th class="r">Aujourd'hui</th><th class="r">Proposé</th></tr></thead>
+            <tbody>
+              <tr><td>25 à 49 salariés</td><td class="r">20 h / mois</td><td class="r">24 h / mois</td></tr>
+              <tr><td>50 à 74 salariés</td><td class="r"><strong>72 h / mois</strong></td><td class="r"><strong>48 h / mois</strong></td></tr>
+              <tr><td>75 à 99 salariés</td><td class="r">95 h / mois</td><td class="r">76 h / mois</td></tr>
+              <tr><td>100 salariés et plus</td><td class="r">inchangé</td><td class="r">inchangé</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>La marche au passage de 50 tombe de +52 à +24 heures par mois. Les planchers fixés par la loi sont respectés.</p>
+        <div class="views">
+          <div><span class="who">Qui perd</span>Les élus des entreprises de 50 à 99 salariés : moins de temps de représentation.</div>
+          <div><span class="who">Condition</span>Réserver une part des heures à la santé et la sécurité, et mesurer après un cycle électoral (4 ans) le bien-être et les accidents dans ces entreprises.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="prop">
+      <summary><h3>Rupture conventionnelle : validation immédiate des dossiers conformes</h3><div class="meta"><span class="chip warn">Sous condition</span><span>15 jours ouvrables de moins</span><span class="art">L1237-14</span></div></summary>
+      <div class="prop-body">
+        <p>Aujourd'hui, l'administration a 15 jours ouvrables pour valider ; sans réponse, c'est validé. Proposé : si le contrôle automatique au dépôt confirme le délai de rétractation et l'indemnité minimale, la validation est immédiate.</p>
+        <p><strong>Le risque :</strong> une procédure plus rapide peut augmenter le nombre de ruptures, qui coûtent déjà 9,4 Md€ par an à l'assurance chômage.<sup class="ref"><a href="#src-senat">[24]</a></sup> À ne faire qu'avec des règles d'indemnisation ajustées et un suivi sur deux ans.</p>
+      </div>
+    </details>
+  </div>
+
+  <h3>Assurance chômage et accompagnement</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Mesure</th><th>Pourquoi</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Tester avant de généraliser</strong> : chaque nouvelle règle est d'abord appliquée à une partie des chômeurs tirée au sort ; les réformes 2021-2026 sont évaluées</td><td>C'est ce que fait le Danemark depuis des années.<sup class="ref"><a href="#src-dk">[20]</a></sup> La Constitution le permet (articles 37-1 et 72).</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td><strong>Accompagnement intensif</strong> des chômeurs de longue durée, avec formation</td><td>Effet positif après 2 à 3 ans, plus fort pour le chômage long.<sup class="ref"><a href="#src-ckw">[25]</a></sup></td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td><strong>Exigences de disponibilité</strong> alignées sur les pays voisins</td><td>La France est en dessous de ses voisins.<sup class="ref"><a href="#src-oecdact">[26]</a></sup> Mais sans accompagnement, les salaires baissent (Hartz).</td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td><strong>« Celui qui licencie paie »</strong> : bonus-malus étendu au-delà de 7 secteurs, en échange de moins de contrôle par le juge</td><td>Proposé par Blanchard et Tirole ; la loi le permet déjà (<span class="art">L5422-12</span>).<sup class="ref"><a href="#src-bt">[22]</a></sup></td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td>Baisser encore les allocations</td><td>Déjà fait trois fois, sans évaluation ; en Allemagne, pas de baisse du chômage total.</td><td><span class="chip stop">Non retenu</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="explain">
+    <div class="label">En une phrase</div>
+    <p>Simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et <strong>tout tester avant de généraliser</strong>. C'est ce dernier point qui rend la démarche fondée sur les preuves plutôt que sur une idéologie.</p>
+  </div>
+</section>
+
+<!-- LIMITES -->
+<section id="limites" aria-labelledby="h-lim">
+  <div class="section-head">
+    <div class="kicker">Honnêteté</div>
+    <h2 id="h-lim">Ce qu'on a corrigé, et ce qu'on ne sait pas</h2>
+  </div>
+  <div class="levels">
+    <div class="card">
+      <h3>Corrigé en route</h3>
+      <ul class="small">
+        <li>On voulait réduire la conservation du document de risques : <strong>retiré</strong>, elle protège les malades de l'amiante.</li>
+        <li>Simplifier la forme du licenciement : <strong>déjà fait</strong> en 2017.</li>
+        <li>Rupture conventionnelle : <strong>rétrogradée</strong> à cause de son coût pour l'assurance chômage.</li>
+        <li>Un chiffre de mortalité tiré d'un résumé en ligne a été remplacé par celui de l'étude elle-même.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ce qu'on ne sait pas</h3>
+      <ul class="small">
+        <li>Le temps réel de plusieurs démarches (licenciement, décompte des heures) : estimé, pas mesuré.</li>
+        <li>L'effet causal en France : les données françaises de l'enquête sont trop peu nombreuses.</li>
+        <li>Les effets de la loi « plein emploi » de 2023 et de France Travail.</li>
+        <li>Les études ont été lues de façon ciblée (résumés, conclusions, passages clés), pas intégralement.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="caveat"><strong>Ce n'est pas un avis juridique.</strong> Les textes proposés doivent être relus par un juriste en droit du travail avant tout usage.</p>
+</section>
+
+<!-- GLOSSAIRE -->
+<section id="glossaire" aria-labelledby="h-gloss">
+  <div class="section-head">
+    <div class="kicker">Les mots du sujet</div>
+    <h2 id="h-gloss">Glossaire</h2>
+  </div>
+  <dl class="gloss">
+    <div><dt>CDI / CDD</dt><dd>Contrat à durée indéterminée (sans date de fin) ou déterminée (avec date de fin). 84 % des embauches se font en CDD, souvent de moins d'un mois.</dd></div>
+    <div><dt>CSE</dt><dd>Comité social et économique : les représentants élus des salariés, obligatoires dès 11 salariés, avec des pouvoirs élargis dès 50.</dd></div>
+    <div><dt>Heures de délégation</dt><dd>Temps de travail payé que les élus du CSE consacrent à leur mandat, fixé par un barème légal selon l'effectif.</dd></div>
+    <div><dt>Document unique (DUERP)</dt><dd>Document où l'employeur inscrit l'évaluation des risques pour la santé et la sécurité de ses salariés.</dd></div>
+    <div><dt>Rupture conventionnelle</dt><dd>Fin de CDI d'un commun accord entre employeur et salarié, qui ouvre droit aux allocations chômage.</dd></div>
+    <div><dt>Requalification</dt><dd>Décision du juge qui transforme un CDD irrégulier en CDI.</dd></div>
+    <div><dt>Standard Cost Model</dt><dd>Méthode de l'OCDE et de l'UE pour chiffrer le temps et l'argent que coûtent les démarches administratives.</dd></div>
+    <div><dt>WELLBY</dt><dd>Un point de satisfaction de vie (sur 10) pendant un an. Unité utilisée par le Trésor britannique pour comparer des politiques.</dd></div>
+    <div><dt>Intervalle de confiance</dt><dd>Fourchette dans laquelle se trouve probablement la vraie valeur. Plus elle est étroite, plus l'estimation est précise.</dd></div>
+    <div><dt>Méta-analyse</dt><dd>Étude qui rassemble les résultats de nombreuses autres études pour en tirer une conclusion plus solide.</dd></div>
+    <div><dt>Bonus-malus</dt><dd>Cotisation chômage plus élevée pour les entreprises qui se séparent souvent de leurs salariés, plus basse pour les autres.</dd></div>
+    <div><dt>Flexisécurité</dt><dd>Modèle danois : licenciement facile, allocations généreuses et accompagnement obligatoire des chômeurs.</dd></div>
+    <div><dt>Transposer une directive</dt><dd>Inscrire dans le droit national une règle européenne. « Surtransposer », c'est aller au-delà de ce qu'elle exige.</dd></div>
+    <div><dt>Articles L, R, D</dt><dd>L : votés par le Parlement. R et D : décrets du gouvernement, plus faciles à modifier.</dd></div>
+  </dl>
+</section>
+
+<!-- SOURCES -->
+<section id="sources" aria-labelledby="h-src">
+  <div class="section-head">
+    <div class="kicker">Tout vérifier</div>
+    <h2 id="h-src">Sources</h2>
+  </div>
+  <ol class="sources">
+    <li id="src-ess">European Social Survey, vagues 10 et 11 (2020-2024), fichiers intégrés ; analyse propre, plan écrit avant exécution. <a href="https://ess.sikt.no" rel="noopener">ess.sikt.no</a></li>
+    <li id="src-scm">Modèle de coût Standard Cost Model, 23 démarches, hypothèses et résultats téléchargeables ci-dessous.</li>
+    <li id="src-garicano">Garicano, Lelarge et Van Reenen, « Firm Size Distortions and the Productivity Distribution: Evidence from France », NBER w18841 (publié dans l'American Economic Review, 2016). <a href="https://www.nber.org/papers/w18841" rel="noopener">nber.org</a></li>
+    <li id="src-code">Code du travail, version du 8 octobre 2026. <a href="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006072050" rel="noopener">legifrance.gouv.fr</a></li>
+    <li id="src-sullivan">Sullivan et von Wachter, « Mortality, Mass-Layoffs, and Career Outcomes », NBER w13626. <a href="https://www.nber.org/papers/w13626" rel="noopener">nber.org</a></li>
+    <li id="src-nordt">Nordt et al., « Modelling suicide and unemployment: a longitudinal analysis covering 63 countries, 2000-11 », The Lancet Psychiatry, 2015. <a href="https://doi.org/10.1016/S2215-0366(14)00118-7" rel="noopener">doi.org</a></li>
+    <li id="src-wellby">HM Treasury, « Wellbeing guidance for appraisal: supplementary Green Book guidance », 2021, p. 33. <a href="https://assets.publishing.service.gov.uk/media/60fa9169d3bf7f0448719daf/Wellbeing_guidance_for_appraisal_-_supplementary_Green_Book_guidance.pdf" rel="noopener">gov.uk</a></li>
+    <li id="src-scmmanual">SCM Network, « International Standard Cost Model Manual ». <a href="https://diadikasies.gov.gr/assets/International%20SCM%20Manual%20OECD.pdf" rel="noopener">copie publique</a></li>
+    <li id="src-dares">DARES, « Les mouvements de main-d'œuvre », données annuelles 2025 et trimestrielles 2026. <a href="https://dares.travail-emploi.gouv.fr/donnees/les-mouvements-de-main-doeuvre" rel="noopener">dares.travail-emploi.gouv.fr</a></li>
+    <li id="src-eurostat">Eurostat, coût horaire du travail (lc_lci_lev) et démographie des entreprises (bd_size, sbs_sc_ovw). <a href="https://ec.europa.eu/eurostat/databrowser/view/lc_lci_lev/default/table" rel="noopener">ec.europa.eu/eurostat</a></li>
+    <li id="src-hlg">Commission européenne, groupe de haut niveau sur les charges administratives, avis « Working environment / Employment relations », 2009. <a href="https://bollettinoadapt.it/old/site/home/bollettino-adapt/ordinario/22-giugno-2009-n-18/1064EU_WORK_ENVIR_28.pdf" rel="noopener">copie publique</a></li>
+    <li id="src-fs">France Stratégie, « Évaluation des ordonnances du 22 septembre 2017 », rapport 2021, p. 14 et 16. <a href="https://www.strategie.gouv.fr" rel="noopener">strategie.gouv.fr</a></li>
+    <li id="src-cp">Cahuc et Palladino, « Employment Protection Legislation and Job Reallocation across Sectors, Firms and Workers: A Survey », IZA DP 16747, 2024. <a href="https://docs.iza.org/dp16747.pdf" rel="noopener">iza.org</a></li>
+    <li id="src-avdagic">Avdagic, « Is Deregulation Necessary? The Effects of Employment Protection on Unemployment », CELSI DP 17, 2013. <a href="https://celsi.sk/sk/publikacie/diskusny-clanok/detail/29/is-deregulation-necessary-the-effects-of-employment-protection-on-unemployment/" rel="noopener">celsi.sk</a></li>
+    <li id="src-howell">Howell, Baker, Glyn et Schmitt, « Are Protective Labor Market Institutions Really at the Root of Unemployment? », 2006. <a href="https://cepr.net/publications/are-protective-labor-market-institutions-really-at-the-root-of-unemployment-a-critical-perspective/" rel="noopener">cepr.net</a></li>
+    <li id="src-bassanini">Bassanini, Nunziata et Venn, « Job Protection Legislation and Productivity Growth in OECD Countries », IZA DP 3555. <a href="https://docs.iza.org/dp3555.pdf" rel="noopener">iza.org</a></li>
+    <li id="src-vergeer">Vergeer et Kleinknecht, « Do labour market reforms reduce labour productivity growth? », International Labour Review, 2014. <a href="https://static.uni-graz.at/fileadmin/sowi-zentren/Schumpeter-Centre/Download/GSSC/I_L_R_Vergeer_-_Kleinknecht.pdf" rel="noopener">copie publique</a></li>
+    <li id="src-boeri">Boeri et Garibaldi, « A Tale of Comprehensive Labor Market Reforms: Evidence from the Italian Jobs Act », CEP DP 1613, 2019. <a href="https://cep.lse.ac.uk/pubs/download/dp1613.pdf" rel="noopener">lse.ac.uk</a></li>
+    <li id="src-hartz">Bradley et Kügler, « Labor market reforms: An evaluation of the Hartz policies in Germany », European Economic Review, 2019. <a href="https://discovery.ucl.ac.uk/id/eprint/10069841/" rel="noopener">ucl.ac.uk</a></li>
+    <li id="src-dk">Kreiner et Svarer, « Danish Flexicurity: Rights and Duties », CEBI WP 16/22, 2022. <a href="https://www.econ.ku.dk/cebi/publikationer/working-papers/CEBI_WP_16-22.pdf" rel="noopener">ku.dk</a></li>
+    <li id="src-oecdepl">OCDE, indicateurs de protection de l'emploi (EPL), version 4, 2025. <a href="https://data-explorer.oecd.org" rel="noopener">data-explorer.oecd.org</a></li>
+    <li id="src-bt">Blanchard et Tirole, « Protection de l'emploi et procédures de licenciement », rapport du CAE n° 44, 2003. <a href="https://cae-eco.fr/static/pdf/044.pdf" rel="noopener">cae-eco.fr</a></li>
+    <li id="src-unedic">Unédic, circulaire n° 2025-03 et présentation des évolutions réglementaires de la convention du 15 novembre 2024. <a href="https://www.unedic.org" rel="noopener">unedic.org</a></li>
+    <li id="src-senat">Sénat, rapport n° 488 (2025-2026) sur la rupture conventionnelle et l'assurance chômage. <a href="https://www.senat.fr/rap/l25-488/l25-4881.pdf" rel="noopener">senat.fr</a></li>
+    <li id="src-ckw">Card, Kluve et Weber, « What Works? A Meta Analysis of Recent Active Labor Market Program Evaluations », NBER w21431. <a href="https://www.nber.org/papers/w21431" rel="noopener">nber.org</a></li>
+    <li id="src-oecdact">OCDE, « Strictness of activation requirements for benefit recipients », 2024. <a href="https://data-explorer.oecd.org" rel="noopener">data-explorer.oecd.org</a></li>
+    <li id="src-dir89">Directive 89/391/CEE (santé et sécurité au travail), article 9. <a href="https://eur-lex.europa.eu/legal-content/FR/ALL/?uri=CELEX:31989L0391" rel="noopener">eur-lex.europa.eu</a></li>
+    <li id="src-dir970">Directive (UE) 2023/970 (transparence des rémunérations), articles 7 et 9. <a href="https://eur-lex.europa.eu/legal-content/FR/ALL/?uri=CELEX:32023L0970" rel="noopener">eur-lex.europa.eu</a></li>
+    <li id="src-cae24">Cahuc et Prost, « Améliorer l'assurance chômage pour limiter l'instabilité de l'emploi », note du CAE n° 24, 2015. <a href="https://cae-eco.fr/static/pdf/cae-note024.pdf" rel="noopener">cae-eco.fr</a></li>
+  </ol>
+  <div class="card">
+    <h3>Données et calculs</h3>
+    <p class="small">Les fichiers utilisés pour les chiffres de cette page, pour refaire les calculs ou les contester.</p>
+    <div class="files">
+      <a class="btn ghost" href="donnees/scm-hypotheses.csv">Hypothèses du modèle de coût (CSV)</a>
+      <a class="btn ghost" href="donnees/scm-resultats.csv">Résultats du modèle de coût (CSV)</a>
+      <a class="btn ghost" href="donnees/ess-resultats-bruts.md">Résultats ESS complets</a>
+      <a class="btn ghost" href="donnees/obligations.csv">2 847 obligations extraites (CSV, 1,4 Mo)</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Code du travail, preuves en main</strong> · Exercice de pensée indépendant, octobre 2026. Analyse réalisée avec l'assistance d'une intelligence artificielle (Claude), à partir de sources publiques vérifiables listées ci-dessus.</p>
+  <p>Ce n'est ni un avis juridique ni une étude publiée et relue par des pairs.</p>
+</footer>
+</div>
+
+<script>
+(function () {
+  function fmt(n) { return Math.round(n).toLocaleString("fr-FR"); }
+
+  // axe générique : ticks [valeurs], domaine [min, max]
+  function axis(el, ticks, min, max, suffix) {
+    el.innerHTML = ticks.map(function (t) {
+      var p = (t - min) / (max - min) * 100;
+      var tr = p <= 0 ? "translateX(0)" : (p >= 100 ? "translateX(-100%)" : "translateX(-50%)");
+      return '<span style="left:' + p + '%;transform:' + tr + '">' + t.toLocaleString("fr-FR") + (suffix || "") + "</span>";
+    }).join("");
+  }
+
+  // 1. ESS : écart, intervalle bas, intervalle haut ; domaine -1 à +0,8
+  var ess = [
+    ["Chômeur", -0.74, -0.95, -0.52],
+    ["Ancien chômeur long, de nouveau en emploi", -0.36, -0.52, -0.19],
+    ["Salarié sans contrat", -0.43, -0.70, -0.16],
+    ["Salarié en CDD", -0.15, -0.27, -0.03],
+    ["Autonomie au travail totale (vs aucune)", 0.6, 0.4, 0.7]
+  ];
+  var EMIN = -1, EMAX = 0.8, z = (0 - EMIN) / (EMAX - EMIN) * 100;
+  document.getElementById("ess-chart").innerHTML = ess.map(function (d) {
+    var a = (Math.min(0, d[1]) - EMIN) / (EMAX - EMIN) * 100, b = (Math.max(0, d[1]) - EMIN) / (EMAX - EMIN) * 100;
+    var lo = (d[2] - EMIN) / (EMAX - EMIN) * 100, hi = (d[3] - EMIN) / (EMAX - EMIN) * 100;
+    return '<div class="hrow"><span class="lab">' + d[0] + '</span><div class="track"><span class="zero" style="left:' + z + '%"></span>' +
+      '<span class="fill ' + (d[1] < 0 ? "neg" : "pos") + '" style="left:' + a + '%;width:' + (b - a) + '%"></span>' +
+      '<span class="whisk" style="left:' + lo + '%;width:' + (hi - lo) + '%"></span></div>' +
+      '<span class="val">' + (d[1] > 0 ? "+" : "") + d[1].toLocaleString("fr-FR") + "</span></div>";
+  }).join("");
+  axis(document.getElementById("ess-axis"), [-1, -0.5, 0, 0.5], EMIN, EMAX);
+
+  // 2. Calculateur WELLBY
+  var cn = document.getElementById("calc-n");
+  function calc() {
+    var n = +cn.value;
+    document.getElementById("calc-n-out").textContent = fmt(n);
+    document.getElementById("calc-wellby").textContent = fmt(n * 0.74) + " WELLBY";
+    document.getElementById("calc-eur").textContent = fmt(n * 0.74 * 18000 / 1e6) + " M€";
+    document.getElementById("calc-range").textContent = "fourchette " + fmt(n * 0.52 * 14000 / 1e6) + " à " + fmt(n * 0.95 * 22000 / 1e6) + " M€";
+  }
+  cn.addEventListener("input", calc); calc();
+
+  // 3. Coûts (M€) : libellé, bas, central, haut ; source scm-resultats.csv
+  var costs = [
+    ["Bulletin de paie, 10 salariés et plus", 149, 443, 1322],
+    ["Bulletin de paie, 1 à 9 salariés", 147, 316, 682],
+    ["Document de risques, moins de 11 salariés", 122, 280, 641],
+    ["Licenciement pour motif personnel", 84, 240, 690],
+    ["Décompte de la durée du travail", 51, 186, 673],
+    ["Document de risques, 11 salariés et plus", 73, 178, 435],
+    ["Documents de fin de contrat", 81, 158, 311],
+    ["CSE, 11 à 49 salariés", 71, 156, 343],
+    ["Visite médicale d'embauche", 72, 132, 241],
+    ["CSE, 50 à 299 salariés", 54, 128, 305],
+    ["Entretien professionnel", 55, 127, 292],
+    ["Contrat CDD écrit", 39, 103, 272],
+    ["Licenciement économique", 40, 92, 213],
+    ["Rupture conventionnelle", 28, 77, 216],
+    ["CSE, 300 salariés et plus", 31, 76, 185],
+    ["Affichages obligatoires", 29, 61, 128],
+    ["Déclaration préalable à l'embauche", 28, 56, 115],
+    ["Négociations obligatoires", 10, 32, 103],
+    ["Registre du personnel", 6, 16, 46],
+    ["Emploi des travailleurs handicapés", 7, 14, 30],
+    ["Index égalité", 5, 13, 38],
+    ["Document d'information CDI", 4, 10, 27],
+    ["Règlement intérieur", 1, 3, 14]
+  ];
+  var CMAX = 1400;
+  function drawCost(k) {
+    var rows = costs.slice().sort(function (a, b) { return b[k] - a[k]; });
+    document.getElementById("cost-chart").innerHTML = rows.map(function (d) {
+      var w = d[k] / CMAX * 100;
+      return '<div class="hrow"><span class="lab">' + d[0] + '</span><div class="track"><span class="fill strong" style="left:0;width:' + w + '%"></span></div><span class="val">' + fmt(d[k]) + "</span></div>";
+    }).join("");
+    var tot = costs.reduce(function (s, d) { return s + d[k]; }, 0);
+    var name = { 1: "bas", 2: "central", 3: "haut" }[k];
+    document.getElementById("cost-total").textContent = "Total, scénario " + name + " : " + (tot / 1000).toLocaleString("fr-FR", { maximumFractionDigits: 1 }) + " Md€ par an (somme des 23 démarches). Source : modèle de coût, hypothèses téléchargeables.";
+    document.querySelectorAll(".seg button").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.dataset.scen === k)); });
+  }
+  document.querySelectorAll(".seg button").forEach(function (b) { b.addEventListener("click", function () { drawCost(+b.dataset.scen); }); });
+  drawCost(2);
+  axis(document.getElementById("cost-axis"), [0, 400, 800, 1200], 0, CMAX);
+
+  // 4. Simulateur de seuils
+  var obligations = [
+    [11, "CSE élu (après 12 mois)", "L2311-2"],
+    [11, "Réunion mensuelle avec les élus", "L2315-21"],
+    [11, "Mise à jour annuelle du document de risques", "R4121-2"],
+    [20, "Déclaration d'emploi des travailleurs handicapés (6 %)", "L5212-2"],
+    [50, "Consultations annuelles du CSE et base de données économiques", "L2312-17"],
+    [50, "Règlement intérieur (après 12 mois)", "L1311-2"],
+    [50, "Index égalité salariale publié chaque année", "L1142-8"],
+    [50, "Participation des salariés aux résultats", "L3322-2"],
+    [50, "Budget de fonctionnement du CSE : 0,20 % de la masse salariale", "L2315-61"],
+    [50, "Programme annuel de prévention des risques", "L4121-3-1"],
+    [50, "Plan de sauvegarde de l'emploi dès 10 licenciements économiques", "L1233-61"]
+  ];
+  function hours(n) { return n < 11 ? 0 : n < 25 ? 10 : n < 50 ? 20 : n < 75 ? 72 : 95; }
+  var sn = document.getElementById("sim-n");
+  function sim() {
+    var n = +sn.value;
+    document.getElementById("sim-n-out").textContent = n + " salarié" + (n > 1 ? "s" : "");
+    document.getElementById("sim-hours").textContent = hours(n) + " h / mois";
+    document.getElementById("sim-list").innerHTML = obligations.map(function (o) {
+      var on = n >= o[0];
+      return '<li class="' + (on ? "on" : "off") + '"><span class="th">dès ' + o[0] + '</span><span>' + o[1] + ' <span class="art">' + o[2] + "</span></span></li>";
+    }).join("");
+  }
+  sn.addEventListener("input", sim); sim();
+
+  // 5. Indice OCDE de protection contre le licenciement, 2025
+  var epl = [["États-Unis", 0.77], ["Royaume-Uni", 1.90], ["Danemark", 1.94], ["Moyenne OCDE", 2.21], ["Allemagne", 2.33], ["Espagne", 2.43], ["Suède", 2.51], ["France", 2.68], ["Italie", 2.86], ["Pays-Bas", 2.88]];
+  var PMAX = 3.5;
+  document.getElementById("epl-chart").innerHTML = epl.map(function (d) {
+    var hl = d[0] === "France";
+    return '<div class="hrow' + (hl ? " highlight" : "") + '"><span class="lab">' + d[0] + '</span><div class="track"><span class="fill' + (hl ? " strong" : "") + '" style="left:0;width:' + (d[1] / PMAX * 100) + '%"></span></div><span class="val">' + d[1].toLocaleString("fr-FR", { minimumFractionDigits: 2 }) + "</span></div>";
+  }).join("");
+  axis(document.getElementById("epl-axis"), [0, 1, 2, 3], 0, PMAX);
+})();
+</script>
+</body>
+</html>

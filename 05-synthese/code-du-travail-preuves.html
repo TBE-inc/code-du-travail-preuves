@@ -1,0 +1,363 @@
+<title>Code du travail, preuves en main</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout : rapport à une colonne de lecture, tableaux et graphique en pleine largeur de colonne ; références d'articles en chips monospace comme dans un code */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --fg: #18212c;
+  --muted: #566273;
+  --rule: #d6dce4;
+  --accent: #1d5a86;
+  --accent-soft: #e3edf5;
+  --good: #1f6b45;
+  --good-soft: #e1f1e8;
+  --warn: #8a5a00;
+  --warn-soft: #f8edd6;
+  --stop: #6b6f76;
+  --stop-soft: #eceef1;
+  --bar: #9db6cc;
+  --font-display: "Spectral", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #182029; --fg: #e4e9ef; --muted: #9aa7b6; --rule: #2c3743;
+    --accent: #7fb3dd; --accent-soft: #1d2e3e; --good: #7fcfa2; --good-soft: #17301f;
+    --warn: #e6b45a; --warn-soft: #33270f; --stop: #a9afb8; --stop-soft: #262c34; --bar: #3d5a74;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #182029; --fg: #e4e9ef; --muted: #9aa7b6; --rule: #2c3743;
+  --accent: #7fb3dd; --accent-soft: #1d2e3e; --good: #7fcfa2; --good-soft: #17301f;
+  --warn: #e6b45a; --warn-soft: #33270f; --stop: #a9afb8; --stop-soft: #262c34; --bar: #3d5a74;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  margin: 0; padding-inline: 16px; padding-block: 0;
+}
+.page { max-width: 880px; margin: 0 auto; padding-block: 48px 72px; display: grid; gap: 56px; }
+header { display: grid; gap: 14px; }
+.eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(32px, 5vw, 46px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.lede { font-size: 19px; color: var(--muted); max-width: 64ch; margin: 0; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 27px; line-height: 1.2; margin: 0; text-wrap: balance; }
+h3 { font-size: 17px; margin: 0; font-weight: 700; }
+section { display: grid; gap: 18px; min-width: 0; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+.small { font-size: 14.5px; }
+code, .art { font-family: var(--font-mono); font-size: .82em; }
+.art { background: var(--accent-soft); color: var(--accent); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+.findings { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.finding { display: grid; grid-template-columns: 9.5rem 1fr; gap: 20px; padding-block: 16px; border-bottom: 1px solid var(--rule); }
+.finding .figure { font-family: var(--font-display); font-weight: 700; font-size: 25px; line-height: 1.15; color: var(--accent); font-variant-numeric: tabular-nums; }
+.finding .figure small { display: block; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--muted); letter-spacing: .02em; margin-top: 4px; }
+@media (max-width: 560px) { .finding { grid-template-columns: 1fr; gap: 6px; } }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.2rem 1fr; gap: 10px; align-items: baseline; }
+.steps li::before { content: counter(s); font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-weight: 600; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.cols > div { min-width: 0; display: grid; gap: 8px; align-content: start; }
+.cols ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: none; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.chip { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.good { background: var(--good-soft); color: var(--good); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.stop { background: var(--stop-soft); color: var(--stop); }
+
+/* graphique des coûts : une échelle linéaire unique, 0 à 1 400 M€ */
+.chart { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 18px 12px; display: grid; gap: 8px; }
+.chart-row { display: grid; grid-template-columns: minmax(0, 15rem) 1fr 3.4rem; gap: 12px; align-items: center; font-size: 14px; }
+.chart-row .label { overflow-wrap: anywhere; }
+.track { position: relative; height: 14px; }
+.range { position: absolute; top: 3px; height: 8px; background: var(--bar); border-radius: 4px; }
+.mid { position: absolute; top: 0; width: 3px; height: 14px; background: var(--accent); border-radius: 1px; transform: translateX(-1px); }
+.chart-row .val { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.axis { display: grid; grid-template-columns: minmax(0, 15rem) 1fr 3.4rem; gap: 12px; font-size: 12px; color: var(--muted); }
+.axis .ticks { position: relative; height: 16px; border-top: 1px solid var(--rule); }
+.axis .ticks span { position: absolute; top: 2px; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+.axis .ticks span:first-child { transform: none; }
+.axis .ticks span:last-child { transform: translateX(-100%); }
+.legend { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 16px; padding-top: 4px; }
+.legend i { display: inline-block; vertical-align: middle; margin-right: 6px; }
+.legend .l-range { width: 22px; height: 8px; background: var(--bar); border-radius: 4px; }
+.legend .l-mid { width: 3px; height: 14px; background: var(--accent); }
+@media (max-width: 560px) {
+  .chart-row, .axis { grid-template-columns: 1fr 3rem; }
+  .chart-row .label { grid-column: 1 / -1; }
+  .axis > span:first-child { display: none; }
+}
+
+.note { border-left: 3px solid var(--accent); padding: 6px 0 6px 16px; color: var(--muted); }
+.callout { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; display: grid; gap: 8px; }
+footer { border-top: 1px solid var(--rule); padding-top: 20px; display: grid; gap: 10px; font-size: 14.5px; color: var(--muted); }
+footer ul { margin: 0; padding-left: 1.1em; columns: 2 260px; column-gap: 32px; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+
+<div class="page">
+
+<header>
+  <div class="eyebrow">Exercice de pensée · version du 11 octobre 2026</div>
+  <h1>Code du travail, preuves en main</h1>
+  <p class="lede">Ce qu'il faudrait changer dans le droit du travail français pour plus de croissance, d'emploi et de bien-être, et ce que les preuves disent vraiment, pas ce qu'on aimerait qu'elles disent.</p>
+  <p class="small muted">Corpus : Code du travail du 8 octobre 2026 (11 572 articles), Code de la sécurité sociale, 7 directives européennes, une cinquantaine d'études, données Eurostat, OCDE, INSEE, DARES et European Social Survey.</p>
+</header>
+
+<section aria-labelledby="bref">
+  <h2 id="bref">En bref</h2>
+  <div class="findings">
+    <div class="finding">
+      <div class="figure">−0,74 / −0,15<small>points de satisfaction sur 10</small></div>
+      <p><strong>Le chômage pèse environ cinq fois plus que le CDD sur le bien-être</strong>, à revenu égal (40 000 personnes, 32 pays). Un emploi, même précaire, vaut beaucoup mieux que le chômage. La variable qui domine tout le reste est donc le chômage.</p>
+    </div>
+    <div class="finding">
+      <div class="figure">1,2 à 7,3 Md€<small>par an</small></div>
+      <p><strong>Coût administratif des principales obligations du Code du travail</strong>, soit 0,05 à 0,25 % du PIB. Les gros postes sont le bulletin de paie, le document unique d'évaluation des risques, la procédure de licenciement et le CSE. Le règlement intérieur, le registre du personnel ou l'index égalité pèsent peu.</p>
+    </div>
+    <div class="finding">
+      <div class="figure">≈ 1,3 %<small>taxe implicite sur le travail</small></div>
+      <p><strong>Le seuil de 50 salariés freine la croissance des entreprises</strong> (Garicano, Lelarge et Van Reenen). Notre calcul de coût arrive au même ordre de grandeur. Les principaux perdants sont les salariés.</p>
+    </div>
+    <div class="finding">
+      <div class="figure">0<small>effet net démontré sur l'emploi</small></div>
+      <p><strong>La protection contre le licenciement ne change pas le niveau d'emploi</strong> selon les revues de littérature des deux bords, mais freine la productivité. Et une perte d'emploi augmente la mortalité de 15 à 20 % sur 20 ans. On peut assouplir, seulement en échange d'une vraie sécurité de transition.</p>
+    </div>
+    <div class="finding">
+      <div class="figure">100 à 550 M€<small>par an</small></div>
+      <p><strong>Cinq réformes précises du Code du travail</strong>, rédigées article par article. Utiles et sans risque, mais d'un ordre de grandeur comparable à quelques dizaines de milliers de chômeurs en moins. Les leviers les plus puissants sont dans l'assurance chômage et l'accompagnement.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="objectifs">
+  <h2 id="objectifs">Ce qu'on cherche à améliorer</h2>
+  <p>Une réforme est retenue si elle améliore au moins un objectif sans dégrader aucun garde-fou au-delà de l'incertitude statistique. Les objectifs ont été fixés avant d'examiner les preuves.</p>
+  <div class="cols">
+    <div>
+      <h3>Objectifs</h3>
+      <ul>
+        <li>PIB par habitant, productivité</li>
+        <li>Revenu disponible médian (pouvoir d'achat)</li>
+        <li>Taux d'emploi, chômage de longue durée, emploi des jeunes et des seniors</li>
+        <li>Créations, survie et croissance des entreprises</li>
+        <li>Autonomie au travail, confiance</li>
+        <li>Moins de formalités, plus de sécurité juridique</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Garde-fous</h3>
+      <ul>
+        <li>Satisfaction dans la vie, santé mentale, suicide</li>
+        <li>Espérance de vie en bonne santé</li>
+        <li>Accidents du travail</li>
+        <li>Inégalités et pauvreté, effets par groupe</li>
+        <li>Finances de l'assurance chômage et de la sécurité sociale</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="methode">
+  <h2 id="methode">Comment on a procédé</h2>
+  <ol class="steps">
+    <li><span><strong>Inventaire.</strong> Extraction automatique de 2 847 obligations dans 2 332 articles. Précision et rappel mesurés à la main : environ 75 % pour les obligations administratives.</span></li>
+    <li><span><strong>Coût.</strong> Méthode Standard Cost Model sur 23 démarches, avec les volumes réels de 2025 (25,9 M d'embauches, 518 000 ruptures conventionnelles), le coût horaire réel (44,3 €) et une calibration sur la mesure européenne de 2009.</span></li>
+    <li><span><strong>Preuves.</strong> Lecture ciblée de 51 documents, études contraires comprises, avec un niveau de preuve pour chaque affirmation.</span></li>
+    <li><span><strong>Données.</strong> Analyse de l'European Social Survey avec un plan écrit avant de voir les résultats.</span></li>
+    <li><span><strong>Rédaction.</strong> Articles réformés, relus dans le texte en vigueur, avec contre-expertise libérale, syndicale et juridique.</span></li>
+    <li><span><strong>Extension.</strong> Assurance chômage et accompagnement, là où se joue le chômage.</span></li>
+  </ol>
+</section>
+
+<section aria-labelledby="couts">
+  <h2 id="couts">Ce que coûtent les obligations</h2>
+  <p>Coût administratif annuel en France, en millions d'euros. La barre couvre la fourchette entre hypothèses basses et hautes ; le trait marque la valeur centrale.</p>
+  <div class="chart" role="img" aria-label="Coût administratif annuel des 23 démarches, en millions d'euros, de 3 à 1 322 M€">
+    <div id="chart-rows"></div>
+    <div class="axis"><span></span><div class="ticks"><span style="left:0%">0</span><span style="left:28.57%">400</span><span style="left:57.14%">800</span><span style="left:85.71%">1 200</span><span style="left:100%">1 400</span></div><span></span></div>
+    <div class="legend"><span><i class="l-range"></i>fourchette basse à haute</span><span><i class="l-mid"></i>valeur centrale</span></div>
+  </div>
+  <p class="small muted">Volumes, coût horaire et fréquences légales sont mesurés ; une partie des temps unitaires reste une hypothèse, d'où des fourchettes larges. Le classement, lui, est stable : les mêmes postes restent en tête et en bas quel que soit le scénario. Les heures de délégation des élus du CSE, chiffrées à part, représentent 0,9 à 4,4 Md€ de plus.</p>
+
+  <div class="callout">
+    <h3>Le prix du 50e salarié</h3>
+    <p>Une entreprise qui passe de 49 à 50 salariés supporte chaque année <strong>2 200 à 14 800 €</strong> de charge administrative en plus, et ses élus disposent de <strong>52 heures de délégation de plus par mois</strong> (<span class="art">R2314-1</span>), soit environ 27 600 €. S'y ajoutent la participation aux résultats et le budget du CSE.</p>
+  </div>
+</section>
+
+<section aria-labelledby="preuves">
+  <h2 id="preuves">Ce que disent les preuves</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Levier</th><th>Ce que montrent les études</th><th>Preuve</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Seuils d'effectif</td><td>Accumulation d'entreprises à 49 salariés ; taxe implicite d'environ 1,3 % ; salariés perdants.</td><td>moyen</td><td><span class="chip warn">Lisser, pas relever</span></td></tr>
+        <tr><td>Protection contre le licenciement</td><td>Pas d'effet net sur l'emploi ; freine la productivité et la réallocation. Hartz : chômage plus court mais salaires en baisse, chômage total inchangé.</td><td>fort</td><td><span class="chip warn">Sous condition de transition sécurisée</span></td></tr>
+        <tr><td>Forme du licenciement</td><td>Depuis 2017, une erreur de procédure coûte au plus un mois de salaire (<span class="art">L1235-2</span>).</td><td>moyen</td><td><span class="chip stop">Déjà fait</span></td></tr>
+        <tr><td>Règles du CDD</td><td>Espagne 2021 : moins de CDD sur le papier, pas d'emplois plus durables. Les CDD très courts dépendent surtout de l'assurance chômage.</td><td>moyen</td><td><span class="chip stop">Non soutenu dans le Code</span></td></tr>
+        <tr><td>CSE et dialogue social</td><td>Fusion de 2017 : moins de réunions, pratiques peu changées. Les conditions de travail dont il s'occupe pèsent sur la dépression.</td><td>faible</td><td><span class="chip warn">Proportionner, garder</span></td></tr>
+        <tr><td>Document unique</td><td>La directive exige seulement d'avoir une évaluation et autorise l'adaptation à la taille. Les outils numériques réduisent la charge d'environ 31 %.</td><td>moyen</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td>Accompagnement des chômeurs</td><td>Effet nul à court terme, positif après 2 à 3 ans, surtout pour le chômage long et la formation (plus de 200 évaluations).</td><td>fort</td><td><span class="chip warn">Sous condition d'expérimentation</span></td></tr>
+        <tr><td>Baisser encore les allocations</td><td>Déjà fait en 2021, 2023 et 2026, sans évaluation. Hartz : pas de baisse du chômage total.</td><td>moyen</td><td><span class="chip stop">Non retenu</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="ess">
+  <h2 id="ess">Ce que montrent les données européennes</h2>
+  <p>Satisfaction dans la vie sur 10, par rapport à un salarié en CDI, à âge, sexe, études, revenu, pays et vague égaux. European Social Survey 2020-2024.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Situation</th><th class="num">Écart</th><th class="num">Intervalle à 95 %</th></tr></thead>
+      <tbody>
+        <tr><td>Chômeur</td><td class="num">−0,74</td><td class="num">−0,95 à −0,52</td></tr>
+        <tr><td>Ancien chômeur de 12 mois ou plus, de nouveau en emploi</td><td class="num">−0,36</td><td class="num">−0,52 à −0,19</td></tr>
+        <tr><td>Salarié en CDD</td><td class="num">−0,15</td><td class="num">−0,27 à −0,03</td></tr>
+        <tr><td>Autonomie au travail, de « aucune » à « totale »</td><td class="num">+0,6</td><td class="num">+0,4 à +0,7</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Dans les pays où le licenciement est plus encadré, les chômeurs et les salariés en CDD ne s'en portent pas visiblement mieux (25 pays, effet non détecté, puissance faible). Avec la valeur officielle britannique d'un point de satisfaction pendant un an, <strong>10 000 chômeurs de moins représentent environ 130 M€ de bien-être par an</strong>, revenus non compris.</p>
+  <p class="note small">Ce sont des associations, pas des effets causaux. Les études longitudinales trouvent toutefois des effets du chômage du même ordre.</p>
+</section>
+
+<section aria-labelledby="propositions">
+  <h2 id="propositions">Les propositions</h2>
+  <h3>Dans le Code du travail</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Mesure</th><th>Articles</th><th class="num">Gain</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Document unique : mise à jour annuelle seulement dès 50 salariés ; outil numérique officiel présumé conforme ; conservation de 40 ans maintenue via le portail prévu</td><td><span class="art">R4121-2</span></td><td class="num">≈ 140 M€</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td>Transparence salariale : transposer la directive 2023/970 dès 100 salariés, pas 50, avec calcul depuis la DSN</td><td><span class="art">L1142-8</span></td><td class="num">5 à 25 M€</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td>CDD : une erreur sur une mention secondaire donne une indemnité plafonnée, pas une requalification ; contrat-type officiel</td><td><span class="art">L1245-1</span></td><td class="num">4 à 54 M€</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td>Heures de délégation : au passage de 50 salariés, saut ramené de +52 h à +24 h par mois</td><td><span class="art">R2314-1</span></td><td class="num">25 à 150 M€</td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td>Rupture conventionnelle : homologation immédiate des dossiers conformes</td><td><span class="art">L1237-14</span></td><td class="num">−15 jours</td><td><span class="chip warn">Sous condition</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Assurance chômage et accompagnement</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Mesure</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Tester toute nouvelle règle sur une partie des chômeurs tirée au sort avant de la généraliser, et évaluer d'abord les réformes 2021-2026</td><td><span class="chip good">Gagnant partout</span></td></tr>
+        <tr><td>Accompagnement intensif ciblé sur le chômage de longue durée et la formation</td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td>Exigences de disponibilité alignées sur les pays voisins (France 0,75 contre 1,2 à 1,4 sur l'échelle OCDE)</td><td><span class="chip warn">Sous condition</span></td></tr>
+        <tr><td>« Celui qui licencie paie » : bonus-malus étendu au-delà de 7 secteurs, en échange de moins de contrôle par le juge</td><td><span class="chip warn">Sous condition</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <h3>Le paquet cohérent</h3>
+    <p>Simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et tout tester avant de généraliser. C'est ce dernier point qui rend le projet fondé sur les preuves plutôt que libéral par principe.</p>
+  </div>
+</section>
+
+<section aria-labelledby="corrections">
+  <h2 id="corrections">Ce qu'on a corrigé en route</h2>
+  <ul>
+    <li><strong>Conservation du document unique pendant 40 ans : maintenue.</strong> Elle sert à prouver des expositions pour des maladies professionnelles tardives, comme l'amiante.</li>
+    <li><strong>Simplifier la forme du licenciement : déjà fait</strong> par les ordonnances de 2017.</li>
+    <li><strong>Rupture conventionnelle rétrogradée.</strong> L'accélérer peut en augmenter le nombre ; elle pèse déjà 26 % des allocations chômage, soit 9,4 Md€.</li>
+    <li><strong>Contrat cadre pour CDD répétés abandonné.</strong> Il risquait d'encourager les contrats très courts.</li>
+    <li><strong>Mortalité après licenciement</strong> : le chiffre d'un résumé web a été remplacé par celui de l'étude elle-même.</li>
+  </ul>
+</section>
+
+<section aria-labelledby="limites">
+  <h2 id="limites">Limites</h2>
+  <ul>
+    <li>Une partie des temps unitaires du modèle de coût n'est pas mesurée.</li>
+    <li>Lecture ciblée des études (résumés, conclusions, passages clés), pas intégrale.</li>
+    <li>Aucune analyse causale propre sur données françaises ; les effectifs français de l'enquête sont trop faibles pour conclure seuls.</li>
+    <li>Les effets de la loi « plein emploi » de 2023 et de France Travail ne sont pas dans le corpus.</li>
+    <li>Les textes proposés doivent être relus par un juriste en droit du travail avant tout usage.</li>
+  </ul>
+</section>
+
+<footer>
+  <p><strong>Sources principales</strong></p>
+  <ul>
+    <li>Garicano, Lelarge et Van Reenen, seuils en France (NBER 18841)</li>
+    <li>Cahuc et Palladino 2024, revue sur la protection de l'emploi (IZA 16747)</li>
+    <li>Bassanini, Nunziata et Venn, protection de l'emploi et productivité</li>
+    <li>Avdagic 2013 ; Howell et al. 2006 (contre-arguments)</li>
+    <li>Boeri et Garibaldi 2019, Jobs Act italien</li>
+    <li>Conde-Ruiz et al. 2023, réforme espagnole de 2021</li>
+    <li>Bradley et Kügler 2019, réformes Hartz</li>
+    <li>Kreiner et Svarer 2022, flexisécurité danoise</li>
+    <li>Card, Kluve et Weber 2018, politiques actives de l'emploi</li>
+    <li>Sullivan et von Wachter 2009 ; Nordt et al. 2015 ; Clark et Oswald 1994</li>
+    <li>Theorell et al. 2015 ; Sverke et al. 2019</li>
+    <li>France Stratégie 2020 et 2021, évaluation des ordonnances de 2017</li>
+    <li>Blanchard et Tirole 2003 (CAE n° 44) ; Cahuc et Prost 2015 (CAE n° 24)</li>
+    <li>Mesure européenne des charges administratives, 2009</li>
+    <li>DARES, Eurostat, OCDE, INSEE, European Social Survey vagues 10 et 11</li>
+  </ul>
+</footer>
+
+</div>
+
+<script>
+// Coûts en millions d'euros : [libellé, bas, central, haut]. Source : 03-analyses/scm-resultats.csv
+var data = [
+  ["Bulletin de paie, 10 salariés et plus", 149, 443, 1322],
+  ["Bulletin de paie, 1 à 9 salariés", 147, 316, 682],
+  ["Document unique, moins de 11 salariés", 122, 280, 641],
+  ["Licenciement pour motif personnel", 84, 240, 690],
+  ["Décompte de la durée du travail", 51, 186, 673],
+  ["Document unique, 11 salariés et plus", 73, 178, 435],
+  ["Documents de fin de contrat", 81, 158, 311],
+  ["CSE, 11 à 49 salariés", 71, 156, 343],
+  ["Visite d'information et de prévention", 72, 132, 241],
+  ["CSE, 50 à 299 salariés", 54, 128, 305],
+  ["Entretien de parcours professionnel", 55, 127, 292],
+  ["Contrat CDD écrit", 39, 103, 272],
+  ["Licenciement économique hors PSE", 40, 92, 213],
+  ["Rupture conventionnelle", 28, 77, 216],
+  ["CSE, 300 salariés et plus", 31, 76, 185],
+  ["Affichages obligatoires", 29, 61, 128],
+  ["Déclaration préalable à l'embauche", 28, 56, 115],
+  ["Négociations obligatoires", 10, 32, 103],
+  ["Registre unique du personnel", 6, 16, 46],
+  ["Emploi des travailleurs handicapés", 7, 14, 30],
+  ["Index égalité", 5, 13, 38],
+  ["Document d'information CDI", 4, 10, 27],
+  ["Règlement intérieur", 1, 3, 14]
+];
+var MAX = 1400;
+var host = document.getElementById("chart-rows");
+var html = "";
+data.forEach(function (d) {
+  var lo = d[1] / MAX * 100, mid = d[2] / MAX * 100, hi = d[3] / MAX * 100;
+  html += '<div class="chart-row"><span class="label">' + d[0] + '</span>' +
+    '<div class="track"><span class="range" style="left:' + lo + '%;width:' + (hi - lo) + '%"></span>' +
+    '<span class="mid" style="left:' + mid + '%"></span></div>' +
+    '<span class="val">' + d[2] + '</span></div>';
+});
+host.innerHTML = html;
+host.style.display = "grid";
+host.style.gap = "8px";
+</script>
