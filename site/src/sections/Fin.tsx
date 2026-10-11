@@ -1,21 +1,10 @@
 import { Fn, Row } from "../components/ui";
 import { sources } from "../data/sources";
+import { glossaire } from "../data/glossaire";
 import { amendements } from "../data/amendements";
 import { constats } from "../data/constats";
 import { BlockHead } from "./Insights";
 
-const glossary: [string, string][] = [
-  ["CDI, CDD", "Contrat sans date de fin, ou avec. 84 % des embauches se font en CDD, souvent de moins d'un mois."],
-  ["CSE", "Les représentants élus des salariés, obligatoires dès 11 salariés, avec plus de pouvoirs dès 50."],
-  ["Heures de délégation", "Temps de travail payé que les élus consacrent à leur mandat."],
-  ["Document unique", "Document où l'employeur inscrit l'évaluation des risques pour la santé de ses salariés."],
-  ["Rupture conventionnelle", "Fin de CDI d'un commun accord, qui ouvre droit aux allocations chômage."],
-  ["Requalification", "Le juge transforme un CDD irrégulier en CDI."],
-  ["Intervalle de confiance", "Fourchette où se trouve probablement la vraie valeur."],
-  ["Méta-analyse", "Étude qui rassemble les résultats de dizaines d'autres."],
-  ["Transposer, surtransposer", "Inscrire une règle européenne dans le droit national ; aller au-delà de ce qu'elle exige."],
-  ["Articles L, R, D", "L : votés par le Parlement. R et D : décrets du gouvernement."],
-];
 
 const base = import.meta.env.BASE_URL;
 const files: [string, string][] = [
@@ -107,7 +96,7 @@ export function Methode() {
       <Row>
         <h2 id="glossaire">Petit glossaire</h2>
         <dl className="gloss">
-          {glossary.map(([t, d]) => (
+          {glossaire.map(({ terme: t, definition: d }) => (
             <div key={t}><dt>{t}</dt><dd>{d}</dd></div>
           ))}
         </dl>

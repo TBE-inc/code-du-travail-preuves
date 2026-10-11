@@ -1,3 +1,4 @@
+import { Terme } from "../components/Terme";
 export const folioRows: [string, number, number, number, boolean?][] = [
   ["11 à 24", 1, 10, 10],
   ["25 à 49", 2, 10, 20],
@@ -45,7 +46,7 @@ export function Folio() {
           </table>
         </div>
         <figcaption>
-          Au 50<sup>e</sup> salarié, les heures payées aux élus passent d'un coup de 20 à 72 par mois.
+          Un article du Code, pris comme exemple. Dès 11 salariés, les entreprises élisent des représentants du personnel (le <Terme id="cse">CSE</Terme>), payés pour un temps de mandat. Au 50<sup>e</sup> salarié, ce temps passe d'un coup de 20 à 72 heures par mois. Ce site examine ce genre de marche.
         </figcaption>
       </figure>
   );

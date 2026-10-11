@@ -2,6 +2,7 @@ import { StrictMode, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
 import { Navigation } from "./Navigation";
+import { activerDefilementDoux } from "./defilement";
 
 const base = import.meta.env.BASE_URL;
 
@@ -44,6 +45,7 @@ export function Layout({ page, children }: { page: PageId; children: ReactNode }
 
 /** Monte une page dans #root. */
 export function mount(page: PageId, content: ReactNode) {
+  activerDefilementDoux();
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
       <Layout page={page}>{content}</Layout>

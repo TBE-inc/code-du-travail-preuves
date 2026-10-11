@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Bars } from "../components/Bars";
 import { constats, type ConstatId } from "../data/constats";
+import { AvecTermes, Terme } from "../components/Terme";
 
 const base = import.meta.env.BASE_URL;
 
@@ -32,7 +33,7 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
   seuil: (
     <dl className="verdicts">
-      <div><dt>Heures payées aux élus par mois</dt><dd className="down">20 h, puis 72 h</dd></div>
+      <div><dt><Terme id="delegation">Heures de délégation</Terme> des élus, par mois</dt><dd className="down">20 h, puis 72 h</dd></div>
       <div><dt>Démarches en plus par an</dt><dd>2 200 à 14 800 €</dd></div>
       <div><dt>Effet mesuré sur toutes les entreprises</dt><dd className="down">Taxe de 1,3 % sur le travail</dd></div>
     </dl>
@@ -41,7 +42,7 @@ const visuels: Record<ConstatId, ReactNode> = {
     <dl className="verdicts">
       <div><dt>Sur le chômage</dt><dd>Pas d'effet net</dd></div>
       <div><dt>Sur la productivité</dt><dd className="up">Meilleure</dd></div>
-      <div><dt>Sur les embauches en CDI (Italie)</dt><dd className="up">Plus nombreuses</dd></div>
+      <div><dt>Sur les embauches en <Terme id="cdi">CDI</Terme> (Italie)</dt><dd className="up">Plus nombreuses</dd></div>
     </dl>
   ),
   assurance: (
@@ -68,11 +69,16 @@ export function Insights() {
           <div className="ins">
             <div className="ins-text">
               <BlockHead n={i + 1} q={c.question} />
+              <p className="ins-why"><AvecTermes texte={c.pourquoi} /></p>
               <h2 id={`h-${c.id}`}>{c.titre}</h2>
-              <p className="insight-text">{c.phrase}</p>
+              <p className="insight-text"><AvecTermes texte={c.phrase} /></p>
               <a className="more-link" href={`${base}constats/${c.id}/`}>Voir le détail et les preuves</a>
             </div>
-            <div className="ins-vis">{visuels[c.id]}</div>
+            <div className="ins-vis">
+              {visuels[c.id]}
+              <p className="ins-read"><AvecTermes texte={c.lire} /></p>
+              <p className="ins-proof"><span className={`lvl ${c.niveau}`}>Preuve {c.niveau}.</span> {c.preuve}</p>
+            </div>
           </div>
         </section>
       ))}

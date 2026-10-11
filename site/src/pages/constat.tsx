@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { mount, PageHead } from "../components/Layout";
+import { AvecTermes } from "../components/Terme";
 import { constats, type ConstatId } from "../data/constats";
 import { Assurance, Chomage, Licenciement, Paperasse, Seuil } from "../sections/Constats";
 
@@ -14,7 +15,7 @@ function Page({ id }: { id: string }) {
   const prev = constats[i - 1], next = constats[i + 1];
   return (
     <>
-      <PageHead title={c.titre} lede={c.phrase} crumb={<><a href={`${base}#${c.id}`}>Constats</a> / Question {i + 1} sur {constats.length} : {c.question}</>} />
+      <PageHead title={c.titre} lede={<AvecTermes texte={c.phrase} />} crumb={<><a href={`${base}#${c.id}`}>Constats</a> / Question {i + 1} sur {constats.length} : {c.question}</>} />
       <Contenu />
       <nav className="pager" aria-label="Constats">
         {prev ? <a href={`${base}constats/${prev.id}/`}><span className="meta">Précédent</span>{prev.titre}</a> : <a href={base}><span className="meta">Retour</span>L'accueil et le parcours</a>}
