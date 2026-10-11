@@ -15,7 +15,10 @@ npm run deploy     # construit et publie sur GitHub Pages (branche gh-pages)
 |---|---|
 | Chiffres des graphiques | `src/data/chiffres.ts` (chaque bloc cite son fichier d'origine dans `03-analyses/`) |
 | Sources et numérotation des notes | `src/data/sources.ts` ; dans le texte, `<Fn id="garicano" />` |
-| Textes des sections | `src/sections/` |
+| Pages | `index.html` (accueil), `obligations/`, `mon-entreprise/`, `pays/`, `amendements/<fiche>/` ; leur code dans `src/pages/` |
+| Textes des sections de l'accueil | `src/sections/` |
+| Fiches des amendements | `src/data/amendements.ts` |
+| Données des pages Obligations et Pays, coûts unitaires du simulateur | générées par `python scripts/prep_site_data.py <racine du projet>` (ne pas modifier à la main) |
 | Graphiques et calculateurs | `src/components/charts.tsx` |
 | Styles | `src/styles.css` |
 | Image d'aperçu pour les réseaux | `public/og.png` |

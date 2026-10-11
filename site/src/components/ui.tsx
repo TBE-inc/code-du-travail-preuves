@@ -9,7 +9,7 @@ export function Fn({ id }: { id: string }) {
   const n = sourceNumber(id);
   return (
     <sup className="fn">
-      <a href={`#s${n}`}>{n}</a>
+      <a href={`${import.meta.env.BASE_URL}#s${n}`}>{n}</a>
     </sup>
   );
 }

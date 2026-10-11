@@ -4,13 +4,16 @@ import { Art, Fn, Row } from "../components/ui";
 type Verdict = "good" | "cond" | "no";
 const verdictLabel: Record<Verdict, string> = { good: "Gagnant partout", cond: "Sous condition", no: "Non retenu" };
 
-function Amendment({ title, article, verdict, gain, children, note }: { title: string; article: string; verdict: Verdict; gain: string; children: ReactNode; note: ReactNode }) {
+const base = import.meta.env.BASE_URL;
+
+function Amendment({ title, article, verdict, gain, children, note, slug }: { title: string; article: string; verdict: Verdict; gain: string; children: ReactNode; note: ReactNode; slug: string }) {
   return (
     <Row
       note={
         <>
           <p className="verdict"><span className={`v-${verdict}`}>{verdictLabel[verdict]}.</span> {gain}</p>
           {note}
+          <p><a href={`${base}amendements/${slug}/`}>Lire la fiche complète</a></p>
         </>
       }
     >
@@ -36,6 +39,7 @@ export function Amendements() {
 
       <Amendment
         title="Évaluer les risques sans paperasse inutile"
+        slug="document-unique"
         article="Article R4121-2, 1°"
         verdict="good"
         gain="Environ 140 M€ par an."
@@ -48,6 +52,7 @@ export function Amendements() {
 
       <Amendment
         title="Transposer la règle européenne sur l'égalité salariale, sans en rajouter"
+        slug="transparence-salariale"
         article="Article L1142-8"
         verdict="good"
         gain="5 à 25 M€ par an, et une obligation de moins au seuil de 50."
@@ -58,6 +63,7 @@ export function Amendements() {
 
       <Amendment
         title="CDD : une erreur de forme ne fait plus un CDI"
+        slug="cdd"
         article="Article L1245-1, alinéa ajouté"
         verdict="good"
         gain="Sécurité juridique."
@@ -68,6 +74,7 @@ export function Amendements() {
 
       <Amendment
         title="Adoucir la marche des 50 salariés"
+        slug="heures-de-delegation"
         article="Article R2314-1, tableau"
         verdict="cond"
         gain="25 à 150 M€ par an. La marche passe de +52 à +24 heures."
@@ -82,6 +89,7 @@ export function Amendements() {
 
       <Amendment
         title="Rupture conventionnelle : validation immédiate des dossiers conformes"
+        slug="rupture-conventionnelle"
         article="Article L1237-14"
         verdict="cond"
         gain="Quinze jours ouvrables de moins par rupture."

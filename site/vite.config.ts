@@ -1,8 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
+import { readdirSync } from "node:fs";
 
-// base : le site est servi sous /code-du-travail-preuves/ sur GitHub Pages
+const amendements = readdirSync(resolve(__dirname, "amendements"));
+
+// Site multipage servi sous /code-du-travail-preuves/ sur GitHub Pages
 export default defineConfig({
   plugins: [react()],
   base: "/code-du-travail-preuves/",
+  build: {
+    rollupOptions: {
+      input: {
+        accueil: resolve(__dirname, "index.html"),
+        obligations: resolve(__dirname, "obligations/index.html"),
+        entreprise: resolve(__dirname, "mon-entreprise/index.html"),
+        pays: resolve(__dirname, "pays/index.html"),
+        ...Object.fromEntries(amendements.map((s) => [`amendement-${s}`, resolve(__dirname, "amendements", s, "index.html")])),
+      },
+    },
+  },
 });

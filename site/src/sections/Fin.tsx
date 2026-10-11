@@ -23,6 +23,32 @@ const files: [string, string][] = [
   ["https://github.com/TBE-inc/code-du-travail-preuves", "Code et analyses sur GitHub"],
 ];
 
+const outils: [string, string, string][] = [
+  ["obligations/", "Les 2 847 obligations", "Cherchez un mot ou un article, filtrez par thème ou par seuil d'effectif."],
+  ["mon-entreprise/", "Ce que le Code coûte à mon entreprise", "Saisissez votre effectif : obligations, heures et coût annuel estimé, et le prix du prochain seuil."],
+  ["pays/", "La France face à ses voisins", "Chômage, emploi, règles du licenciement, bien-être : 12 pays et la moyenne de l'Union."],
+];
+
+export function Explorer() {
+  return (
+    <section id="explorer" aria-labelledby="h-explorer">
+      <Row>
+        <h2 id="h-explorer">Vérifier par vous-même</h2>
+        <ul className="brief">
+          {outils.map(([href, titre, desc]) => (
+            <li key={href}>
+              <a href={`${base}${href}`}>
+                <strong>{titre}</strong>
+                <span className="go">{desc}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Row>
+    </section>
+  );
+}
+
 export function Methode() {
   return (
     <section id="methode" aria-labelledby="h-methode">
@@ -64,14 +90,5 @@ export function Sources() {
         </div>
       </Row>
     </section>
-  );
-}
-
-export function Footer() {
-  return (
-    <footer>
-      <p>Le Code du travail, annoté par les preuves. Exercice de pensée indépendant, octobre 2026, réalisé avec l'assistance d'une intelligence artificielle (Claude) à partir de sources publiques vérifiables.</p>
-      <p>Ni avis juridique, ni étude relue par des pairs. Les contestations sont bienvenues sur GitHub.</p>
-    </footer>
   );
 }
