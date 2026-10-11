@@ -72,21 +72,6 @@ ul.plainlist { padding-left: 1.1em; display: grid; gap: var(--s1); }
 .crumb { font-size: 14.5px; color: var(--muted); }
 .crumb a { color: var(--muted); }
 
-/* fac-similé du Code */
-.folio { border: 1px solid var(--rule); background: var(--paper); box-shadow: 0 18px 40px -30px rgba(30, 33, 38, .4); padding: 20px 24px 16px; display: grid; gap: 10px; font-family: var(--serif); font-size: 16px; line-height: 1.55; }
-.folio .runhead { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 8px; font-style: italic; }
-.folio .arttitle { font-weight: 700; color: var(--red); font-size: 17px; }
-.folio table { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: proportional-nums lining-nums; }
-.folio th, .folio td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--rule); font-weight: 400; }
-.folio td:first-child { white-space: nowrap; }
-.folio th { font-size: 13px; color: var(--muted); font-style: italic; }
-.folio .r { text-align: right; }
-.folio tr.jump td { font-weight: 700; }
-.sweep { background-size: 0% 62%; animation: sweep 1s cubic-bezier(.2, .7, .2, 1) .6s forwards; }
-@keyframes sweep { to { background-size: 100% 62%; } }
-@media (prefers-reduced-motion: reduce) { .sweep { animation: none; background-size: 100% 62%; } }
-@media (max-width: 560px) { .folio { padding: 16px; } .folio .hide-s { display: none; } }
-
 /* accueil : un constat = une image */
 .insight { display: grid; gap: var(--s2); }
 .insight h2 { margin-bottom: var(--s1); }
@@ -310,7 +295,7 @@ main > header + section:not(.band) { border-top: 0; padding-top: 0; }
 .band.end { border-top: 3px solid var(--red); }
 @media (max-width: 760px) { .band { padding-block: var(--s4); } }
 
-/* hero : question | fac-similé */
+/* hero : question | chiffres clés */
 .accueil .hero { grid-template-columns: minmax(0, 1fr); gap: var(--s3); padding-bottom: var(--s4); }
 .accueil .hero h1 { max-width: 14ch; }
 .hero-meta { font-size: 15px; color: var(--muted); }
@@ -420,7 +405,7 @@ dl.legend dd { margin: 0; color: var(--muted); }
   ol.src li { break-inside: avoid; margin-bottom: 10px; }
 }
 .stack { align-content: start; }
-/* mobile, d'après la maquette v7 : visuel juste sous le titre, fac-similé réduit aux deux lignes utiles */
+/* mobile, d'après la maquette v7 : visuel juste sous le titre */
 @media (max-width: 959px) {
   .ins { gap: var(--s2); }
   .ins-text { display: contents; }
@@ -429,10 +414,6 @@ dl.legend dd { margin: 0; color: var(--muted); }
   .ins-vis { order: 2; }
   .ins .insight-text { order: 3; }
   .ins .more-link { order: 4; }
-}
-@media (max-width: 760px) {
-  .accueil .folio .runhead, .accueil .folio > p, .accueil .folio thead { display: none; }
-  .accueil .folio tbody tr:nth-child(1), .accueil .folio tbody tr:nth-child(4) { display: none; }
 }
 
 /* navigation unique : capsule flottante (maquette Figma v7) */
@@ -533,3 +514,16 @@ dl.effets dd { margin: 0; }
 .effets .fort .effets-v { color: var(--red); }
 .effets-d { font-size: 14px; color: var(--muted); }
 .effets-bilan { margin-top: var(--s3); }
+
+/* hero : chiffres clés */
+.chiffres { display: grid; gap: 8px; }
+.chiffres-intro { color: var(--muted); max-width: 46ch; }
+.chiffres-total { font-family: var(--serif); font-weight: 700; font-size: clamp(36px, 4.4vw, 54px); line-height: 1.08; font-variant-numeric: proportional-nums lining-nums; }
+.chiffres-total span { background: var(--hl); padding: 0 6px; margin-left: -6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.chiffres-lignes { margin: 16px 0 8px; display: grid; }
+.chiffres-lignes div { display: grid; grid-template-columns: minmax(0, 11.5rem) 1fr; gap: 4px 20px; padding: 13px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.chiffres-lignes dt { font-family: var(--serif); font-weight: 700; font-size: 21px; font-variant-numeric: proportional-nums lining-nums; }
+.chiffres-lignes dt.down { color: var(--red); }
+.chiffres-lignes dt.up { color: var(--good); }
+.chiffres-lignes dd { margin: 0; }
+@media (max-width: 520px) { .chiffres-lignes div { grid-template-columns: 1fr; } }

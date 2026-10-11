@@ -1,10 +1,27 @@
-import { Terme } from "../components/Terme";
-export const folioRows: [string, number, number, number, boolean?][] = [
-  ["11 à 24", 1, 10, 10],
-  ["25 à 49", 2, 10, 20],
-  ["50 à 74", 4, 18, 72, true],
-  ["75 à 99", 5, 19, 95],
+const base = import.meta.env.BASE_URL;
+
+const lignes: [string, string, string][] = [
+  ["jusqu'à 9,2 Md€", "de production empêchée chaque année, en comptant ce que ce temps aurait produit", ""],
+  ["4 à 5 % du PIB", "perdus à cause du seuil de 50 salariés, si les salaires ne baissent pas", "down"],
+  ["100 à 550 M€", "économisés par an avec nos 5 amendements, et +0,16 à 1,1 Md€ de PIB à terme", "up"],
 ];
+
+/** Les chiffres qui comptent : la facture mesurée, puis ce qu'elle empêche et ce qu'on peut récupérer. */
+function Chiffres() {
+  return (
+    <div className="chiffres">
+      <p className="chiffres-intro">Chaque année, la paperasse imposée par le Code du travail coûte aux entreprises</p>
+      <p className="chiffres-total"><span>1,2 à 7,3&nbsp;milliards&nbsp;€</span></p>
+      <p className="meta">Mesuré sur 23 démarches, avec la méthode de l'OCDE et de l'Union européenne.</p>
+      <dl className="chiffres-lignes">
+        {lignes.map(([v, d, ton]) => (
+          <div key={v}><dt className={ton}>{v}</dt><dd>{d}</dd></div>
+        ))}
+      </dl>
+      <a className="more-link" href={`${base}constats/paperasse/#h-audela`}>Voir le calcul complet</a>
+    </div>
+  );
+}
 
 export function Hero() {
   return (
@@ -15,39 +32,8 @@ export function Hero() {
           <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 56 études pour répondre.</p>
           <p className="hero-meta">Cinq questions, une réponse sourcée pour chacune, puis nos propositions.</p>
         </div>
-        <Folio />
+        <Chiffres />
       </header>
     </>
-  );
-}
-
-/** Fac-similé de l'article R2314-1, avec le saut du 50e salarié surligné. */
-export function Folio() {
-  return (
-      <figure>
-        <div className="folio" aria-label="Extrait de l'article R2314-1 du Code du travail">
-          <div className="runhead"><span>Code du travail</span><span>Partie réglementaire</span></div>
-          <div className="arttitle">Article R2314-1</div>
-          <p>« Le temps mensuel nécessaire à l'exercice de leurs fonctions par les représentants […] est fixé dans les limites d'une durée définie dans le tableau ci-après. »</p>
-          <table>
-            <thead>
-              <tr><th>Effectif</th><th className="r hide-s">Titulaires</th><th className="r hide-s">Heures par titulaire</th><th className="r">Total mensuel</th></tr>
-            </thead>
-            <tbody>
-              {folioRows.map(([eff, tit, h, tot, jump]) => (
-                <tr key={eff} className={jump ? "jump" : undefined}>
-                  <td>{jump ? <mark className="sweep">{eff}</mark> : eff}</td>
-                  <td className="r hide-s">{tit}</td>
-                  <td className="r hide-s">{h}</td>
-                  <td className="r">{jump ? <mark className="sweep">{tot}</mark> : tot}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <figcaption>
-          Un article du Code, pris comme exemple. Dès 11 salariés, les entreprises élisent des représentants du personnel (le <Terme id="cse">CSE</Terme>), payés pour un temps de mandat. Au 50<sup>e</sup> salarié, ce temps passe d'un coup de 20 à 72 heures par mois. Ce site examine ce genre de marche.
-        </figcaption>
-      </figure>
   );
 }
