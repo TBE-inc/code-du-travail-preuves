@@ -12,7 +12,7 @@ export function Hero() {
       <header className="hero">
         <div className="stack">
           <h1>Le Code du travail, annoté par les preuves</h1>
-          <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 51 études pour répondre.</p>
+          <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 56 études pour répondre.</p>
           <p className="hero-meta">Cinq questions, une réponse sourcée pour chacune, puis nos propositions.</p>
         </div>
         <Folio />

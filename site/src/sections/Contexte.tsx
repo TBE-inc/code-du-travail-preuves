@@ -2,7 +2,7 @@ import { Terme } from "../components/Terme";
 
 const avant: [string, React.ReactNode][] = [
   ["Le Code du travail", <>Il fixe les règles entre employeurs et salariés : embauche, contrats (<Terme id="cdi">CDI</Terme>, <Terme id="cdd">CDD</Terme>), temps de travail, licenciement, représentants du personnel. 3 507 pages, 11 572 articles.</>],
-  ["Ce qu'on a fait", <>On l'a lu en entier, on a chiffré ce que ses démarches coûtent, et on a confronté chaque idée de réforme à 51 études et aux réponses de 40 000 Européens.</>],
+  ["Ce qu'on a fait", <>On l'a lu en entier, on a chiffré ce que ses démarches coûtent, et on a confronté chaque idée de réforme à 56 études et rapports, et aux réponses de 40 000 Européens.</>],
   ["Qui parle", <>Un exercice indépendant, mené avec l'aide d'une intelligence artificielle (Claude). Ni avis juridique, ni étude relue par des pairs.</>],
   ["Comment lire", <>Chaque bloc pose une question, donne la réponse en titre, montre une preuve et dit si elle est solide. Les mots soulignés en pointillé sont définis au survol ou au toucher.</>],
 ];

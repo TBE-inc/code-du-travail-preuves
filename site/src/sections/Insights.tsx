@@ -34,8 +34,8 @@ const visuels: Record<ConstatId, ReactNode> = {
   seuil: (
     <dl className="verdicts">
       <div><dt><Terme id="delegation">Heures de délégation</Terme> des élus, par mois</dt><dd className="down">20 h, puis 72 h</dd></div>
-      <div><dt>Démarches en plus par an</dt><dd>2 200 à 14 800 €</dd></div>
-      <div><dt>Effet mesuré sur toutes les entreprises</dt><dd className="down">Taxe de 1,3 % sur le travail</dd></div>
+      <div><dt>Effet mesuré : équivaut à une taxe sur le travail de</dt><dd className="down">1,3 %</dd></div>
+      <div><dt>PIB perdu si les salaires sont rigides</dt><dd className="down">4 à 5 %</dd></div>
     </dl>
   ),
   licenciement: (

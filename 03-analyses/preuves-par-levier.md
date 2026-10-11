@@ -231,8 +231,9 @@ les mentions). L'enquête CJD 2025 cite les déclarations sociales et fiscales p
 
 - Lecture ciblée (résumés, conclusions, passages clés), pas intégrale, des 51 documents.
 - Les gains « gagnant partout » sont chiffrés à partir du modèle de coût, dont une partie des temps reste hypothétique.
-- Effets sur l'emploi et la croissance des leviers « forme » non chiffrables avec le corpus : probablement faibles,
-  car la charge administrative totale reste de l'ordre de 0,05 à 0,25 % du PIB.
+- Effets sur la croissance des leviers « forme » : chiffrés depuis dans `effets-indirects.md`. Avec le multiplicateur
+  de la Commission européenne (1,6 à 2,1 € de PIB par euro de charge supprimée), ils restent de 0,02 à 0,13 % du PIB
+  pour un quart de la paperasse du Code en moins, loin derrière les seuils (moins de 1 % à 5 % du PIB).
 - Aucune analyse causale propre sur données françaises à ce stade (étape 4 du workflow).
 
 

@@ -1,0 +1,9 @@
+id,grandeur,bas,central,haut,unite,source
+heures,Heures de paperasse par an,18015605,40630849,91635328,heures,Modèle de coût (scm-hypotheses.csv)
+direct,Coût direct (facture),1182167772,2942021665,7321711591,EUR par an,"Standard Cost Model, 44,30 EUR de l'heure"
+production,Production immobilisée (heures valorisées à la valeur ajoutée),1556678559,3789843142,9226638961,EUR par an,Valeur ajoutée par heure : 65.1 EUR (Eurostat)
+contentieux,Défense des employeurs aux prud'hommes,245760355,491520710,983041420,EUR par an,130 000 demandes (Justice 2026) ; frais et temps : hypothèses
+pib_propositions,PIB à long terme : nos propositions,160000000,425474525,1131428571,EUR par an,Multiplicateur 1.60 à 2.06 (Commission européenne 2007)
+pib_retrait_25,PIB à long terme : un quart de la paperasse du Code en moins,472867109,1334375602,3765451675,EUR par an,"Même multiplicateur, scénario de l'objectif européen"
+seuil_50_flexible,"PIB perdu au seuil de 50, salaires flexibles (plafond)",0,,29910559000,EUR par an,"Garicano, Lelarge et Van Reenen 2016 : moins de 1 % du PIB"
+seuil_50_rigide,"PIB perdu au seuil de 50, salaires rigides",119642236000,133764086338,149552795000,EUR par an,"Garicano, Lelarge et Van Reenen 2016 : 4 à 5 % du PIB"

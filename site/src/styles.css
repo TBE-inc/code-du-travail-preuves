@@ -522,3 +522,14 @@ dl.legend dd { margin: 0; color: var(--muted); }
 .cap-steps.bord-g { mask-image: linear-gradient(to right, transparent, #000 40px); }
 .cap-steps.bord-g.bord-d { mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
 .cap-steps a { -webkit-user-drag: none; }
+
+/* effets indirects (page Paperasse) */
+dl.effets { margin: var(--s3) 0 0; display: grid; border-bottom: 1px solid var(--rule); }
+dl.effets > div { display: grid; gap: 4px 24px; padding: 14px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+@media (min-width: 900px) { dl.effets > div { grid-template-columns: minmax(0, 3fr) minmax(0, 3fr) minmax(0, 5fr); } }
+dl.effets dt { font-weight: 600; }
+dl.effets dd { margin: 0; }
+.effets-v { font-family: var(--serif); font-weight: 700; font-size: 21px; font-variant-numeric: proportional-nums lining-nums; }
+.effets .fort .effets-v { color: var(--red); }
+.effets-d { font-size: 14px; color: var(--muted); }
+.effets-bilan { margin-top: var(--s3); }

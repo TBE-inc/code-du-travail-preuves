@@ -3,7 +3,7 @@ import { CostChart, EplChart, EssChart, Stairs, WellbyCalculator } from "../comp
 import { Fn, Law, Proof } from "../components/ui";
 
 /** Page de détail d'un constat : chiffre clé et explication | visuel complet, puis preuves repliées. */
-function Constat({ fig, cap, level, proof, chart, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; chart: ReactNode; children: ReactNode }) {
+function Constat({ fig, cap, level, proof, chart, extra, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; chart: ReactNode; extra?: ReactNode; children: ReactNode }) {
   return (
     <>
       <section className="split" aria-label="Le constat">
@@ -16,6 +16,7 @@ function Constat({ fig, cap, level, proof, chart, children }: { id: string; fig:
         </div>
         <div className="split-vis">{chart}</div>
       </section>
+      {extra}
       <section aria-label="Preuves et limites">
         <Proof level={level}>{proof}</Proof>
       </section>
@@ -46,6 +47,37 @@ export function Chomage() {
   );
 }
 
+const effets: [string, string, ReactNode][] = [
+  ["Facture directe (mesurée)", "1,2 à 7,3 Md€ par an", <>Temps passé × 44,30 € de l'heure, plus les frais externes.</>],
+  ["Production immobilisée", "1,6 à 9,2 Md€ par an", <>Les mêmes heures valorisées à 65,1 €, ce que produit en moyenne une heure de travail en France.<Fn id="eurostatpib" /></>],
+  ["Défense aux prud'hommes", "0,25 à 1 Md€ par an", <>130 000 demandes en 2025 ; frais d'avocat et temps passé estimés.<Fn id="justice" /></>],
+  ["PIB à long terme, nos propositions", "+0,16 à +1,1 Md€ par an", <>1,6 à 2,1 € de PIB par euro de paperasse inutile en moins, selon les modèles de la Commission européenne.<Fn id="ce2007" /></>],
+  ["Seuil de 50 salariés", "jusqu'à 4 à 5 % du PIB", <>Si les salaires sont rigides ; moins de 1 % s'ils s'ajustent.<Fn id="garicano" /></>],
+];
+
+/** Au-delà de la facture : ce que la paperasse empêche de produire. */
+function AuDelaFacture() {
+  return (
+    <section aria-labelledby="h-audela">
+      <div className="stack">
+        <h2 id="h-audela">Au-delà de la facture : ce que la paperasse empêche de produire</h2>
+        <p className="muted-note">La facture mesure le temps passé. Elle ne dit pas ce que ce temps aurait produit, ni ce que l'incertitude juridique et les seuils empêchent de créer. Ces effets sont des estimations, plus incertaines que la facture.</p>
+      </div>
+      <dl className="effets">
+        {effets.map(([t, v, d], i) => (
+          <div key={t} className={i === effets.length - 1 ? "fort" : undefined}>
+            <dt>{t}</dt>
+            <dd className="effets-v">{v}</dd>
+            <dd className="effets-d">{d}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="effets-bilan"><strong>Ce qu'il faut retenir :</strong> la friction coûte plus que sa facture. Mais la paperasse de forme pèse au plus 0,3 % du PIB, même en comptant ce qu'elle empêche de produire. Les seuils pèsent des dizaines de fois plus. Le risque juridique freine aussi l'embauche : en 2017, 14 % des entreprises de l'industrie, des services et du bâtiment (pondérées par leurs effectifs) le citaient comme barrière.<Fn id="inseebarrieres" /></p>
+      <p className="meta">Calcul complet : <a href="https://github.com/TBE-inc/code-du-travail-preuves/blob/main/03-analyses/effets-indirects.md" rel="noopener">03-analyses/effets-indirects.md</a>.</p>
+    </section>
+  );
+}
+
 export function Paperasse() {
   return (
     <Constat
@@ -53,6 +85,7 @@ export function Paperasse() {
       fig="1,2 à 7,3 Md€"
       cap="par an de démarches imposées par le Code, selon le temps réellement passé."
       chart={<CostChart />}
+      extra={<AuDelaFacture />}
       level="moyenne"
       proof={
         <>

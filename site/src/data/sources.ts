@@ -31,6 +31,12 @@ export const sources: Source[] = [
   { id: "dir89", text: "Directive 89/391/CEE, article 9.", url: "https://eur-lex.europa.eu/legal-content/FR/ALL/?uri=CELEX:31989L0391", label: "eur-lex.europa.eu" },
   { id: "dir970", text: "Directive (UE) 2023/970, articles 7 et 9.", url: "https://eur-lex.europa.eu/legal-content/FR/ALL/?uri=CELEX:32023L0970", label: "eur-lex.europa.eu" },
   { id: "cae24", text: "Cahuc et Prost, « Améliorer l'assurance chômage pour limiter l'instabilité de l'emploi », note du CAE n° 24 (2015).", url: "https://cae-eco.fr/static/pdf/cae-note024.pdf", label: "cae-eco.fr" },
+  { id: "ce2007", text: "Commission européenne, analyse d'impact du programme d'action pour la réduction des charges administratives, SEC(2007) 85 (Gelauff et Lejour 2006 ; modèle QUEST ; Kox 2005).", url: "https://edz.bib.uni-mannheim.de/edz/pdf/sek/2007/sek-2007-0085-en.pdf", label: "copie publique" },
+  { id: "justice", text: "Ministère de la Justice, Références statistiques Justice, édition 2026, 8.1 « Les affaires prud'homales ».", url: "https://www.justice.gouv.fr/sites/default/files/2026-06/RSJ2026%208_1.pdf", label: "justice.gouv.fr" },
+  { id: "inseebarrieres", text: "INSEE, « Les barrières à l'embauche », Note de conjoncture, juin 2017.", url: "https://insee.fr/fr/statistiques/fichier/2871900/062017_ndc_eclairage_emploi1.pdf", label: "insee.fr" },
+  { id: "klr", text: "Klapper, Laeven et Rajan, « Entry regulation as a barrier to entrepreneurship », Journal of Financial Economics (2006), NBER w10380.", url: "https://www.nber.org/papers/w10380", label: "nber.org" },
+  { id: "cjd", text: "Centre des jeunes dirigeants, enquête sur la charge administrative auprès de 536 dirigeants (avril 2025).", url: "https://www.cjd.net/wp-content/uploads/2025/04/14-avril-2025-CP-Simplification.pdf", label: "cjd.net" },
+  { id: "eurostatpib", text: "Eurostat, PIB, emploi et heures travaillées, France 2025 (nama_10_gdp, nama_10_pe, nama_10_lp_ulc).", url: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table", label: "ec.europa.eu" },
 ];
 
 export type SourceId = (typeof sources)[number]["id"];

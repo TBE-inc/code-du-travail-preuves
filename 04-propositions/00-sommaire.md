@@ -13,6 +13,7 @@ contre-expertise sous trois angles (libéral, syndical, juridique). Les textes c
 | P5 | Rupture conventionnelle : homologation immédiate des dossiers conformes au dépôt | L1237-14 | délai −15 jours ouvrables | faible | Gagnant sous condition (finances de l'assurance chômage) |
 
 **Total des gains chiffrables : environ 100 à 550 M€ par an (valeur centrale proche de 250 M€).** Somme des fourchettes de P1 (60 à 330), P2 (5 à 25), P3 (25 à 150) et P4 (4 à 54) ; P5 non chiffré.
+Effet d'entraînement à long terme sur le PIB : environ 0,16 à 1,1 Md€ par an (multiplicateur de la Commission européenne, voir `03-analyses/effets-indirects.md`). L'enjeu principal reste le seuil de 50 salariés, chiffré à moins de 1 % à 4-5 % du PIB selon la rigidité des salaires.
 
 ## Ce que la relecture des articles a changé par rapport à l'étape 3
 

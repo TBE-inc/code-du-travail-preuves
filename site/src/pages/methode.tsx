@@ -4,7 +4,7 @@ import { Methode, Sources } from "../sections/Fin";
 const toc: [string, string][] = [
   ["methode", "Comment on a travaillé"],
   ["glossaire", "Petit glossaire"],
-  ["sources", "Les 29 sources"],
+  ["sources", "Les 35 sources"],
   ["fichiers", "Refaire les calculs"],
 ];
 
@@ -13,7 +13,7 @@ mount(
   <>
     <PageHead
       title="Méthode et sources"
-      lede="Comment on a lu le Code, ce qu'on a corrigé en route, ce qu'on ne sait pas, et les 29 sources derrière chaque chiffre."
+      lede="Comment on a lu le Code, ce qu'on a corrigé en route, ce qu'on ne sait pas, et les 35 sources derrière chaque chiffre."
     />
     <div className="doc">
       <nav className="toc" aria-label="Sommaire">
