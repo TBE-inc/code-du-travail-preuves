@@ -1,5 +1,3 @@
-import { constats } from "../data/constats";
-
 export const folioRows: [string, number, number, number, boolean?][] = [
   ["11 à 24", 1, 10, 10],
   ["25 à 49", 2, 10, 20],
@@ -18,13 +16,6 @@ export function Hero() {
         </div>
         <Folio />
       </header>
-      <nav className="route-wrap" aria-label="Le parcours">
-        <ol className="route">
-          {constats.map((c, i) => <li key={c.id}><a href={`#${c.id}`}><span className="rn">{i + 1}</span>{c.court}</a></li>)}
-          <li><a href="#propositions"><span className="rn">{constats.length + 1}</span>Que changer</a></li>
-          <li className="end"><a href="#resume"><span className="rn">✓</span>En résumé</a></li>
-        </ol>
-      </nav>
     </>
   );
 }

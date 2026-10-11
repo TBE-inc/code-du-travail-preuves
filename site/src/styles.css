@@ -326,15 +326,23 @@ main > header + section:not(.band) { border-top: 0; padding-top: 0; }
   .accueil .hero { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 72px; align-items: center; }
 }
 
-/* parcours : une ligne de pastilles */
-.route { list-style: none; padding: 0; margin: 0; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-block: 4px; }
-.route::-webkit-scrollbar { display: none; }
-.route li { flex: none; }
-.route a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px 0 6px; border: 1px solid #c9ccd2; border-radius: 999px; background: var(--card); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; }
-.route a:hover { border-color: var(--ink); color: var(--ink); }
-.route .rn { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 14px; }
-.route li.end .rn { background: var(--red); }
-.route-wrap { padding-block: var(--s2) var(--s3); }
+/* parcours : capsule flottante, collée sous la navigation */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.parcours { position: sticky; top: 60px; z-index: 4; display: flex; justify-content: center; pointer-events: none; margin-top: calc(-1 * var(--s4) + 12px); }
+.parcours ol { pointer-events: auto; list-style: none; margin: 0; padding: 5px; display: flex; gap: 2px; max-width: 100%; overflow-x: auto; scrollbar-width: none; background: rgba(255, 255, 255, .96); backdrop-filter: blur(8px); border: 1px solid var(--rule); border-radius: 999px; box-shadow: 0 8px 24px -8px rgba(30, 33, 38, .22); }
+.parcours ol::-webkit-scrollbar { display: none; }
+.parcours li { flex: none; }
+.parcours a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px 0 6px; border-radius: 999px; text-decoration: none; font-size: 14.5px; font-weight: 500; white-space: nowrap; color: var(--ink); transition: background-color .2s, color .2s; }
+.parcours a:hover { background: var(--sunk); color: var(--ink); }
+.parcours .rn { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--serif); font-weight: 700; font-size: 13px; transition: background-color .2s, color .2s; }
+.parcours li.end .rn { background: var(--red); }
+.parcours a[aria-current] { background: var(--ink); color: #fff; }
+.parcours a[aria-current] .rn { background: #fff; color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .parcours a, .parcours .rn { transition: none; } }
+@media (max-width: 760px) { .parcours { top: 58px; margin-inline: calc(-1 * var(--pad) + 12px); } }
+.accueil .band, .accueil .hero { scroll-margin-top: 124px; }
+.accueil .hero { padding-top: var(--s4); }
 
 /* constat : texte | visuel, alterné */
 .ins { display: grid; gap: var(--s3); align-items: center; }
@@ -402,7 +410,6 @@ footer { gap: var(--s2); }
 .menu:not([open]) > ul { display: none !important; }
 main > * { min-width: 0; }
 @media (max-width: 480px) { .nav-brand { display: none; } .nav ul { width: 100%; justify-content: space-between; gap: 8px; } }
-@media (min-width: 760px) { .route { flex-wrap: wrap; overflow: visible; } }
 dl.verdicts dt { flex: 1 1 auto; }
 dl.verdicts dd { flex: 0 1 auto; max-width: 60%; text-wrap: balance; }
 
@@ -454,3 +461,17 @@ dl.legend dd { margin: 0; color: var(--muted); }
   ol.src li { break-inside: avoid; margin-bottom: 10px; }
 }
 .stack { align-content: start; }
+/* mobile, d'après la maquette v7 : visuel juste sous le titre, fac-similé réduit aux deux lignes utiles */
+@media (max-width: 959px) {
+  .ins { gap: var(--s2); }
+  .ins-text { display: contents; }
+  .ins .block-head { order: 0; }
+  .ins h2 { order: 1; }
+  .ins-vis { order: 2; }
+  .ins .insight-text { order: 3; }
+  .ins .more-link { order: 4; }
+}
+@media (max-width: 760px) {
+  .accueil .folio .runhead, .accueil .folio > p, .accueil .folio thead { display: none; }
+  .accueil .folio tbody tr:nth-child(1), .accueil .folio tbody tr:nth-child(4) { display: none; }
+}
