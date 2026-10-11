@@ -1,8 +1,8 @@
-import { StrictMode, type ReactNode } from "react";
+import { StrictMode, useEffect, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
 import { Navigation } from "./Navigation";
-import { activerDefilementDoux } from "./defilement";
+import { activerDefilementDoux, aimanterBandes } from "./defilement";
 
 const base = import.meta.env.BASE_URL;
 
@@ -15,6 +15,7 @@ const outils: [string, string][] = [
 ];
 
 export function Layout({ page, children }: { page: PageId; children: ReactNode }) {
+  useEffect(() => (page === "accueil" ? aimanterBandes() : undefined), [page]);
   return (
     <>
       <Navigation page={page} />

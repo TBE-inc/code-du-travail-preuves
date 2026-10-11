@@ -1,4 +1,5 @@
 import Lenis from "lenis";
+import Snap from "lenis/snap";
 import "lenis/dist/lenis.css";
 
 // Défilement doux de toute la page (molette, pavé tactile) et des ancres. Gardé même si le système demande
@@ -29,4 +30,13 @@ export function activerDefilementDoux() {
     e.preventDefault();
     defilerVers(cible, url.hash);
   });
+}
+
+/** Essai : aimante le haut des bandes de l'accueil quand on s'arrête près d'elles. Désactivable avec ?snap=0. */
+export function aimanterBandes() {
+  const bandes = [...document.querySelectorAll<HTMLElement>(".accueil .band")];
+  if (!lenis || !bandes.length || new URLSearchParams(location.search).get("snap") === "0") return;
+  const snap = new Snap(lenis, { type: "proximity", distanceThreshold: "12%", debounce: 400 });
+  snap.addElements(bandes, { align: "start" });
+  return () => snap.destroy();
 }
