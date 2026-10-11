@@ -528,10 +528,17 @@ dl.legend dd { margin: 0; color: var(--muted); }
   .prol-chiffres dd { font-size: 14px; }
 }
 
-/* fin de chapitre : la phrase de passage vers la suite */
-.fil { display: grid; gap: 10px; justify-items: start; max-width: 720px; padding-top: var(--s2); }
-.fil-texte { font-family: var(--serif); font-style: italic; font-size: clamp(20px, 1.9vw, 24px); line-height: 1.35; }
-.fil a { font-weight: 600; }
+/* fin de chapitre : flèche annotée au stylo rouge, phrase de passage, lien vers la suite */
+.fil { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: end; gap: 12px; max-width: 780px; padding-top: var(--s2); color: var(--red); }
+.fil-fleche { width: 72px; height: 88px; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s cubic-bezier(.2, .8, .2, 1); }
+.fil:has(a:hover, a:focus-visible) .fil-fleche { transform: translate(3px, 3px); }
+.fil-corps { display: grid; gap: 8px; justify-items: start; padding-bottom: 2px; }
+.fil-texte { font-family: var(--serif); font-style: italic; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.35; }
+.fil a { color: var(--ink); font-weight: 600; }
+@media (max-width: 760px) {
+  .fil { grid-template-columns: 44px minmax(0, 1fr); gap: 8px; }
+  .fil-fleche { width: 44px; height: 54px; }
+}
 .ins-proof { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
 .ins-proof .lvl { font-size: inherit; }
 @media (max-width: 640px) {

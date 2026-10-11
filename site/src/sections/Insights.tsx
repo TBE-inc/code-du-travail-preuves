@@ -73,12 +73,18 @@ export function BlockHead({ n, q }: { n: number; q: string }) {
   );
 }
 
-/** Fin d'un chapitre : la phrase de passage et le lien vers la suite. */
+/** Fin d'un chapitre : une flèche annotée au stylo rouge, la phrase de passage et le lien vers la suite. */
 export function Fil({ texte, vers, suite }: { texte: string; vers: string; suite: string }) {
   return (
     <div className="fil">
-      <p className="fil-texte">{texte}</p>
-      <a href={vers}>{suite}</a>
+      <svg className="fil-fleche" viewBox="0 0 72 88" fill="none" aria-hidden="true">
+        <path d="M6 4C6 40 22 66 60 78" />
+        <path d="M49 70L61 78.5L48 84" />
+      </svg>
+      <div className="fil-corps">
+        <p className="fil-texte">{texte}</p>
+        <a href={vers}>{suite}</a>
+      </div>
     </div>
   );
 }
