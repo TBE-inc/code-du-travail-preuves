@@ -1,7 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { mount, PageHead } from "../components/Layout";
-import { Art, Fn, Row, fr } from "../components/ui";
+import { Art, Fn, Proof, fr } from "../components/ui";
 import { coutHoraire, coutsUnitaires } from "../data/couts-unitaires";
+import "../tools.css";
+
+/** « 1 licenciement », « 3 licenciements » (0 et 1 au singulier, comme en français). */
+const nb = (k: number, un: string, plusieurs: string) => `${fr(k)} ${k >= 2 ? plusieurs : un}`;
 
 // Mouvements moyens par salarié et par an en France en 2025 (DARES, mouvements de main-d'œuvre ; 18,55 M de salariés)
 const PAR_SALARIE = { cdi: 0.215, cdd: 1.18, fins: 1.4, licPerso: 0.048, licEco: 0.004, rc: 0.028, entretiens: 0.296 };
@@ -26,16 +30,16 @@ const moyennes = (n: number): Flux => ({
 function lignes(n: number, f: Flux): Ligne[] {
   const embauches = f.cdi + f.cdd;
   const l: Ligne[] = [
-    { id: n < 10 ? "bulletin_paie_tpe" : "bulletin_paie_10_plus", quantite: 12 * n, detail: `${fr(12 * n)} bulletins par an` },
-    { id: "dpae", quantite: embauches, detail: `${fr(embauches)} embauches` },
-    { id: "registre_personnel", quantite: embauches, detail: `${fr(embauches)} inscriptions` },
-    { id: "cdd_contrat", quantite: f.cdd, detail: `${fr(f.cdd)} CDD` },
-    { id: "cdi_information", quantite: f.cdi, detail: `${fr(f.cdi)} CDI` },
+    { id: n < 10 ? "bulletin_paie_tpe" : "bulletin_paie_10_plus", quantite: 12 * n, detail: `${nb(12 * n, "bulletin", "bulletins")} par an` },
+    { id: "dpae", quantite: embauches, detail: nb(embauches, "embauche", "embauches") },
+    { id: "registre_personnel", quantite: embauches, detail: nb(embauches, "inscription", "inscriptions") },
+    { id: "cdd_contrat", quantite: f.cdd, detail: nb(f.cdd, "CDD", "CDD") },
+    { id: "cdi_information", quantite: f.cdi, detail: nb(f.cdi, "CDI", "CDI") },
     { id: "visite_info_prevention", quantite: Math.round(f.cdi + 0.15 * f.cdd), detail: "CDI et CDD de plus d'un mois" },
-    { id: "fin_contrat_documents", quantite: f.fins, detail: `${fr(f.fins)} fins de contrat` },
-    { id: "licenciement_personnel", quantite: f.licPerso, detail: `${fr(f.licPerso)} licenciements` },
-    { id: "licenciement_economique", quantite: f.licEco, detail: `${fr(f.licEco)} licenciements` },
-    { id: "rupture_conventionnelle", quantite: f.rc, detail: `${fr(f.rc)} ruptures` },
+    { id: "fin_contrat_documents", quantite: f.fins, detail: nb(f.fins, "fin de contrat", "fins de contrat") },
+    { id: "licenciement_personnel", quantite: f.licPerso, detail: nb(f.licPerso, "licenciement", "licenciements") },
+    { id: "licenciement_economique", quantite: f.licEco, detail: nb(f.licEco, "licenciement", "licenciements") },
+    { id: "rupture_conventionnelle", quantite: f.rc, detail: nb(f.rc, "rupture", "ruptures") },
     { id: "entretien_parcours", quantite: Math.round(PAR_SALARIE.entretiens * n), detail: "un tous les quatre ans, plus les nouveaux embauchés" },
     { id: "affichages", quantite: 1, detail: "par an" },
     { id: "decompte_temps", quantite: 1, detail: "par an" },
@@ -66,16 +70,49 @@ function chiffrer(n: number, f: Flux) {
 
 const arrondi = (v: number) => (v >= 10000 ? Math.round(v / 100) * 100 : Math.round(v / 10) * 10);
 
+
+const champs: [keyof Flux, string][] = [
+  ["cdi", "Embauches en CDI"],
+  ["cdd", "Embauches en CDD"],
+  ["fins", "Fins de contrat, tous motifs"],
+  ["licPerso", "Licenciements pour motif personnel"],
+  ["rc", "Ruptures conventionnelles"],
+  ["licEco", "Licenciements économiques"],
+];
+
+/** Vrai quand l'élément est sorti par le haut de l'écran (sous la barre de navigation). */
+function useScrolledPast<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting && e.boundingClientRect.top < 60), { rootMargin: "-52px 0px 0px 0px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, past] as const;
+}
+
 function Simulateur() {
   const [n, setN] = useState(30);
+  const [saisie, setSaisie] = useState("30");
   const [flux, setFlux] = useState<Flux>(moyennes(30));
   const [perso, setPerso] = useState(false);
+  const [keyRef, keyPast] = useScrolledPast<HTMLDivElement>();
 
-  const changeN = (v: number) => {
-    const nn = Math.max(1, Math.min(500, Math.round(v || 1)));
+  const appliqueN = (nn: number) => {
     setN(nn);
     if (!perso) setFlux(moyennes(nn));
   };
+  // La saisie reste libre (champ vide, « 4 » avant « 48 ») ; le calcul suit dès qu'un nombre valide est tapé.
+  const tapeN = (v: string) => {
+    setSaisie(v);
+    const x = parseInt(v, 10);
+    if (x >= 1) appliqueN(Math.min(500, x));
+  };
+  const valideN = () => setSaisie(String(n));
+  const glisseN = (v: number) => { setSaisie(String(v)); appliqueN(v); };
   const changeFlux = (k: keyof Flux, v: number) => { setPerso(true); setFlux({ ...flux, [k]: Math.max(0, Math.round(v || 0)) }); };
   const r = useMemo(() => chiffrer(n, flux), [n, flux]);
 
@@ -89,69 +126,105 @@ function Simulateur() {
     return { seuil: prochain, admin: ap.central - avant.central, deleg: ap.hDeleg - avant.hDeleg };
   }, [n, flux, prochain]);
 
-  const champs: [keyof Flux, string][] = [
-    ["cdi", "Embauches en CDI par an"],
-    ["cdd", "Embauches en CDD par an"],
-    ["fins", "Fins de contrat par an (tous motifs)"],
-    ["licPerso", "Licenciements pour motif personnel par an"],
-    ["rc", "Ruptures conventionnelles par an"],
-    ["licEco", "Licenciements économiques par an"],
-  ];
+  const total = `${fr(arrondi(r.central))} €`;
+  const heures = `${fr(Math.round(r.heures))} heures`;
 
   return (
-    <>
-      <div className="sim-inputs">
-        <label className="sim-n">
-          <span>Effectif de l'entreprise</span>
+    <div className="tool">
+      <div className={`sim-sticky${keyPast ? " on" : ""}`} aria-hidden="true">
+        <div className="sim-sticky-bar">
+          <span><strong>{total}</strong> par an</span>
+          <span>{heures}</span>
+          <span>{fr(n)} salarié{n > 1 ? "s" : ""}</span>
+        </div>
+      </div>
+
+      <div className="tool-side">
+        <div className="sim-n">
+          <label htmlFor="sim-effectif">Effectif de l'entreprise</label>
           <span className="sim-n-row">
-            <input type="number" min={1} max={500} value={n} onChange={(e) => changeN(+e.target.value)} />
-            <span>salariés</span>
+            <input
+              id="sim-effectif"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              autoComplete="off"
+              value={saisie}
+              onChange={(e) => tapeN(e.target.value.replace(/\D/g, ""))}
+              onBlur={valideN}
+              aria-describedby="sim-effectif-aide"
+            />
+            <span>salarié{n > 1 ? "s" : ""}</span>
           </span>
-          <input type="range" min={1} max={300} value={Math.min(n, 300)} onChange={(e) => changeN(+e.target.value)} aria-label="Ajuster l'effectif" />
-        </label>
-        <fieldset className="sim-flux">
-          <legend>Mouvements de personnel {perso ? "(vos chiffres)" : "(moyenne française pour cet effectif)"}</legend>
-          {champs.map(([k, lab]) => (
-            <label key={k}>
-              <span>{lab}</span>
-              <input type="number" min={0} value={flux[k]} onChange={(e) => changeFlux(k, +e.target.value)} />
-            </label>
-          ))}
-          {perso && <button type="button" className="linklike" onClick={() => { setPerso(false); setFlux(moyennes(n)); }}>Revenir à la moyenne française</button>}
-        </fieldset>
-      </div>
+          <input type="range" min={1} max={300} value={Math.min(n, 300)} onChange={(e) => glisseN(+e.target.value)} aria-label="Ajuster l'effectif" />
+          <span id="sim-effectif-aide" className="sim-aide">De 1 à 500 salariés.</span>
+        </div>
 
-      <div className="sim-result">
-        <p className="calc">
-          Chaque année, le Code du travail demande à votre entreprise environ <output>{fr(Math.round(r.heures))} heures</output> de démarches, soit <output>{fr(arrondi(r.central))} €</output>.
-        </p>
-        <p className="formula">Fourchette : {fr(arrondi(r.bas))} à {fr(arrondi(r.haut))} € par an, selon le temps réellement passé. Coût horaire : {fr(coutHoraire, 1)} € (Eurostat, 2025).</p>
-        {r.hDeleg > 0 && (
-          <p>S'y ajoutent jusqu'à <strong>{fr(r.hDeleg)} heures de délégation</strong> payées aux élus du CSE, soit environ {fr(arrondi(r.coutDeleg))} € si elles sont toutes utilisées (<Art>R2314-1</Art>).</p>
-        )}
-        {apres && (
-          <p className="next-threshold">
-            <strong>Au passage à {apres.seuil} salariés</strong>, votre charge administrative augmenterait d'environ {fr(arrondi(apres.admin))} € par an
-            {apres.deleg > 0 ? <>, et les heures de délégation de {fr(apres.deleg)} heures par an</> : null}.
-          </p>
-        )}
-      </div>
-
-      <div className="tbl">
-        <table className="plain sim-table">
-          <thead><tr><th>Démarche</th><th>Volume</th><th className="r">Coût estimé par an</th></tr></thead>
-          <tbody>
-            {r.detail.map((d) => (
-              <tr key={d.id}>
-                <td>{d.nom} <Art>{d.article.split(" ")[0]}</Art></td>
-                <td>{d.detail}</td>
-                <td className="r">{fr(arrondi(d.central))} €</td>
-              </tr>
+        <details className="sim-flux">
+          <summary>Ajuster les mouvements {perso ? "(vos chiffres)" : "(moyenne française pré-remplie)"}</summary>
+          <fieldset>
+            <legend>Par an</legend>
+            {champs.map(([k, lab]) => (
+              <label key={k}>
+                <span>{lab}</span>
+                <input type="number" inputMode="numeric" min={0} value={flux[k]} onChange={(e) => changeFlux(k, +e.target.value)} />
+              </label>
             ))}
-          </tbody>
-        </table>
+            {perso && <button type="button" className="linklike" onClick={() => { setPerso(false); setFlux(moyennes(n)); }}>Revenir à la moyenne française</button>}
+          </fieldset>
+        </details>
       </div>
-    </>
+
+      <div className="tool-main">
+        <div className="sim-result" ref={keyRef}>
+          <p className="sim-lead">Chaque année, les démarches du Code du travail coûtent à votre entreprise environ</p>
+          <p className="sim-key" aria-live="polite"><span className="fig">{total}</span> <span className="unit">par an</span></p>
+          <p className="sim-hours">soit {heures} de travail administratif.</p>
+          <p className="formula">Fourchette : {fr(arrondi(r.bas))} à {fr(arrondi(r.haut))} € par an, selon le temps réellement passé. Coût horaire : {fr(coutHoraire, 1)} € (Eurostat, 2025).</p>
+        </div>
+
+        <p className="sim-deleg">
+          {r.hDeleg > 0 ? (
+            <>Heures de délégation du CSE en plus : jusqu'à <strong>{fr(r.hDeleg)} heures</strong> par an, soit environ {fr(arrondi(r.coutDeleg))} € si elles sont toutes prises (<Art>R2314-1</Art>).</>
+          ) : (
+            <>Pas d'heures de délégation : aucun CSE n'est obligatoire sous 11 salariés.</>
+          )}
+        </p>
+
+        <div className="sim-threshold">
+          {apres ? (
+            <p>
+              <strong>Au passage à {apres.seuil} salariés</strong>, votre charge administrative augmenterait d'environ {fr(arrondi(apres.admin))} € par an
+              {apres.deleg > 0 ? <>, et les heures de délégation de {fr(apres.deleg)} heures par an</> : null}.
+            </p>
+          ) : (
+            <p><strong>Plus de seuil suivant modélisé.</strong> Le dernier palier pris en compte ici est 300 salariés. Au-delà, le coût grandit avec l'effectif, sans nouveau saut.</p>
+          )}
+        </div>
+
+        <Proof label="Comment c'est calculé">
+          <p>Pour chaque démarche : nombre de fois par an × temps passé × coût horaire, moins ce que l'entreprise ferait de toute façon.<Fn id="scmmanual" /> Même modèle que la page principale.<Fn id="scm" /></p>
+          <p>Les mouvements de personnel sont pré-remplis avec la moyenne française de 2025, très tirée par les CDD courts de certains secteurs.<Fn id="dares" /> Remplacez-les par vos chiffres.</p>
+          <p><strong>Non compris :</strong> les cotisations, la participation, le budget du CSE, les indemnités de licenciement et le contentieux. C'est une estimation de la paperasse, pas du coût total du travail.</p>
+        </Proof>
+
+        <h2 className="sim-h">Le détail, démarche par démarche</h2>
+        <div className="tbl">
+          <table className="plain sim-table">
+            <thead><tr><th>Démarche</th><th>Volume</th><th className="r">Coût par an</th></tr></thead>
+            <tbody>
+              {r.detail.map((d) => (
+                <tr key={d.id}>
+                  <td>{d.nom} <Art>{d.article.split(" ")[0]}</Art></td>
+                  <td>{d.detail}</td>
+                  <td className="r">{fr(arrondi(d.central))} €</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -160,21 +233,10 @@ mount(
   <>
     <PageHead
       title="Ce que le Code du travail coûte à mon entreprise"
-      lede="Indiquez votre effectif. Le simulateur estime le temps et l'argent que vous consacrez chaque année aux démarches imposées par le Code du travail, et ce que coûterait le prochain seuil."
+      lede="Indiquez votre effectif : temps et argent consacrés chaque année aux démarches du Code, et coût du prochain seuil."
     />
-    <section aria-label="Simulateur">
-      <Row
-        label="Comment c'est calculé"
-        note={
-          <>
-            <p><strong>Comment c'est calculé.</strong> Pour chaque démarche : nombre de fois par an × temps passé × coût horaire, moins ce que l'entreprise ferait de toute façon.<Fn id="scmmanual" /> Même modèle que la page principale.<Fn id="scm" /></p>
-            <p>Les mouvements de personnel sont pré-remplis avec la moyenne française de 2025, très tirée par les CDD courts de certains secteurs.<Fn id="dares" /> Remplacez-les par vos chiffres.</p>
-            <p><strong>Non compris :</strong> les cotisations, la participation, le budget du CSE, les indemnités de licenciement et le contentieux. C'est une estimation de la paperasse, pas du coût total du travail.</p>
-          </>
-        }
-      >
-        <Simulateur />
-      </Row>
+    <section aria-label="Simulateur" className="tools">
+      <Simulateur />
     </section>
   </>,
 );

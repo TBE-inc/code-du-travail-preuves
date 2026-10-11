@@ -32,23 +32,26 @@ const outils: [string, string, string][] = [
   ["pays/", "La France face à ses voisins", "Chômage, emploi, règles du licenciement, bien-être : 12 pays et la moyenne de l'Union."],
 ];
 
-/** Bloc 6 : ce qu'on propose. */
+/** Bandeau 6 : ce qu'on propose. */
 export function Propositions() {
   return (
-    <section id="propositions" className="block" aria-labelledby="h-prop">
-      <BlockHead n={constats.length + 1} q="Que changer dans le Code ?" />
-      <h2 id="h-prop">Cinq amendements, chacun avec ses perdants et ses garde-fous</h2>
-      <ul className="linklist">
+    <section id="propositions" className="band sunk" aria-labelledby="h-prop">
+      <div className="band-head">
+        <BlockHead n={constats.length + 1} q="Que changer dans le Code ?" />
+        <h2 id="h-prop">Cinq amendements, chacun avec ses perdants et ses garde-fous</h2>
+      </div>
+      <ul className="cards">
         {amendements.map((a) => (
           <li key={a.slug}>
             <a href={`${base}amendements/${a.slug}/`}>
+              <span className={`v-${a.verdict}`}>{a.verdict === "good" ? "Gagnant partout" : "Sous condition"}</span>
               <strong>{a.titre}</strong>
-              <span className="meta-line"><span className={`v-${a.verdict}`}>{a.verdict === "good" ? "Gagnant partout" : "Sous condition"}.</span> {a.gain}.</span>
+              <span className="meta-line">{a.gain}.</span>
             </a>
           </li>
         ))}
+        <li className="go"><a href={`${base}propositions/`}>Comparer les cinq, et les pistes hors du Code</a></li>
       </ul>
-      <a className="more-link" href={`${base}propositions/`}>Lire les textes et les pistes hors du Code</a>
     </section>
   );
 }
@@ -56,22 +59,28 @@ export function Propositions() {
 /** Fin du parcours : la conclusion, les limites, et où vérifier. */
 export function Resume() {
   return (
-    <section id="resume" className="block end" aria-labelledby="h-resume">
-      <h2 id="h-resume">En résumé</h2>
-      <ul className="plainlist">
-        <li>Le chômage fait bien plus de mal que la précarité. Une réforme se juge d'abord à l'emploi.</li>
-        <li>La paperasse coûte cher, surtout la paie et les seuils. Une partie peut baisser sans toucher aux protections.</li>
-        <li>Faciliter le licenciement n'est utile qu'avec une vraie sécurité de transition.</li>
-        <li>Les leviers les plus forts sont hors du Code : l'accompagnement des chômeurs.</li>
-      </ul>
-      <h3>Ce qu'on ne sait pas</h3>
-      <ul className="plainlist">
-        <li>Le temps réel passé sur plusieurs démarches : il est estimé.</li>
-        <li>L'effet causal en France : les données françaises manquent.</li>
-        <li>La valeur juridique des textes proposés : ils doivent être relus par un juriste.</li>
-      </ul>
-      <h3 id="outils" style={{ scrollMarginTop: 72 }}>Vérifier par vous-même</h3>
-      <ul className="linklist">
+    <section id="resume" className="band alt end" aria-labelledby="h-resume">
+      <div className="fin-grid">
+        <div className="stack">
+          <h2 id="h-resume">En résumé</h2>
+          <ol className="resume-list">
+            <li>Le chômage fait bien plus de mal que la précarité. Une réforme se juge d'abord à l'emploi.</li>
+            <li>La paperasse coûte cher, surtout la paie et les seuils. Une partie peut baisser sans toucher aux protections.</li>
+            <li>Faciliter le licenciement n'est utile qu'avec une vraie sécurité de transition.</li>
+            <li>Les leviers les plus forts sont hors du Code : l'accompagnement des chômeurs.</li>
+          </ol>
+        </div>
+        <div className="limits">
+          <h3>Ce qu'on ne sait pas</h3>
+          <ul className="plainlist">
+            <li>Le temps réel passé sur plusieurs démarches : il est estimé.</li>
+            <li>L'effet causal en France : les données françaises manquent.</li>
+            <li>La valeur juridique des textes proposés : ils doivent être relus par un juriste.</li>
+          </ul>
+        </div>
+      </div>
+      <h3 id="outils" className="band-sub">Vérifier par vous-même</h3>
+      <ul className="cards four">
         {outils.map(([href, titre, desc]) => (
           <li key={href}>
             <a href={`${base}${href}`}>
@@ -96,7 +105,7 @@ export function Methode() {
         <p><strong>Ce qu'on ne sait pas :</strong> le temps réel de plusieurs démarches ; l'effet causal en France, faute de données françaises suffisantes ; les effets de la loi « plein emploi » de 2023. Les études ont été lues de façon ciblée. <strong>Ce n'est pas un avis juridique</strong> : les textes proposés doivent être relus par un juriste.</p>
       </Row>
       <Row>
-        <h3>Petit glossaire</h3>
+        <h2 id="glossaire">Petit glossaire</h2>
         <dl className="gloss">
           {glossary.map(([t, d]) => (
             <div key={t}><dt>{t}</dt><dd>{d}</dd></div>
@@ -119,7 +128,7 @@ export function Sources() {
             </li>
           ))}
         </ol>
-        <h3>Refaire les calculs</h3>
+        <h2 id="fichiers">Refaire les calculs</h2>
         <div className="files">
           {files.map(([href, label]) => (
             <a key={href} href={href} rel={href.startsWith("http") ? "noopener" : undefined}>{label}</a>

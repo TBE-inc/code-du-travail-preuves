@@ -43,7 +43,7 @@ en diagonale (NN/g : 79 % des lecteurs scannent).
    « Preuves et limites » replié.
 2. **Divulgation progressive.** Les preuves, sources et limites sont repliées sous chaque bloc (comme les notes
    de Gwern et Tufte sur téléphone), jamais supprimées. Rien n'est caché : un geste suffit.
-3. **Une colonne.** Plus de colonne de marge : une seule colonne de lecture de 680 px, partout.
+3. **Grille large, texte étroit.** Conteneur de 1200 px ; le texte courant reste à 68 caractères ; graphiques, outils et grilles prennent la largeur.
 4. **Une couleur, un sens.** Rouge = le Code (références d'articles, texte de loi, la France dans les graphiques).
    Surligneur = le chiffre clé d'un constat, et rien d'autre. Vert et ambre = verdicts seulement.
 5. **Peu de tailles.** Six tailles de texte, pas quatorze. Le serif pour les titres, les chiffres et le texte de

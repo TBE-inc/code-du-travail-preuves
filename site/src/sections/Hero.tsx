@@ -9,17 +9,23 @@ export const folioRows: [string, number, number, number, boolean?][] = [
 
 export function Hero() {
   return (
-    <header className="hero">
-      <h1>Le Code du travail, annoté par les preuves</h1>
-      <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 51 études pour répondre.</p>
-      <ol className="route" aria-label="Le parcours" style={{ marginTop: 16 }}>
-        {constats.map((c) => <li key={c.id}><a href={`#${c.id}`}>{c.question}</a></li>)}
-        <li><a href="#propositions">Que changer dans le Code ?</a></li>
-        <li className="end"><a href="#resume">En résumé, et ce qu'on ne sait pas</a></li>
-      </ol>
-
-
-    </header>
+    <>
+      <header className="hero">
+        <div className="stack">
+          <h1>Le Code du travail, annoté par les preuves</h1>
+          <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 51 études pour répondre.</p>
+          <p className="hero-meta">Cinq questions, une réponse sourcée pour chacune, puis nos propositions.</p>
+        </div>
+        <Folio />
+      </header>
+      <nav className="route-wrap" aria-label="Le parcours">
+        <ol className="route">
+          {constats.map((c, i) => <li key={c.id}><a href={`#${c.id}`}><span className="rn">{i + 1}</span>{c.court}</a></li>)}
+          <li><a href="#propositions"><span className="rn">{constats.length + 1}</span>Que changer</a></li>
+          <li className="end"><a href="#resume"><span className="rn">✓</span>En résumé</a></li>
+        </ol>
+      </nav>
+    </>
   );
 }
 

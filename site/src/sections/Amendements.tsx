@@ -1,104 +1,37 @@
-import type { ReactNode } from "react";
-import { Art, Fn, Proof, Row } from "../components/ui";
-
-type Verdict = "good" | "cond" | "no";
-const verdictLabel: Record<Verdict, string> = { good: "Gagnant partout", cond: "Sous condition", no: "Non retenu" };
+import { Art, Fn } from "../components/ui";
+import { amendements } from "../data/amendements";
 
 const base = import.meta.env.BASE_URL;
+const verdictLabel = { good: "Gagnant partout", cond: "Sous condition" } as const;
 
-function Amendment({ title, article, verdict, gain, children, note, slug }: { title: string; article: string; verdict: Verdict; gain: string; children: ReactNode; note: ReactNode; slug: string }) {
-  return (
-    <article className="stack" id={slug}>
-      <h3>{title}</h3>
-      <p className="verdict-line"><span className={`v-${verdict}`}>{verdictLabel[verdict]}.</span> {gain}</p>
-      <div className="redline">
-        <span className="art">{article}</span>
-        <br />
-        {children}
-      </div>
-      <Proof label="Garde-fous et perdants">
-        {note}
-        <p><a href={`${base}amendements/${slug}/`}>Lire la fiche complète : texte actuel, qui perd, trois regards contradictoires</a></p>
-      </Proof>
-    </article>
-  );
-}
-
+/** Page Propositions : les cinq amendements en cartes, puis les pistes hors du Code. */
 export function Amendements() {
   return (
     <>
-    <section id="amendements" aria-labelledby="h-amend">
-      <Row>
-        <h2 id="h-amend">Cinq amendements au Code</h2>
-        <p>Chaque mesure est écrite comme un vrai article, après relecture du texte en vigueur. <del>Barré</del> : ce qu'on retire. <ins>Souligné</ins> : ce qu'on ajoute.</p>
-      </Row>
+      <section id="amendements" aria-labelledby="h-amend">
+        <div className="stack">
+          <h2 id="h-amend">Cinq amendements au Code</h2>
+          <p>Chacun est écrit comme un vrai article, après relecture du texte en vigueur. La fiche compare le texte actuel et le texte proposé, et dit qui perd.</p>
+        </div>
+        <ul className="cards two" style={{ marginTop: 24 }}>
+          {amendements.map((a, i) => (
+            <li key={a.slug}>
+              <a href={`${base}amendements/${a.slug}/`}>
+                <span className="meta">Amendement {i + 1}, <Art>{a.article.split(/[ ,]/).find((w) => /^[LRD]\d/.test(w)) ?? ""}</Art></span>
+                <strong>{a.titre}</strong>
+                <span className="meta-line"><span className={`v-${a.verdict}`}>{verdictLabel[a.verdict]}.</span> {a.gain}.</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      <Amendment
-        title="Évaluer les risques sans paperasse inutile"
-        slug="document-unique"
-        article="Article R4121-2, 1°"
-        verdict="good"
-        gain="Environ 140 M€ par an."
-        note={<p>La directive européenne autorise l'adaptation à la taille (article 9.2).<Fn id="dir89" /> On garde la mise à jour à chaque changement et la conservation pendant 40 ans, qui protège les victimes de maladies tardives comme l'amiante.</p>}
-      >
-        « La mise à jour du document unique d'évaluation des risques professionnels est réalisée : 1° Au moins chaque année dans les entreprises d'au moins <del>onze</del> <ins>cinquante</ins> salariés ; »
-        <br />
-        <ins>« Dans les entreprises de moins de cinquante salariés, le document établi avec l'outil numérique officiel est présumé conforme. »</ins>
-      </Amendment>
-
-      <Amendment
-        title="Transposer la règle européenne sur l'égalité salariale, sans en rajouter"
-        slug="transparence-salariale"
-        article="Article L1142-8"
-        verdict="good"
-        gain="5 à 25 M€ par an, et une obligation de moins au seuil de 50."
-        note={<p>La France devait transposer la directive avant juin 2026.<Fn id="dir970" /> <strong>Qui perd :</strong> les salariées des entreprises de 50 à 99 salariés perdent un indicateur public. À vérifier en 2030.</p>}
-      >
-        « Dans les entreprises d'au moins <del>cinquante</del> <ins>cent</ins> salariés, l'employeur publie <del>chaque année</del> <ins>selon la périodicité prévue par la directive (UE) 2023/970</ins> l'ensemble des indicateurs relatifs aux écarts de rémunération […] <ins>calculés à partir de la déclaration sociale nominative</ins>. »
-      </Amendment>
-
-      <Amendment
-        title="CDD : une erreur de forme ne fait plus un CDI"
-        slug="cdd"
-        article="Article L1245-1, alinéa ajouté"
-        verdict="good"
-        gain="Sécurité juridique."
-        note={<p>Un motif absent ou faux entraîne toujours la requalification. On a abandonné l'idée d'un contrat unique pour missions répétées : il aurait facilité l'enchaînement de contrats très courts.<Fn id="cae24" /></p>}
-      >
-        <ins>« L'omission d'une des mentions prévues aux 2° à 8° de l'article L. 1242-12 ne saurait, à elle seule, entraîner la requalification lorsque le motif du recours est précisément défini et réel. Elle ouvre droit à une indemnité qui ne peut être supérieure à un mois de salaire. »</ins>
-      </Amendment>
-
-      <Amendment
-        title="Adoucir la marche des 50 salariés"
-        slug="heures-de-delegation"
-        article="Article R2314-1, tableau"
-        verdict="cond"
-        gain="25 à 150 M€ par an. La marche passe de +52 à +24 heures."
-        note={<p><strong>Qui perd :</strong> les élus des entreprises de 50 à 99 salariés. Condition : réserver des heures à la santé et la sécurité, mesurer l'effet après quatre ans.</p>}
-      >
-        25 à 49 salariés : <del>20 h</del> <ins>24 h</ins> par mois
-        <br />
-        50 à 74 salariés : <del>72 h</del> <ins>48 h</ins> par mois
-        <br />
-        75 à 99 salariés : <del>95 h</del> <ins>76 h</ins> par mois
-      </Amendment>
-
-      <Amendment
-        title="Rupture conventionnelle : validation immédiate des dossiers conformes"
-        slug="rupture-conventionnelle"
-        article="Article L1237-14"
-        verdict="cond"
-        gain="Quinze jours ouvrables de moins par rupture."
-        note={<p>Risque : plus de ruptures, donc plus de dépenses pour l'assurance chômage. Seulement avec des règles d'indemnisation ajustées.</p>}
-      >
-        <ins>« Lorsque le contrôle automatisé réalisé lors du dépôt établit que le délai de rétractation a été respecté et que l'indemnité n'est pas inférieure au minimum légal, l'homologation est acquise dès le dépôt. »</ins>
-      </Amendment>
-
-    </section>
-    <section id="hors-code" aria-labelledby="h-hors">
-      <Row>
-        <h2 id="h-hors">Hors du Code : l'assurance chômage</h2>
-        <div className="tbl">
+      <section id="hors-code" aria-labelledby="h-hors">
+        <div className="stack">
+          <h2 id="h-hors">Hors du Code : l'assurance chômage</h2>
+          <p>Les règles d'indemnisation sont négociées par les syndicats et le patronat. Ce sont pourtant les leviers les plus puissants sur le chômage.</p>
+        </div>
+        <div className="tbl" style={{ marginTop: 16 }}>
           <table className="plain">
             <thead><tr><th>Mesure</th><th>Verdict</th></tr></thead>
             <tbody>
@@ -110,8 +43,12 @@ export function Amendements() {
             </tbody>
           </table>
         </div>
-      </Row>
-    </section>
+        <dl className="legend">
+          <div><dt className="v-good">Gagnant partout</dt><dd>Améliore un objectif sans rien dégrader.</dd></div>
+          <div><dt className="v-cond">Sous condition</dt><dd>Gain probable, seulement avec une mesure d'accompagnement.</dd></div>
+          <div><dt className="v-no">Non retenu</dt><dd>Non soutenu par les preuves, ou déjà fait.</dd></div>
+        </dl>
+      </section>
     </>
   );
 }

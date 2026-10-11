@@ -1,24 +1,23 @@
 import type { ReactNode } from "react";
 import { CostChart, EplChart, EssChart, Stairs, WellbyCalculator } from "../components/charts";
-import { Fn, Law, Level } from "../components/ui";
+import { Fn, Law, Proof } from "../components/ui";
 
-/** Page de détail d'un constat : chiffre clé, explication, visuel complet, puis preuves et limites. */
-function Constat({ fig, cap, level, proof, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; children: ReactNode }) {
+/** Page de détail d'un constat : chiffre clé et explication | visuel complet, puis preuves repliées. */
+function Constat({ fig, cap, level, proof, chart, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; chart: ReactNode; children: ReactNode }) {
   return (
     <>
-      <section aria-label="Le constat">
-        <div className="keyfig">
-          <p className="fig"><span>{fig}</span></p>
-          <p className="cap">{cap}</p>
-        </div>
-        {children}
-      </section>
-      <section aria-labelledby="h-preuves">
+      <section className="split" aria-label="Le constat">
         <div className="stack">
-          <h2 id="h-preuves">Preuves et limites</h2>
-          <p><Level kind={level} /></p>
-          {proof}
+          <div className="keyfig">
+            <p className="fig"><span>{fig}</span></p>
+            <p className="cap">{cap}</p>
+          </div>
+          {children}
         </div>
+        <div className="split-vis">{chart}</div>
+      </section>
+      <section aria-label="Preuves et limites">
+        <Proof level={level}>{proof}</Proof>
       </section>
     </>
   );
@@ -30,6 +29,7 @@ export function Chomage() {
       id="chomage"
       fig="−0,74 point"
       cap="de satisfaction de vie sur 10 pour un chômeur, à revenu égal. Un CDD : −0,15."
+      chart={<EssChart />}
       level="moyenne"
       proof={
         <>
@@ -41,8 +41,7 @@ export function Chomage() {
         </>
       }
     >
-      <p>Une grande enquête européenne demande à chacun : « Êtes-vous satisfait de votre vie, de 0 à 10 ? ». On a comparé des personnes semblables, <strong>revenu compris</strong>, qui ne diffèrent que par leur situation d'emploi. Perdre son emploi coûte bien plus que de l'argent. Une réforme se juge donc d'abord à son effet sur l'emploi.</p>
-      <EssChart />
+      <p>Une grande enquête européenne demande à chacun : « Êtes-vous satisfait de votre vie, de 0 à 10 ? ». On a comparé des personnes semblables, <strong>revenu compris</strong>, qui ne diffèrent que par leur situation d'emploi. Perdre son emploi coûte bien plus que de l'argent : statut, liens, estime de soi.</p>
     </Constat>
   );
 }
@@ -53,6 +52,7 @@ export function Paperasse() {
       id="paperasse"
       fig="1,2 à 7,3 Md€"
       cap="par an de démarches imposées par le Code, selon le temps réellement passé."
+      chart={<CostChart />}
       level="moyenne"
       proof={
         <>
@@ -64,7 +64,6 @@ export function Paperasse() {
       }
     >
       <p>On a chiffré 23 démarches. Le gros de la facture : la paie, l'évaluation des risques, les fins de contrat et les heures des élus. Les cibles habituelles des discours de simplification, <mark>surlignées</mark>, pèsent très peu. Changez de scénario : l'ordre ne bouge presque pas.</p>
-      <CostChart />
     </Constat>
   );
 }
@@ -75,6 +74,7 @@ export function Seuil() {
       id="seuil"
       fig="+52 heures"
       cap="de délégation par mois en passant de 49 à 50 salariés, plus 2 200 à 14 800 € de démarches par an."
+      chart={<Stairs />}
       level="moyenne"
       proof={
         <>
@@ -84,7 +84,6 @@ export function Seuil() {
       }
     >
       <p>Beaucoup d'obligations se déclenchent d'un coup à 50 salariés, alors des entreprises évitent de grandir. Les salariés en sont les premiers perdants. La solution n'est pas de relever le seuil mais de <strong>le lisser</strong> : faire monter les obligations progressivement. Faites glisser l'effectif :</p>
-      <Stairs />
     </Constat>
   );
 }
@@ -95,6 +94,19 @@ export function Licenciement() {
       id="licenciement"
       fig="Aucun effet net"
       cap="sur le chômage d'une protection plus forte du CDI : les études des deux bords s'accordent."
+      chart={
+      <div className="tbl">
+          <table className="plain">
+            <thead><tr><th>Question</th><th>Ce que trouvent les études</th></tr></thead>
+            <tbody>
+              <tr><td>Protéger plus le CDI augmente-t-il le chômage ?</td><td><strong>Pas d'effet net démontré</strong>, chez les partisans de la flexibilité<Fn id="cp" /> comme chez ses critiques.<Fn id="avdagic" /><Fn id="howell" /></td></tr>
+              <tr><td>Cela freine-t-il la productivité ?</td><td><strong>Oui</strong> : les emplois passent moins vite des entreprises en déclin vers celles qui grandissent.<Fn id="bassanini" /> Mais trop de rotation nuit à l'apprentissage.<Fn id="vergeer" /></td></tr>
+              <tr><td>Cela crée-t-il deux classes de salariés ?</td><td><strong>Oui</strong> : CDI très protégés d'un côté, CDD précaires de l'autre, surtout pour les jeunes.<Fn id="cp" /></td></tr>
+              <tr><td>Qu'ont donné les réformes à l'étranger ?</td><td><strong>Italie</strong> : plus d'embauches en CDI.<Fn id="boeri" /> <strong>Allemagne</strong> : chômage plus court, salaires en baisse.<Fn id="hartz" /> <strong>Danemark</strong> : ça marche, avec un accompagnement massif des chômeurs.<Fn id="dk" /></td></tr>
+            </tbody>
+          </table>
+        </div>
+      }
       level="forte"
       proof={
         <>
@@ -106,17 +118,6 @@ export function Licenciement() {
       }
     >
       <p>C'est le débat le plus idéologique du droit du travail. Voici ce que disent les études des deux bords, côte à côte.</p>
-      <div className="tbl">
-        <table className="plain">
-          <thead><tr><th>Question</th><th>Ce que trouvent les études</th></tr></thead>
-          <tbody>
-            <tr><td>Protéger plus le CDI augmente-t-il le chômage ?</td><td><strong>Pas d'effet net démontré</strong>, chez les partisans de la flexibilité<Fn id="cp" /> comme chez ses critiques.<Fn id="avdagic" /><Fn id="howell" /></td></tr>
-            <tr><td>Cela freine-t-il la productivité ?</td><td><strong>Oui</strong> : les emplois passent moins vite des entreprises en déclin vers celles qui grandissent.<Fn id="bassanini" /> Mais trop de rotation nuit à l'apprentissage.<Fn id="vergeer" /></td></tr>
-            <tr><td>Cela crée-t-il deux classes de salariés ?</td><td><strong>Oui</strong> : CDI très protégés d'un côté, CDD précaires de l'autre, surtout pour les jeunes.<Fn id="cp" /></td></tr>
-            <tr><td>Qu'ont donné les réformes à l'étranger ?</td><td><strong>Italie</strong> : plus d'embauches en CDI.<Fn id="boeri" /> <strong>Allemagne</strong> : chômage plus court, salaires en baisse.<Fn id="hartz" /> <strong>Danemark</strong> : ça marche, avec un accompagnement massif des chômeurs.<Fn id="dk" /></td></tr>
-          </tbody>
-        </table>
-      </div>
       <p>On peut donc assouplir, <strong>à condition de sécuriser la transition</strong> des personnes licenciées. Une piste : celui qui licencie paie le coût réel qu'il fait porter à l'assurance chômage, et en échange le juge contrôle moins le motif.<Fn id="bt" /></p>
     </Constat>
   );
@@ -128,6 +129,13 @@ export function Assurance() {
       id="assurance"
       fig="3 réformes"
       cap="des allocations chômage depuis 2021, aucune encore évaluée sérieusement."
+      chart={
+      <dl className="chrono">
+          <div><dt>2021</dt><dd>Allocation calculée sur le revenu moyen, jours non travaillés compris. Bonus-malus dans 7 secteurs.</dd></div>
+          <div><dt>2023</dt><dd>Durée d'indemnisation réduite de 25 % quand l'emploi va bien.</dd></div>
+          <div><dt>2026</dt><dd>Après une rupture conventionnelle, durée ramenée de 18 à 15 mois.</dd></div>
+        </dl>
+      }
       level="forte"
       proof={
         <>
@@ -138,11 +146,6 @@ export function Assurance() {
       }
     >
       <p>Les règles d'indemnisation sont négociées par les syndicats et le patronat, hors du Code du travail.<Fn id="unedic" /> Ce qui marche le mieux selon les études : <strong>accompagner les chômeurs de longue durée</strong>, un investissement qui paie après deux à trois ans.</p>
-      <dl className="chrono">
-        <div><dt>2021</dt><dd>Allocation calculée sur le revenu moyen, jours non travaillés compris. Bonus-malus dans 7 secteurs.</dd></div>
-        <div><dt>2023</dt><dd>Durée d'indemnisation réduite de 25 % quand l'emploi va bien.</dd></div>
-        <div><dt>2026</dt><dd>Après une rupture conventionnelle, durée ramenée de 18 à 15 mois.</dd></div>
-      </dl>
     </Constat>
   );
 }
