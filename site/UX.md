@@ -69,3 +69,48 @@ Méthode       comment on a travaillé, ce qu'on a corrigé, les limites, le glo
 | Espacements | 8 · 16 · 32 · 64 · 112 |
 | Rayons | 6 (champs, boutons) · 999 (pastilles) |
 | Colonne | 680 px |
+
+---
+
+# Recherche v4 : rendre le contenu digeste (octobre 2026)
+
+Retour : « toujours très indigeste à lire et à regarder ». Le texte n'est pas trop long (accueil : 680 mots
+visibles, 12 mots par phrase en moyenne). Le problème est ailleurs : trop d'éléments différents par écran,
+des redites, des graphiques chargés d'étiquettes.
+
+## Ce que dit la recherche
+
+| Principe | Source | Ce que ça implique ici |
+|---|---|---|
+| Vue d'ensemble d'abord, zoom, puis détail à la demande | Shneiderman, appliqué par Our World in Data | Accueil = 5 « insights » : titre-conclusion + 1 graphique + 1 phrase. Le reste derrière un lien. |
+| Titre = la conclusion, pas une étiquette | Storytelling with Data, Evergreen | Le titre du graphique dit ce qu'il faut voir. Plus de « Écart de satisfaction… ». |
+| Cohérence : retirer ce qui ne sert pas | Mayer | Chaque constat disait la même chose 3 fois (titre, chiffre clé, légende, paragraphe). Une seule fois. |
+| Signalisation | Mayer | Un seul repère visuel fort par bloc (le chiffre ou la barre France), pas 4. |
+| Segmentation à l'allure du lecteur | Mayer ; McKenna 2017 (stepper vs scroll) | Un constat = un écran mobile. Pas de bloc plus haut que 1,5 écran. |
+| Lecture en « gâteau » : les yeux sautent de titre en titre | NN/g, schémas de lecture | Les titres doivent suffire seuls. Lire uniquement les titres = comprendre le site. |
+| Phrases : 14 mots = 90 % compris ; 43 mots = moins de 10 % | Ann Wylie, cité par GOV.UK | Viser 15 mots, jamais plus de 25. |
+| FALC : une idée par phrase, sujet-verbe-complément, éviter les pourcentages | Règles européennes FALC | Une idée par phrase. Ordres de grandeur concrets (« 1 salarié sur 5 ») plutôt que des indices. |
+| Paragraphes courts : 2× plus d'attention | Poynter Eyetrack III | 1 à 3 phrases par paragraphe. |
+| Les accordéons cachent : contenu replié souvent manqué ; ne rien replier de crucial | NN/g, Accordions | Replier seulement la preuve, jamais l'idée. Intitulé explicite. |
+| Mettre en gras le début des mots n'aide pas | Snell 2024 ; Readwise ; RSOS 2025 | Pas de gadget typographique : le gras sert seulement au mot-clé de la phrase. |
+| Longueur de ligne 50-75 caractères, interligne 1,5 | Baymard, Butterick | Colonne conservée (≈ 70 car.). |
+
+## Mesure v3
+
+| Page | Mots visibles | Mots par phrase | Phrases de plus de 25 mots |
+|---|---|---|---|
+| Accueil | 680 | 11,9 | 5 |
+| Propositions | 410 | 14,5 | 2 |
+| Fiche CDD | 371 | 12,3 | 4 |
+| Mon entreprise | 305 | 18,0 | 3 |
+
+Le texte est raisonnable. Ce qui fatigue : par constat, 7 types d'éléments empilés (repère, titre, chiffre,
+légende, paragraphe, graphique de 5 à 23 lignes avec légende, accordéon), et des graphiques qui parlent avant
+qu'on sache quoi y voir.
+
+## Décision v4
+
+Format « insight » retenu (Our World in Data) : sur l'accueil, chaque constat = titre-conclusion, un visuel
+à un seul message (5 barres ou 3 verdicts au plus), une phrase, un lien. Le détail complet (graphiques
+interactifs, tableaux, preuves et limites en clair) vit sur `/constats/<id>/`, avec Précédent / Suivant.
+Accueil mobile : 9 525 px (v3) → 5 900 px environ.

@@ -1,24 +1,26 @@
 import type { ReactNode } from "react";
 import { CostChart, EplChart, EssChart, Stairs, WellbyCalculator } from "../components/charts";
-import { Fn, Law, Proof } from "../components/ui";
-import { constats } from "./Hero";
+import { Fn, Law, Level } from "../components/ui";
 
-/** Un constat : affirmation, chiffre clé, texte court, une image, puis les preuves repliées. */
-function Constat({ id, fig, cap, level, proof, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; children: ReactNode }) {
-  const n = constats.findIndex((c) => c.id === id);
+/** Page de détail d'un constat : chiffre clé, explication, visuel complet, puis preuves et limites. */
+function Constat({ fig, cap, level, proof, children }: { id: string; fig: ReactNode; cap: ReactNode; level: "forte" | "moyenne" | "faible"; proof: ReactNode; children: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`h-${id}`}>
-      <div className="stack">
-        <p className="constat-n">Constat {n + 1} sur {constats.length}</p>
-        <h2 id={`h-${id}`}>{constats[n].titre}</h2>
+    <>
+      <section aria-label="Le constat">
         <div className="keyfig">
           <p className="fig"><span>{fig}</span></p>
           <p className="cap">{cap}</p>
         </div>
-      </div>
-      {children}
-      <Proof level={level}>{proof}</Proof>
-    </section>
+        {children}
+      </section>
+      <section aria-labelledby="h-preuves">
+        <div className="stack">
+          <h2 id="h-preuves">Preuves et limites</h2>
+          <p><Level kind={level} /></p>
+          {proof}
+        </div>
+      </section>
+    </>
   );
 }
 

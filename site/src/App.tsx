@@ -1,17 +1,13 @@
 import { Hero } from "./sections/Hero";
-import { Assurance, Chomage, Licenciement, Paperasse, Seuil } from "./sections/Constats";
+import { Insights } from "./sections/Insights";
 import { Explorer, Propositions } from "./sections/Fin";
 
-/** Accueil : les cinq constats, puis ce qu'on propose et les outils. */
+/** Accueil : cinq constats en une image chacun, puis ce qu'on propose et les outils. */
 export default function App() {
   return (
     <>
       <Hero />
-      <Chomage />
-      <Paperasse />
-      <Seuil />
-      <Licenciement />
-      <Assurance />
+      <Insights />
       <Propositions />
       <Explorer />
     </>

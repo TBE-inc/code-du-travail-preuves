@@ -56,7 +56,7 @@ export function Propositions() {
     <section id="propositions" aria-labelledby="h-prop">
       <div className="stack">
         <h2 id="h-prop">Ce qu'on propose</h2>
-        <p>Simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et <strong>tout tester avant de généraliser</strong>. Cinq amendements, écrits comme de vrais articles :</p>
+        <p>Simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et <strong>tout tester avant de généraliser</strong>. Cinq amendements, écrits comme de vrais articles.</p>
         <ul className="linklist">
           {amendements.map((a) => (
             <li key={a.slug}>
