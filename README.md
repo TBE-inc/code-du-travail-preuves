@@ -1,4 +1,4 @@
-# Code du travail, preuves en main
+# Le Code du travail, annoté par les preuves
 
 Que faudrait-il changer dans le droit du travail français pour avoir plus d'emploi, plus de croissance et plus
 de bien-être ? Cet exercice part du texte du Code, chiffre ce qu'il coûte, confronte chaque idée de réforme aux études
