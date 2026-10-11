@@ -51,7 +51,7 @@ function Comparateur() {
     return r.sort((a, b) => (ind.mieux === "bas" ? a.valeur - b.valeur : b.valeur - a.valeur));
   }, [d, ind]);
 
-  if (error) return <p>Les données n'ont pas pu être chargées. Rechargez la page.</p>;
+  if (error) return <p>Les données n'ont pas pu être chargées. Rechargez la page pour réessayer.</p>;
   if (!d || !ind) return <p className="muted-note">Chargement…</p>;
 
   const ids = d.indicateurs.map((i) => i.id);
@@ -112,7 +112,7 @@ function Comparateur() {
               {ind.nom}{vFr !== undefined && ind.mieux ? <>, {val(vFr, 2)}</> : null} ({ind.unite}).{" "}
               {ind.mieux
                 ? `Classement ${ind.mieux === "bas" ? "du plus bas au plus haut" : "du plus haut au plus bas"}, le 1er étant le mieux placé.`
-                : "Ni haut ni bas n'est « mieux » en soi : c'est un choix de règles."}
+                : "Ici, ni un indice haut ni un indice bas n'est meilleur en soi : c'est un choix de règles."}
               {vUe !== undefined ? ` Moyenne de l'Union : ${val(vUe, 2)}.` : ""}
             </p>
           </div>
@@ -165,11 +165,11 @@ mount(
   <>
     <PageHead
       title="La France face à ses voisins"
-      lede="Chômage, emploi des jeunes et des seniors, règles du licenciement, exigences envers les chômeurs, bien-être : la France comparée à 12 pays européens et à la moyenne de l'Union, avec les dernières données disponibles."
+      lede="La France comparée à 12 pays européens et à la moyenne de l'Union : chômage, emploi des jeunes et des seniors, règles de licenciement, bien-être. Dernières données disponibles."
     >
       <Proof label="Comparer n'est pas expliquer">
-        <p>Un pays peut avoir peu de chômage pour mille raisons qui n'ont rien à voir avec son droit du travail. Pour les effets propres des règles, voir <a href={`${base}#licenciement`}>le constat 4</a>.</p>
-        <p>Données Eurostat et OCDE, téléchargées et filtrées par nos scripts.<Fn id="eurostat" /> Fichier : <a href={`${base}data/pays.json`}>pays.json</a>.</p>
+        <p>Un pays peut avoir peu de chômage pour bien des raisons qui n'ont rien à voir avec son droit du travail. Pour l'effet propre des règles, lisez <a href={`${base}constats/licenciement/`}>la question sur le licenciement</a>.</p>
+        <p>Données d'Eurostat et de l'OCDE, téléchargées et filtrées par nos scripts.<Fn id="eurostat" /> <a href={`${base}data/pays.json`}>Télécharger les données (pays.json)</a>.</p>
       </Proof>
     </PageHead>
     <section aria-label="Comparateur" className="tools">

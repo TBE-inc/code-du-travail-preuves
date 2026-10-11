@@ -2,10 +2,10 @@ import { mount, PageHead } from "../components/Layout";
 import { Methode, Sources } from "../sections/Fin";
 
 const toc: [string, string][] = [
-  ["methode", "Comment on a travaillé"],
-  ["glossaire", "Petit glossaire"],
+  ["methode", "Comment nous avons travaillé"],
+  ["glossaire", "Les mots du droit du travail"],
   ["sources", "Les 35 sources"],
-  ["fichiers", "Refaire les calculs"],
+  ["fichiers", "Refaire nos calculs"],
 ];
 
 mount(
@@ -13,7 +13,7 @@ mount(
   <>
     <PageHead
       title="Méthode et sources"
-      lede="Comment on a lu le Code, ce qu'on a corrigé en route, ce qu'on ne sait pas, et les 35 sources derrière chaque chiffre."
+      lede="Comment nous avons lu le Code, ce que nous avons corrigé en route, ce que nous ne savons pas. Et les 35 sources derrière chaque chiffre."
     />
     <div className="doc">
       <nav className="toc" aria-label="Sommaire">

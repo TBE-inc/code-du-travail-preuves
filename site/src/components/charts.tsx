@@ -7,7 +7,7 @@ export function EssChart() {
   const min = -1, max = 0.8;
   return (
     <figure>
-      <div className="fig-title">Écart de satisfaction de vie par rapport à un salarié en CDI, sur 10</div>
+      <div className="fig-title">Satisfaction de vie, sur 10, par rapport à un salarié en CDI au même revenu</div>
       <div className="chart">
         {ess.map((d) => (
           <div className="crow" key={d.label}>
@@ -22,7 +22,7 @@ export function EssChart() {
         ))}
       </div>
       <Ticks values={[-1, -0.5, 0, 0.5]} min={min} max={max} />
-      <figcaption>Point : estimation. Trait : intervalle de confiance à 95 %, la zone où se trouve probablement la vraie valeur. Moyenne de l'échantillon : 7,1 sur 10.</figcaption>
+      <figcaption>Point : l'estimation. Trait : la zone où se trouve probablement la vraie valeur (intervalle de confiance à 95 %). Moyenne de l'échantillon : 7,1 sur 10.</figcaption>
     </figure>
   );
 }
@@ -40,7 +40,7 @@ export function WellbyCalculator() {
       </p>
       <input type="range" min={1000} max={300000} step={1000} value={n} aria-label="Ajuster le nombre de chômeurs en moins" onChange={(e) => setN(+e.target.value)} />
       <p className="formula">
-        Calcul : {fr(n)} × 0,74 point × 18 000 € par point et par an. Fourchette {m(wellby.effectLow, wellby.valueLow)} à {m(wellby.effectHigh, wellby.valueHigh)} millions d'euros.
+        Calcul : {fr(n)} personnes × 0,74 point × 18 000 € par point et par an. Fourchette : {m(wellby.effectLow, wellby.valueLow)} à {m(wellby.effectHigh, wellby.valueHigh)} millions d'euros.
       </p>
     </div>
   );
@@ -64,7 +64,7 @@ export function CostChart() {
   return (
     <figure>
       <div className="figtop">
-        <div className="fig-title">Coût administratif annuel, en millions d'euros</div>
+        <div className="fig-title">Coût par an pour toutes les entreprises, en millions d'euros</div>
         <div className="toggle" role="group" aria-label="Scénario">
           {(Object.keys(SCENARIOS) as Scenario[]).map((s) => (
             <button key={s} type="button" aria-pressed={k === s} onClick={() => setK(s)}>
@@ -84,9 +84,9 @@ export function CostChart() {
       </div>
       <Ticks values={ticks} min={0} max={max} />
       <button type="button" className="linklike" style={{ justifySelf: "start", fontSize: 14.5 }} onClick={() => setAll(!all)} aria-expanded={all}>
-        {all ? "Ne montrer que les 8 plus coûteuses" : `Afficher les ${rows.length} démarches`}
+        {all ? "Voir seulement les 8 plus coûteuses" : `Voir les ${rows.length} démarches`}
       </button>
-      <figcaption>Total du scénario {SCENARIOS[k]} : {fr(total / 1000, 1)} milliards d'euros par an pour les 23 démarches.</figcaption>
+      <figcaption>Total des 23 démarches, scénario {SCENARIOS[k]} : {fr(total / 1000, 1)} milliards d'euros par an.</figcaption>
     </figure>
   );
 }
@@ -104,7 +104,7 @@ export function Stairs() {
   const right = n > 80;
   return (
     <figure className="stairs">
-      <div className="fig-title">Heures de délégation des élus du CSE selon l'effectif, par mois</div>
+      <div className="fig-title">Heures payées aux élus du personnel chaque mois, selon le nombre de salariés</div>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Escalier des heures de délégation : 0 heure sous 11 salariés, 10 heures de 11 à 24, 20 heures de 25 à 49, 72 heures de 50 à 74, 95 heures de 75 à 99">
         {[0, 40, 80, 120].map((v) => (
           <g key={v}>
@@ -124,7 +124,7 @@ export function Stairs() {
         <text className="t-strong" x={X(n) + (right ? -8 : 8)} y={Y(h) - 10} textAnchor={right ? "end" : "start"}>{h} h</text>
       </svg>
       <label className="simline" htmlFor="sim">
-        Faites grandir l'entreprise : <strong>{n} salariés, {h} heures de délégation par mois</strong>
+        Faites grandir l'entreprise : <strong>{n} salariés, {h} heures par mois pour les élus</strong>
       </label>
       <input type="range" id="sim" min={5} max={99} step={1} value={n} onChange={(e) => setN(+e.target.value)} />
       <ul className="oblig">
@@ -136,7 +136,7 @@ export function Stairs() {
         ))}
       </ul>
       <figcaption>
-        Barème légal (<Art>R2314-1</Art>), maximum autorisé. Il ne s'applique que si un CSE a été élu, ce qui est le cas dans 41 % des entreprises de 10 salariés et plus.<Fn id="fs" /> Certaines obligations ne s'appliquent qu'après douze mois au-dessus du seuil.
+        Barème légal (<Art>R2314-1</Art>), maximum autorisé. Il ne s'applique que si des élus ont été désignés : c'est le cas dans 4 entreprises sur 10 de 10 salariés et plus.<Fn id="fs" /> Certaines obligations ne commencent qu'après douze mois au-dessus du seuil.
       </figcaption>
     </figure>
   );
@@ -147,7 +147,7 @@ export function EplChart() {
   const max = 3.5;
   return (
     <figure>
-      <div className="fig-title">Protection contre le licenciement en CDI, indice OCDE 2025 (0 à 6)</div>
+      <div className="fig-title">Protection contre le licenciement en CDI, indice de l'OCDE de 0 à 6 (2025)</div>
       <div className="chart">
         {epl.map(([c, v]) => (
           <div className={`crow${c === "France" ? " fr" : ""}`} key={c}>
@@ -158,7 +158,7 @@ export function EplChart() {
         ))}
       </div>
       <Ticks values={[0, 1, 2, 3]} min={0} max={max} />
-      <figcaption>Plus l'indice est haut, plus licencier est encadré. Version 4 de l'indice.<Fn id="oecdepl" /></figcaption>
+      <figcaption>Plus l'indice est élevé, plus licencier est encadré. Version 4 de l'indice.<Fn id="oecdepl" /></figcaption>
     </figure>
   );
 }

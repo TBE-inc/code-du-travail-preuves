@@ -20,7 +20,7 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
   paperasse: (
     <Bars
-      title="Coût par an, en millions d'euros (scénario central)"
+      title="Coût par an pour toutes les entreprises, en millions d'euros (scénario central)"
       unit=" M€"
       rows={[
         { label: "Fiches de paie", value: 759, strong: true },
@@ -34,22 +34,22 @@ const visuels: Record<ConstatId, ReactNode> = {
   seuil: (
     <dl className="verdicts">
       <div><dt><Terme id="delegation">Heures de délégation</Terme> des élus, par mois</dt><dd className="down">20 h, puis 72 h</dd></div>
-      <div><dt>Effet mesuré : équivaut à une taxe sur le travail de</dt><dd className="down">1,3 %</dd></div>
+      <div><dt>Équivaut à une taxe sur le travail de</dt><dd className="down">1,3 %</dd></div>
       <div><dt>PIB perdu si les salaires sont rigides</dt><dd className="down">4 à 5 %</dd></div>
     </dl>
   ),
   licenciement: (
     <dl className="verdicts">
       <div><dt>Sur le chômage</dt><dd>Pas d'effet net</dd></div>
-      <div><dt>Sur la productivité</dt><dd className="up">Meilleure</dd></div>
-      <div><dt>Sur les embauches en <Terme id="cdi">CDI</Terme> (Italie)</dt><dd className="up">Plus nombreuses</dd></div>
+      <div><dt>Sur la productivité</dt><dd className="up">En hausse</dd></div>
+      <div><dt>Sur les embauches en <Terme id="cdi">CDI</Terme> (Italie, 2015)</dt><dd className="up">En hausse</dd></div>
     </dl>
   ),
   assurance: (
     <dl className="verdicts">
       <div><dt>Réformes des allocations depuis 2021</dt><dd>3</dd></div>
-      <div><dt>Évaluées sérieusement</dt><dd className="down">Aucune</dd></div>
-      <div><dt>Accompagnement des chômeurs de longue durée</dt><dd className="up">Rentable en 2 à 3 ans</dd></div>
+      <div><dt>Évaluées de façon solide</dt><dd className="down">Aucune</dd></div>
+      <div><dt>Accompagnement des chômeurs de longue durée</dt><dd className="up">Efficace après 2 à 3 ans</dd></div>
     </dl>
   ),
 };

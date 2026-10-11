@@ -24,7 +24,7 @@ export function Layout({ page, children }: { page: PageId; children: ReactNode }
           <div className="foot-cols">
             <nav aria-label="Comprendre">
               <p className="foot-h">Comprendre</p>
-              <a href={base}>Les cinq constats</a>
+              <a href={base}>Les cinq questions</a>
               <a href={`${base}propositions/`}>Les propositions</a>
               <a href={`${base}methode/`}>Méthode et sources</a>
             </nav>
@@ -34,7 +34,7 @@ export function Layout({ page, children }: { page: PageId; children: ReactNode }
             </nav>
             <div>
               <p className="foot-h">À propos</p>
-              <p>Exercice de pensée indépendant, octobre 2026, réalisé avec l'assistance d'une intelligence artificielle (Claude) à partir de sources publiques. Ni avis juridique, ni étude relue par des pairs. Contestations bienvenues sur <a href="https://github.com/TBE-inc/code-du-travail-preuves" rel="noopener">GitHub</a>.</p>
+              <p>Un exercice indépendant, mené en octobre 2026 avec l'aide d'une intelligence artificielle (Claude), à partir de sources publiques. Ce n'est ni un avis juridique, ni une étude relue par des pairs. Une erreur, un désaccord ? Dites-le sur <a href="https://github.com/TBE-inc/code-du-travail-preuves" rel="noopener">GitHub</a>.</p>
             </div>
           </div>
         </footer>

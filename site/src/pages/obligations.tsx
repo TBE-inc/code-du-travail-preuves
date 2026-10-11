@@ -99,7 +99,7 @@ function Explorer() {
             </select>
           </label>
           <label>
-            <span>Seuil d'effectif</span>
+            <span>Nombre de salariés</span>
             <select value={f.seuil} onChange={(e) => set("seuil", e.target.value)}>
               <option value="">Tous</option>
               <option value="aucun">Sans seuil</option>
@@ -145,7 +145,7 @@ function Explorer() {
 
         {filtered.length === 0 && (
           <div className="obl-empty">
-            <p>{actifs.length === 1 ? `Aucune obligation ne correspond à ${libelle(actifs[0], f)}. Essayez un autre mot ou un autre filtre.` : "Aucune obligation ne réunit tous ces filtres. Celui à retirer :"}</p>
+            <p>{actifs.length === 1 ? `Aucune obligation ne correspond à ${libelle(actifs[0], f)}. Essayez un autre mot ou un autre filtre.` : "Aucune obligation ne réunit tous ces filtres. Retirez celui-ci :"}</p>
             {actifs.length > 1 && <ul>
               {sansChacun.map(({ k, n }) => (
                 <li key={k}>
@@ -172,7 +172,7 @@ function Explorer() {
         </ol>
         {shown < filtered.length && (
           <button type="button" className="more" onClick={() => setShown(shown + PAGE)}>
-            Afficher {Math.min(PAGE, filtered.length - shown)} obligations de plus
+            Voir {Math.min(PAGE, filtered.length - shown)} obligations de plus
           </button>
         )}
       </div>
@@ -185,11 +185,11 @@ mount(
   <>
     <PageHead
       title="Les 2 847 obligations du Code du travail"
-      lede="Chaque phrase du Code qui impose quelque chose à l'employeur, repérée dans les 11 572 articles. Cherchez un mot, filtrez par thème ou par seuil d'effectif."
+      lede="Chaque phrase du Code qui impose quelque chose à l'employeur, repérée dans les 11 572 articles. Cherchez un mot, ou filtrez par thème et par nombre de salariés."
     >
       <Proof label="Comment c'est fait, et ses limites">
-        <p>Un programme a parcouru le Code du 8 octobre 2026<Fn id="code" /> et relevé chaque phrase qui oblige l'employeur. Vérification à la main sur 150 articles tirés au sort : environ <strong>trois sur quatre</strong> sont bien repérés et bien classés.</p>
-        <p>Les normes techniques de sécurité (machines, échafaudages) sont moins bien repérées. Un tiers des obligations n'ont pas de type.</p>
+        <p>Un programme a lu le Code du 8 octobre 2026<Fn id="code" /> et relevé chaque phrase qui oblige l'employeur. Nous l'avons vérifié à la main sur 150 articles tirés au sort : environ <strong>3 obligations sur 4</strong> sont bien repérées et bien classées.</p>
+        <p>Les normes techniques de sécurité (machines, échafaudages) sont moins bien repérées. Un tiers des obligations n'a pas pu être classé par thème.</p>
         <p><a href={`${base}donnees/obligations.csv`}>Télécharger le fichier complet</a></p>
       </Proof>
     </PageHead>

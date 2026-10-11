@@ -9,10 +9,10 @@ const base = import.meta.env.BASE_URL;
 type Etape = { id: string; n: string; label: string; href: string };
 
 const pages: { href: string; label: string; sous?: boolean }[] = [
-  { href: base, label: "Constats" },
+  { href: base, label: "Les cinq questions" },
   { href: `${base}propositions/`, label: "Propositions" },
   { href: `${base}obligations/`, label: "Les 2 847 obligations", sous: true },
-  { href: `${base}mon-entreprise/`, label: "Ce que coûte le Code à mon entreprise", sous: true },
+  { href: `${base}mon-entreprise/`, label: "Ce que le Code coûte à mon entreprise", sous: true },
   { href: `${base}pays/`, label: "La France et ses voisins", sous: true },
   { href: `${base}methode/`, label: "Méthode et sources" },
 ];

@@ -5,8 +5,8 @@ mount(
   "propositions",
   <>
     <PageHead
-      title="Ce qu'on propose"
-      lede="Cinq amendements au Code du travail, écrits comme de vrais articles, et quatre pistes hors du Code. Chacun a reçu un verdict à partir des preuves."
+      title="Nos propositions"
+      lede="Cinq amendements au Code du travail, rédigés comme de vrais articles, et quatre pistes hors du Code. Chacun reçoit un verdict tiré des preuves."
     />
     <Amendements />
   </>,

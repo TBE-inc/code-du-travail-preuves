@@ -29,20 +29,22 @@ export function Chomage() {
     <Constat
       id="chomage"
       fig="−0,74 point"
-      cap="de satisfaction de vie sur 10 pour un chômeur, à revenu égal. Un CDD : −0,15."
+      cap="sur 10 de satisfaction de vie pour un chômeur, par rapport à un salarié en CDI au même revenu. Pour un CDD : −0,15."
       chart={<EssChart />}
       level="moyenne"
       proof={
         <>
-          <p>Enquête sociale européenne, 40 000 personnes dans 32 pays, 2020-2024.<Fn id="ess" /> Plan d'analyse écrit avant de voir les résultats. Ce sont des associations : des personnes moins heureuses peuvent aussi être plus souvent au chômage. Les études qui suivent les mêmes personnes dans le temps trouvent des effets du même ordre.</p>
-          <p>Le chômage long laisse une trace : −0,36 point même après avoir retrouvé un emploi. L'autonomie au travail pèse presque autant que l'emploi lui-même.</p>
-          <p>Une perte d'emploi augmente la mortalité de 15 à 20 % sur les vingt années suivantes,<Fn id="sullivan" /> et environ un suicide sur cinq dans le monde est associé au chômage.<Fn id="nordt" /></p>
-          <p>Un « point de bien-être pendant un an » vaut 13 000 £ (2019) selon le Trésor britannique, soit environ 18 000 € aujourd'hui.<Fn id="wellby" /> Calculez ce que coûte le chômage :</p>
+          <p>Enquête sociale européenne : 40 000 personnes dans 32 pays, de 2020 à 2024.<Fn id="ess" /> Nous avons écrit notre plan d'analyse avant de voir les résultats.</p>
+          <p>Ce sont des corrélations : des personnes moins heureuses peuvent aussi tomber plus souvent au chômage. Mais les études qui suivent les mêmes personnes dans le temps trouvent des effets du même ordre.</p>
+          <p>Le chômage long laisse une trace : −0,36 point, même après avoir retrouvé un emploi. L'autonomie au travail pèse presque autant que l'emploi lui-même.</p>
+          <p>Après une perte d'emploi, le risque de décès augmente de 15 à 20 % pendant les vingt années suivantes.<Fn id="sullivan" /> Dans le monde, environ 1 suicide sur 5 est associé au chômage.<Fn id="nordt" /></p>
+          <p>Le Trésor britannique estime qu'un point de bien-être pendant un an vaut 13 000 £ (2019), soit environ 18 000 € aujourd'hui.<Fn id="wellby" /> Calculez ce que coûte le chômage :</p>
           <WellbyCalculator />
         </>
       }
     >
-      <p>Une grande enquête européenne demande à chacun : « Êtes-vous satisfait de votre vie, de 0 à 10 ? ». On a comparé des personnes semblables, <strong>revenu compris</strong>, qui ne diffèrent que par leur situation d'emploi. Perdre son emploi coûte bien plus que de l'argent : statut, liens, estime de soi.</p>
+      <p>Une grande enquête européenne pose la même question à tous : « Êtes-vous satisfait de votre vie, de 0 à 10 ? ». Nous avons comparé des personnes semblables, <strong>au même revenu</strong>, qui ne diffèrent que par leur situation d'emploi.</p>
+      <p>Perdre son emploi coûte donc bien plus que le salaire perdu : une place, des liens, l'estime de soi.</p>
     </Constat>
   );
 }
@@ -61,7 +63,7 @@ function AuDelaFacture() {
     <section aria-labelledby="h-audela">
       <div className="stack">
         <h2 id="h-audela">Au-delà de la facture : ce que la paperasse empêche de produire</h2>
-        <p className="muted-note">La facture mesure le temps passé. Elle ne dit pas ce que ce temps aurait produit, ni ce que l'incertitude juridique et les seuils empêchent de créer. Ces effets sont des estimations, plus incertaines que la facture.</p>
+        <p className="muted-note">La facture compte le temps passé. Elle ne dit pas ce que ce temps aurait produit, ni ce que l'incertitude juridique et les seuils empêchent de créer. Ces effets-là sont estimés : ils sont plus incertains que la facture.</p>
       </div>
       <dl className="effets">
         {effets.map(([t, v, d], i) => (
@@ -72,7 +74,8 @@ function AuDelaFacture() {
           </div>
         ))}
       </dl>
-      <p className="effets-bilan"><strong>Ce qu'il faut retenir :</strong> la friction coûte plus que sa facture. Mais la paperasse de forme pèse au plus 0,3 % du PIB, même en comptant ce qu'elle empêche de produire. Les seuils pèsent des dizaines de fois plus. Le risque juridique freine aussi l'embauche : en 2017, 14 % des entreprises de l'industrie, des services et du bâtiment (pondérées par leurs effectifs) le citaient comme barrière.<Fn id="inseebarrieres" /></p>
+      <p className="effets-bilan"><strong>À retenir.</strong> La paperasse coûte plus que sa facture. Mais même en comptant ce qu'elle empêche de produire, elle pèse au plus 0,3 % du PIB. Les seuils pèsent des dizaines de fois plus.</p>
+      <p>Le risque juridique freine aussi l'embauche. En 2017, 1 entreprise sur 7 citait les risques juridiques d'un licenciement parmi ses freins à l'embauche. L'enquête couvre l'industrie, les services et le bâtiment, avec un résultat pondéré par les effectifs.<Fn id="inseebarrieres" /></p>
       <p className="meta">Calcul complet : <a href="https://github.com/TBE-inc/code-du-travail-preuves/blob/main/03-analyses/effets-indirects.md" rel="noopener">03-analyses/effets-indirects.md</a>.</p>
     </section>
   );
@@ -83,20 +86,22 @@ export function Paperasse() {
     <Constat
       id="paperasse"
       fig="1,2 à 7,3 Md€"
-      cap="par an de démarches imposées par le Code, selon le temps réellement passé."
+      cap="par an : le coût des démarches imposées par le Code, selon le temps qu'on y passe vraiment."
       chart={<CostChart />}
       extra={<AuDelaFacture />}
       level="moyenne"
       proof={
         <>
-          <p>Méthode de l'OCDE et de l'Union européenne :<Fn id="scmmanual" /> nombre de fois par an × temps passé × 44,30 € de l'heure,<Fn id="eurostat" /> moins ce que l'entreprise ferait de toute façon. Volumes et coût horaire mesurés.<Fn id="dares" /> Temps passé mesuré pour le document de risques<Fn id="hlg" /> et la paie, estimé pour le reste : d'où trois scénarios.</p>
-          <p>Exemple : le CDD. Le Code impose huit mentions, et une erreur peut transformer le contrat en CDI. Il s'en signe 21,9 millions par an.</p>
+          <p>Méthode de l'OCDE et de l'Union européenne :<Fn id="scmmanual" /> nombre de fois par an × temps passé × 44,30 € de l'heure.<Fn id="eurostat" /> On retire ce que l'entreprise ferait de toute façon.</p>
+          <p>Les volumes et le coût horaire sont mesurés.<Fn id="dares" /> Le temps passé est mesuré pour le document de risques<Fn id="hlg" /> et pour la paie. Il est estimé pour le reste, d'où trois scénarios.</p>
+          <p>Exemple : le CDD. Le Code impose huit mentions, et une seule erreur peut transformer le contrat en CDI. Il s'en signe 21,9 millions par an.</p>
           <Law cite="Article L1242-12">« Le contrat de travail à durée déterminée est établi par écrit et comporte la définition précise de son motif. A défaut, il est réputé conclu pour une durée indéterminée. […] »</Law>
-          <p>La complexité de la paie vient surtout des cotisations sociales, qui relèvent du Code de la sécurité sociale.</p>
+          <p>La paie est complexe surtout à cause des cotisations sociales. Elles relèvent du Code de la sécurité sociale, pas du Code du travail.</p>
         </>
       }
     >
-      <p>On a chiffré 23 démarches. Le gros de la facture : la paie, l'évaluation des risques, les fins de contrat et les heures des élus. Les cibles habituelles des discours de simplification, <mark>surlignées</mark>, pèsent très peu. Changez de scénario : l'ordre ne bouge presque pas.</p>
+      <p>Nous avons chiffré 23 démarches. L'essentiel de la facture vient de la paie, de l'évaluation des risques, des fins de contrat et des heures des élus.</p>
+      <p>Les exemples souvent cités pour simplifier, <mark>surlignés</mark>, pèsent très peu. Changez de scénario : l'ordre ne bouge presque pas.</p>
     </Constat>
   );
 }
@@ -106,17 +111,19 @@ export function Seuil() {
     <Constat
       id="seuil"
       fig="+52 heures"
-      cap="de délégation par mois en passant de 49 à 50 salariés, plus 2 200 à 14 800 € de démarches par an."
+      cap="de temps payé aux élus par mois quand on passe de 49 à 50 salariés. S'y ajoutent 2 200 à 14 800 € de démarches par an."
       chart={<Stairs />}
       level="moyenne"
       proof={
         <>
-          <p>L'étude de référence porte sur toutes les entreprises françaises de 2002 à 2007, avant les réformes de 2017 et 2019 : elle observe une accumulation anormale d'entreprises à 49 salariés.<Fn id="garicano" /> Notre propre calcul, par une autre méthode, arrive au même ordre de grandeur : 1 à 2 % de la masse salariale.</p>
-          <p>Relever le seuil à 100 déplacerait simplement l'embouteillage à 99.</p>
+          <p>L'étude de référence porte sur toutes les entreprises françaises de 2002 à 2007, avant les réformes de 2017 et 2019. Elle observe trop d'entreprises à 49 salariés, et trop peu à 50.<Fn id="garicano" /></p>
+          <p>Notre propre calcul, par une autre méthode, arrive au même ordre de grandeur : 1 à 2 % de la masse salariale.</p>
+          <p>Relever le seuil à 100 salariés ne ferait que déplacer le blocage à 99.</p>
         </>
       }
     >
-      <p>Beaucoup d'obligations se déclenchent d'un coup à 50 salariés, alors des entreprises évitent de grandir. Les salariés en sont les premiers perdants. La solution n'est pas de relever le seuil mais de <strong>le lisser</strong> : faire monter les obligations progressivement. Faites glisser l'effectif :</p>
+      <p>Beaucoup d'obligations commencent d'un coup à 50 salariés. Des entreprises évitent donc de grandir, et leurs salariés en sont les premiers perdants.</p>
+      <p>Relever le seuil ne règle rien. Il faut <strong>le lisser</strong> : faire monter les obligations peu à peu. Faites glisser l'effectif :</p>
     </Constat>
   );
 }
@@ -126,16 +133,16 @@ export function Licenciement() {
     <Constat
       id="licenciement"
       fig="Aucun effet net"
-      cap="sur le chômage d'une protection plus forte du CDI : les études des deux bords s'accordent."
+      cap="sur le chômage quand on protège davantage le CDI. Les études des deux camps s'accordent sur ce point."
       chart={
       <div className="tbl">
           <table className="plain">
             <thead><tr><th>Question</th><th>Ce que trouvent les études</th></tr></thead>
             <tbody>
-              <tr><td>Protéger plus le CDI augmente-t-il le chômage ?</td><td><strong>Pas d'effet net démontré</strong>, chez les partisans de la flexibilité<Fn id="cp" /> comme chez ses critiques.<Fn id="avdagic" /><Fn id="howell" /></td></tr>
-              <tr><td>Cela freine-t-il la productivité ?</td><td><strong>Oui</strong> : les emplois passent moins vite des entreprises en déclin vers celles qui grandissent.<Fn id="bassanini" /> Mais trop de rotation nuit à l'apprentissage.<Fn id="vergeer" /></td></tr>
-              <tr><td>Cela crée-t-il deux classes de salariés ?</td><td><strong>Oui</strong> : CDI très protégés d'un côté, CDD précaires de l'autre, surtout pour les jeunes.<Fn id="cp" /></td></tr>
-              <tr><td>Qu'ont donné les réformes à l'étranger ?</td><td><strong>Italie</strong> : plus d'embauches en CDI.<Fn id="boeri" /> <strong>Allemagne</strong> : chômage plus court, salaires en baisse.<Fn id="hartz" /> <strong>Danemark</strong> : ça marche, avec un accompagnement massif des chômeurs.<Fn id="dk" /></td></tr>
+              <tr><td>Mieux protéger le CDI augmente-t-il le chômage ?</td><td><strong>Pas d'effet net démontré</strong>, chez les partisans de la flexibilité<Fn id="cp" /> comme chez ses critiques.<Fn id="avdagic" /><Fn id="howell" /></td></tr>
+              <tr><td>Cela freine-t-il la productivité ?</td><td><strong>Oui</strong> : les emplois passent moins vite des entreprises en déclin à celles qui grandissent.<Fn id="bassanini" /> Mais trop de départs nuit à l'apprentissage.<Fn id="vergeer" /></td></tr>
+              <tr><td>Cela crée-t-il deux classes de salariés ?</td><td><strong>Oui</strong> : des CDI très protégés d'un côté, des CDD précaires de l'autre, surtout pour les jeunes.<Fn id="cp" /></td></tr>
+              <tr><td>Qu'ont donné les réformes à l'étranger ?</td><td><strong>Italie</strong> : plus d'embauches en CDI.<Fn id="boeri" /> <strong>Allemagne</strong> : chômage plus court, salaires en baisse.<Fn id="hartz" /> <strong>Danemark</strong> : cela marche, avec un accompagnement très poussé des chômeurs.<Fn id="dk" /></td></tr>
             </tbody>
           </table>
         </div>
@@ -143,15 +150,15 @@ export function Licenciement() {
       level="forte"
       proof={
         <>
-          <p><strong>Notre test :</strong> si la protection contre le licenciement protégeait le bien-être, chômeurs et salariés en CDD iraient mieux dans les pays très protecteurs. On ne détecte rien de tel sur 25 pays.<Fn id="ess" /> C'est peu de pays pour conclure.</p>
-          <p><strong>Déjà fait :</strong> la forme du licenciement a été simplifiée en 2017. Une erreur de procédure coûte au plus un mois de salaire.</p>
+          <p><strong>Notre test.</strong> Si la protection contre le licenciement protégeait le bien-être, les chômeurs et les salariés en CDD iraient mieux dans les pays très protecteurs. Nous ne voyons rien de tel sur 25 pays.<Fn id="ess" /> C'est peu de pays pour conclure.</p>
+          <p><strong>Déjà fait.</strong> La forme du licenciement a été simplifiée en 2017 : une erreur de procédure coûte au plus un mois de salaire.</p>
           <Law cite="Article L1235-2, depuis 2017">« Lorsqu'une irrégularité a été commise au cours de la procédure […] mais pour une cause réelle et sérieuse, le juge accorde au salarié […] une indemnité qui ne peut être supérieure à un mois de salaire. »</Law>
           <EplChart />
         </>
       }
     >
-      <p>C'est le débat le plus idéologique du droit du travail. Voici ce que disent les études des deux bords, côte à côte.</p>
-      <p>On peut donc assouplir, <strong>à condition de sécuriser la transition</strong> des personnes licenciées. Une piste : celui qui licencie paie le coût réel qu'il fait porter à l'assurance chômage, et en échange le juge contrôle moins le motif.<Fn id="bt" /></p>
+      <p>C'est le débat le plus politique du droit du travail. Voici ce que disent les études des deux camps, côte à côte.</p>
+      <p>On peut donc assouplir, <strong>à condition d'aider vraiment</strong> les personnes licenciées à rebondir. Une piste : l'employeur qui licencie paie le coût qu'il fait porter à l'assurance chômage. En échange, le juge contrôle moins le motif.<Fn id="bt" /></p>
     </Constat>
   );
 }
@@ -161,24 +168,25 @@ export function Assurance() {
     <Constat
       id="assurance"
       fig="3 réformes"
-      cap="des allocations chômage depuis 2021, aucune encore évaluée sérieusement."
+      cap="des allocations chômage depuis 2021. Aucune n'a encore été évaluée de façon solide."
       chart={
       <dl className="chrono">
-          <div><dt>2021</dt><dd>Allocation calculée sur le revenu moyen, jours non travaillés compris. Bonus-malus dans 7 secteurs.</dd></div>
-          <div><dt>2023</dt><dd>Durée d'indemnisation réduite de 25 % quand l'emploi va bien.</dd></div>
-          <div><dt>2026</dt><dd>Après une rupture conventionnelle, durée ramenée de 18 à 15 mois.</dd></div>
+          <div><dt>2021</dt><dd>L'allocation est calculée sur le revenu moyen, jours non travaillés compris. Les cotisations varient selon les fins de contrat dans 7 secteurs.</dd></div>
+          <div><dt>2023</dt><dd>L'indemnisation dure 25 % moins longtemps quand l'emploi va bien.</dd></div>
+          <div><dt>2026</dt><dd>Après une rupture conventionnelle, l'indemnisation passe de 18 à 15 mois au plus.</dd></div>
         </dl>
       }
       level="forte"
       proof={
         <>
-          <p>Plus de 200 évaluations rassemblées sur l'accompagnement des chômeurs.<Fn id="ckw" /> Baisser les allocations raccourcit le chômage sans réduire le nombre de chômeurs.<Fn id="hartz" /></p>
-          <p>Exigences envers les chômeurs (OCDE 2024) : la France demande moins de mobilité que ses voisins (0,75 contre 1,2 à 1,4) mais sanctionne plus (0,94 contre 0,72).<Fn id="oecdact" /></p>
-          <p>Les ruptures conventionnelles pèsent 9,4 milliards d'euros, soit 26 % des allocations.<Fn id="senat" /></p>
+          <p>Plus de 200 évaluations de l'accompagnement des chômeurs ont été rassemblées.<Fn id="ckw" /> Baisser les allocations raccourcit le chômage, sans réduire le nombre de chômeurs.<Fn id="hartz" /></p>
+          <p>Exigences envers les chômeurs, selon l'OCDE (2024) : la France demande moins de mobilité que ses voisins (indice de 0,75 contre 1,2 à 1,4), mais sanctionne plus (0,94 contre 0,72).<Fn id="oecdact" /></p>
+          <p>Les ruptures conventionnelles coûtent 9,4 milliards d'euros par an, soit 26 % des allocations versées.<Fn id="senat" /></p>
         </>
       }
     >
-      <p>Les règles d'indemnisation sont négociées par les syndicats et le patronat, hors du Code du travail.<Fn id="unedic" /> Ce qui marche le mieux selon les études : <strong>accompagner les chômeurs de longue durée</strong>, un investissement qui paie après deux à trois ans.</p>
+      <p>Les syndicats et le patronat négocient les règles d'indemnisation, hors du Code du travail.<Fn id="unedic" /></p>
+      <p>Selon les études, ce qui marche le mieux est d'<strong>accompagner les chômeurs de longue durée</strong>. Les résultats arrivent au bout de deux à trois ans.</p>
     </Constat>
   );
 }

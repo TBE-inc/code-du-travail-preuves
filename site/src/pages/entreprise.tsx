@@ -141,7 +141,7 @@ function Simulateur() {
 
       <div className="tool-side">
         <div className="sim-n">
-          <label htmlFor="sim-effectif">Effectif de l'entreprise</label>
+          <label htmlFor="sim-effectif">Nombre de salariés</label>
           <span className="sim-n-row">
             <input
               id="sim-effectif"
@@ -156,12 +156,12 @@ function Simulateur() {
             />
             <span>salarié{n > 1 ? "s" : ""}</span>
           </span>
-          <input type="range" min={1} max={300} value={Math.min(n, 300)} onChange={(e) => glisseN(+e.target.value)} aria-label="Ajuster l'effectif" />
-          <span id="sim-effectif-aide" className="sim-aide">De 1 à 500 salariés.</span>
+          <input type="range" min={1} max={300} value={Math.min(n, 300)} onChange={(e) => glisseN(+e.target.value)} aria-label="Ajuster le nombre de salariés" />
+          <span id="sim-effectif-aide" className="sim-aide">Entre 1 et 500 salariés.</span>
         </div>
 
         <details className="sim-flux">
-          <summary>Ajuster les mouvements {perso ? "(vos chiffres)" : "(moyenne française pré-remplie)"}</summary>
+          <summary>Embauches et départs {perso ? "(vos chiffres)" : "(moyenne française, modifiable)"}</summary>
           <fieldset>
             <legend>Par an</legend>
             {champs.map(([k, lab]) => (
@@ -180,35 +180,35 @@ function Simulateur() {
           <p className="sim-lead">Chaque année, les démarches du Code du travail coûtent à votre entreprise environ</p>
           <p className="sim-key" aria-live="polite"><span className="fig">{total}</span> <span className="unit">par an</span></p>
           <p className="sim-hours">soit {heures} de travail administratif.</p>
-          <p className="formula">Fourchette : {fr(arrondi(r.bas))} à {fr(arrondi(r.haut))} € par an, selon le temps réellement passé. Coût horaire : {fr(coutHoraire, 1)} € (Eurostat, 2025).</p>
+          <p className="formula">Fourchette : {fr(arrondi(r.bas))} à {fr(arrondi(r.haut))} € par an, selon le temps que vous y passez vraiment. Une heure de travail compte pour {fr(coutHoraire, 1)} € (Eurostat, 2025).</p>
         </div>
 
         <p className="sim-deleg">
           {r.hDeleg > 0 ? (
-            <>Heures de délégation du CSE en plus : jusqu'à <strong>{fr(r.hDeleg)} heures</strong> par an, soit environ {fr(arrondi(r.coutDeleg))} € si elles sont toutes prises (<Art>R2314-1</Art>).</>
+            <>S'y ajoutent jusqu'à <strong>{fr(r.hDeleg)} heures</strong> par an payées aux élus du personnel, soit environ {fr(arrondi(r.coutDeleg))} € si elles sont toutes prises (<Art>R2314-1</Art>).</>
           ) : (
-            <>Pas d'heures de délégation : aucun CSE n'est obligatoire sous 11 salariés.</>
+            <>Pas d'heures pour des élus : sous 11 salariés, l'entreprise n'a pas à en élire.</>
           )}
         </p>
 
         <div className="sim-threshold">
           {apres ? (
             <p>
-              <strong>Au passage à {apres.seuil} salariés</strong>, votre charge administrative augmenterait d'environ {fr(arrondi(apres.admin))} € par an
-              {apres.deleg > 0 ? <>, et les heures de délégation de {fr(apres.deleg)} heures par an</> : null}.
+              <strong>En passant à {apres.seuil} salariés</strong>, vos démarches vous coûteraient environ {fr(arrondi(apres.admin))} € de plus par an.
+              {apres.deleg > 0 ? <> Vos élus disposeraient aussi de {fr(apres.deleg)} heures de plus par an.</> : null}
             </p>
           ) : (
-            <p><strong>Plus de seuil suivant modélisé.</strong> Le dernier palier pris en compte ici est 300 salariés. Au-delà, le coût grandit avec l'effectif, sans nouveau saut.</p>
+            <p><strong>Pas de seuil suivant dans ce calcul.</strong> Le dernier palier pris en compte est 300 salariés. Au-delà, le coût suit l'effectif, sans nouveau saut.</p>
           )}
         </div>
 
         <Proof label="Comment c'est calculé">
-          <p>Pour chaque démarche : nombre de fois par an × temps passé × coût horaire, moins ce que l'entreprise ferait de toute façon.<Fn id="scmmanual" /> Même modèle que la page principale.<Fn id="scm" /></p>
-          <p>Les mouvements de personnel sont pré-remplis avec la moyenne française de 2025, très tirée par les CDD courts de certains secteurs.<Fn id="dares" /> Remplacez-les par vos chiffres.</p>
-          <p><strong>Non compris :</strong> les cotisations, la participation, le budget du CSE, les indemnités de licenciement et le contentieux. C'est une estimation de la paperasse, pas du coût total du travail.</p>
+          <p>Pour chaque démarche : nombre de fois par an × temps passé × coût d'une heure de travail. On retire ce que l'entreprise ferait de toute façon.<Fn id="scmmanual" /> C'est le même modèle que pour toute la France.<Fn id="scm" /></p>
+          <p>Les embauches et les départs sont pré-remplis avec la moyenne française de 2025. Elle est gonflée par les CDD très courts de certains secteurs.<Fn id="dares" /> Remplacez-la par vos chiffres.</p>
+          <p><strong>Pas compris dans le calcul :</strong> les cotisations, la participation, le budget du CSE, les indemnités de licenciement et les procès. C'est une estimation de la paperasse, pas du coût total d'un salarié.</p>
         </Proof>
 
-        <h2 className="sim-h">Le détail, démarche par démarche</h2>
+        <h2 className="sim-h">Démarche par démarche</h2>
         <div className="tbl">
           <table className="plain sim-table">
             <thead><tr><th>Démarche</th><th>Volume</th><th className="r">Coût par an</th></tr></thead>
@@ -233,7 +233,7 @@ mount(
   <>
     <PageHead
       title="Ce que le Code du travail coûte à mon entreprise"
-      lede="Indiquez votre effectif : temps et argent consacrés chaque année aux démarches du Code, et coût du prochain seuil."
+      lede="Indiquez votre nombre de salariés. Vous verrez le temps et l'argent que les démarches du Code vous coûtent chaque année, et ce que coûtera le prochain seuil."
     />
     <section aria-label="Simulateur" className="tools">
       <Simulateur />
