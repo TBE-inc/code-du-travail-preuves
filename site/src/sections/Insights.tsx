@@ -54,10 +54,13 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
 };
 
-/** En-tête d'un bloc : numéro et question. */
+/** Ouverture d'un bloc : filet, grand numéro et question (les questions 1 à 5, puis « Que changer »). */
 export function BlockHead({ n, q }: { n: number; q: string }) {
   return (
-    <p className="block-q">{n}. {q}</p>
+    <div className="chap">
+      <span className="chap-n" aria-hidden="true">{n}</span>
+      <p className="chap-q"><span className="chap-sur">Question {n} sur {constats.length + 1}</span>{q}</p>
+    </div>
   );
 }
 
@@ -66,9 +69,9 @@ export function Insights() {
     <>
       {constats.map((c, i) => (
         <section key={c.id} id={c.id} className={`band${i % 2 === 0 ? " alt" : ""}`} aria-labelledby={`h-${c.id}`}>
+          <BlockHead n={i + 1} q={c.question} />
           <div className="ins">
             <div className="ins-text">
-              <BlockHead n={i + 1} q={c.question} />
               <p className="ins-why"><AvecTermes texte={c.pourquoi} /></p>
               <h2 id={`h-${c.id}`}>{c.titre}</h2>
               <p className="insight-text"><AvecTermes texte={c.phrase} /></p>

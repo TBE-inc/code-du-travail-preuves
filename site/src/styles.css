@@ -300,6 +300,10 @@ main > header + section:not(.band) { border-top: 0; padding-top: 0; }
 .band.alt { background: var(--card); }
 .band.sunk { background: var(--sunk); }
 .band.end { border-top: 3px solid var(--red); }
+/* Filet de chapitre : un trait épais, à la largeur du texte, ouvre chaque bloc de l'accueil. */
+.accueil .band { border-top: 0; padding-top: 0; }
+.accueil .band::before { content: ""; display: block; height: 3px; background: var(--ink); }
+.accueil .band.end::before { background: var(--red); }
 @media (max-width: 760px) { .band { padding-block: var(--s4); } }
 
 /* hero : question | chiffres clés */
@@ -318,7 +322,10 @@ main > header + section:not(.band) { border-top: 0; padding-top: 0; }
 .ins-text { display: grid; gap: var(--s2); }
 .ins-text h2 { max-width: 20ch; }
 .ins-vis { min-width: 0; }
-.block-q { font-size: 15.5px; font-weight: 500; color: var(--muted); line-height: 1.4; }
+.chap { display: flex; align-items: center; gap: 20px; }
+.chap-n { min-width: .62em; font-family: var(--serif); font-weight: 700; font-size: clamp(56px, 7vw, 88px); line-height: .8; color: var(--red); }
+.chap-q { display: grid; gap: 2px; font-size: clamp(18px, 2vw, 22px); font-weight: 600; line-height: 1.3; }
+.chap-sur { font-size: 13px; font-weight: 400; color: var(--muted); }
 @media (min-width: 960px) {
   .ins { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: 96px; }
   .band:nth-of-type(even) .ins-vis { order: -1; }
@@ -416,7 +423,6 @@ dl.legend dd { margin: 0; color: var(--muted); }
 @media (max-width: 959px) {
   .ins { gap: var(--s2); }
   .ins-text { display: contents; }
-  .ins .block-q { order: 0; }
   .ins h2 { order: 1; }
   .ins-vis { order: 2; }
   .ins .insight-text { order: 3; }
