@@ -58,6 +58,7 @@ export function useGlisser(ref: RefObject<HTMLElement | null>) {
       const max = el.scrollWidth - el.clientWidth;
       if ((e.deltaY < 0 && el.scrollLeft <= 0) || (e.deltaY > 0 && el.scrollLeft >= max)) return;
       e.preventDefault();
+      e.stopPropagation(); // sinon le défilement doux de la page fait aussi défiler
       inertie?.stop();
       el.scrollLeft += e.deltaY;
     };

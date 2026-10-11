@@ -1,26 +1,23 @@
-import { animate } from "framer-motion";
+import Lenis from "lenis";
+import "lenis/dist/lenis.css";
 
-// Défilement doux vers les ancres de la page. Glissement normal par défaut ; si le système demande
-// moins d'animations, un glissement bref plutôt qu'un saut (choix validé avec le propriétaire du site).
-let enCours: ReturnType<typeof animate> | null = null;
+// Défilement doux de toute la page (molette, pavé tactile) et des ancres. Gardé même si le système demande
+// moins d'animations, en plus bref (choix validé avec le propriétaire du site). Le toucher reste natif.
+const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let lenis: Lenis | null = null;
 
 export function defilerVers(cible: HTMLElement, hash: string) {
   const marge = parseFloat(getComputedStyle(cible).scrollMarginTop) || 0;
   const depart = window.scrollY;
-  const arrivee = Math.max(0, Math.min(cible.getBoundingClientRect().top + depart - marge, document.documentElement.scrollHeight - innerHeight));
-  const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const distance = Math.abs(arrivee - depart);
-  const duree = reduit ? 0.25 : Math.min(0.9, 0.35 + distance / 6000);
-  enCours?.stop();
-  enCours = animate(depart, arrivee, { duration: duree, ease: [0.22, 1, 0.36, 1], onUpdate: (y) => window.scrollTo(0, y) });
+  const arrivee = cible.getBoundingClientRect().top + depart - marge;
+  const duree = reduit ? 0.25 : Math.min(0.9, 0.35 + Math.abs(arrivee - depart) / 6000);
+  lenis?.scrollTo(arrivee, { duration: duree, easing: (t) => 1 - Math.pow(1 - t, 4) });
   history.pushState(null, "", hash);
-  const stop = () => { enCours?.stop(); window.removeEventListener("wheel", stop); window.removeEventListener("touchstart", stop); };
-  window.addEventListener("wheel", stop, { passive: true, once: true });
-  window.addEventListener("touchstart", stop, { passive: true, once: true });
 }
 
-/** Intercepte les clics sur les liens internes à la page (#section ou /chemin/#section de la page courante). */
+/** Lance le défilement doux et intercepte les clics sur les liens internes à la page. */
 export function activerDefilementDoux() {
+  lenis = new Lenis({ lerp: reduit ? 0.14 : 0.1, autoRaf: true, allowNestedScroll: true, respectReducedMotion: false });
   document.addEventListener("click", (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const a = (e.target as Element).closest?.("a[href]") as HTMLAnchorElement | null;
