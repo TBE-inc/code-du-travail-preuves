@@ -89,7 +89,7 @@ function Comparateur() {
 }
 
 mount(
-  "pays",
+  "outils",
   <>
     <PageHead
       title="La France face à ses voisins"
@@ -97,6 +97,7 @@ mount(
     />
     <section aria-label="Comparateur">
       <Row
+        label="Comparer n'est pas expliquer"
         note={
           <>
             <p><strong>Comparer n'est pas expliquer.</strong> Un pays peut avoir peu de chômage pour mille raisons qui n'ont rien à voir avec son droit du travail. Pour les effets propres des règles, voir <a href={`${base}#licenciement`}>le constat 4</a>.</p>

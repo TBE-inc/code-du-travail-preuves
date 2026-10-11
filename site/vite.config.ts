@@ -16,6 +16,8 @@ export default defineConfig({
         obligations: resolve(__dirname, "obligations/index.html"),
         entreprise: resolve(__dirname, "mon-entreprise/index.html"),
         pays: resolve(__dirname, "pays/index.html"),
+        propositions: resolve(__dirname, "propositions/index.html"),
+        methode: resolve(__dirname, "methode/index.html"),
         ...Object.fromEntries(amendements.map((s) => [`amendement-${s}`, resolve(__dirname, "amendements", s, "index.html")])),
       },
     },

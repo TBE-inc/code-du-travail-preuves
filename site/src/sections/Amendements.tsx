@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Art, Fn, Row } from "../components/ui";
+import { Art, Fn, Proof, Row } from "../components/ui";
 
 type Verdict = "good" | "cond" | "no";
 const verdictLabel: Record<Verdict, string> = { good: "Gagnant partout", cond: "Sous condition", no: "Non retenu" };
@@ -8,32 +8,28 @@ const base = import.meta.env.BASE_URL;
 
 function Amendment({ title, article, verdict, gain, children, note, slug }: { title: string; article: string; verdict: Verdict; gain: string; children: ReactNode; note: ReactNode; slug: string }) {
   return (
-    <Row
-      note={
-        <>
-          <p className="verdict"><span className={`v-${verdict}`}>{verdictLabel[verdict]}.</span> {gain}</p>
-          {note}
-          <p><a href={`${base}amendements/${slug}/`}>Lire la fiche complète</a></p>
-        </>
-      }
-    >
-      <div className="amend">
-        <h3>{title}</h3>
-        <div className="redline">
-          <span className="art">{article}</span>
-          <br />
-          {children}
-        </div>
+    <article className="stack" id={slug}>
+      <h3>{title}</h3>
+      <p className="verdict-line"><span className={`v-${verdict}`}>{verdictLabel[verdict]}.</span> {gain}</p>
+      <div className="redline">
+        <span className="art">{article}</span>
+        <br />
+        {children}
       </div>
-    </Row>
+      <Proof label="Garde-fous et perdants">
+        {note}
+        <p><a href={`${base}amendements/${slug}/`}>Lire la fiche complète : texte actuel, qui perd, trois regards contradictoires</a></p>
+      </Proof>
+    </article>
   );
 }
 
 export function Amendements() {
   return (
+    <>
     <section id="amendements" aria-labelledby="h-amend">
       <Row>
-        <h2 id="h-amend">Les amendements</h2>
+        <h2 id="h-amend">Cinq amendements au Code</h2>
         <p>Chaque mesure est écrite comme un vrai article, après relecture du texte en vigueur. <del>Barré</del> : ce qu'on retire. <ins>Souligné</ins> : ce qu'on ajoute.</p>
       </Row>
 
@@ -98,16 +94,10 @@ export function Amendements() {
         <ins>« Lorsque le contrôle automatisé réalisé lors du dépôt établit que le délai de rétractation a été respecté et que l'indemnité n'est pas inférieure au minimum légal, l'homologation est acquise dès le dépôt. »</ins>
       </Amendment>
 
-      <Row
-        note={
-          <>
-            <p><span className="v-good">Gagnant partout</span> : améliore un objectif sans rien dégrader.</p>
-            <p><span className="v-cond">Sous condition</span> : gain probable, seulement avec une mesure d'accompagnement.</p>
-            <p><span className="v-no">Non retenu</span> : non soutenu par les preuves, ou déjà fait.</p>
-          </>
-        }
-      >
-        <h3>Hors du Code : l'assurance chômage</h3>
+    </section>
+    <section id="hors-code" aria-labelledby="h-hors">
+      <Row>
+        <h2 id="h-hors">Hors du Code : l'assurance chômage</h2>
         <div className="tbl">
           <table className="plain">
             <thead><tr><th>Mesure</th><th>Verdict</th></tr></thead>
@@ -120,8 +110,8 @@ export function Amendements() {
             </tbody>
           </table>
         </div>
-        <p>En une phrase : simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et <mark>tout tester avant de généraliser</mark>.</p>
       </Row>
     </section>
+    </>
   );
 }

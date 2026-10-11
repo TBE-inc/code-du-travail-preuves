@@ -21,27 +21,27 @@ function Redline({ segments }: { segments: Segment[] }) {
 
 function Fiche({ slug }: { slug: string }) {
   const a = amendementBySlug(slug);
-  if (!a) return <p>Cette fiche n'existe pas. <a href={`${base}#amendements`}>Voir tous les amendements</a>.</p>;
+  if (!a) return <p>Cette fiche n'existe pas. <a href={`${base}propositions/`}>Voir tous les amendements</a>.</p>;
   const i = amendements.indexOf(a);
   const next = amendements[(i + 1) % amendements.length];
   return (
     <>
-      <PageHead title={a.titre} lede={a.resume}>
+      <PageHead title={a.titre} lede={a.resume} crumb={<><a href={`${base}propositions/`}>Propositions</a>, amendement {i + 1} sur {amendements.length}</>}>
         <p className="verdict-line">
           <span className={`v-${a.verdict}`}>{verdictLabel[a.verdict]}.</span> {a.gain}.
         </p>
       </PageHead>
 
       <section aria-labelledby="h-texte">
-        <Row note={<p>Le texte actuel est cité depuis le Code du travail du 8 octobre 2026.<Fn id="code" /></p>}>
+        <Row>
           <h2 id="h-texte">Le texte</h2>
           <blockquote className="law">
-            <cite>{a.article}, aujourd'hui</cite>
+            <cite>{a.article}, en vigueur le 8 octobre 2026<Fn id="code" /></cite>
             <p>{a.actuel}</p>
           </blockquote>
           <h3>Proposé</h3>
           <Redline segments={a.propose} />
-          <p className="legend"><del>Barré</del> : ce qu'on retire. <ins>Souligné</ins> : ce qu'on ajoute.</p>
+          <p className="meta"><del>Barré</del> : ce qu'on retire. <ins>Souligné</ins> : ce qu'on ajoute.</p>
         </Row>
       </section>
 
@@ -64,9 +64,10 @@ function Fiche({ slug }: { slug: string }) {
       </section>
 
       <section aria-labelledby="h-perd">
-        <Row note={<p><strong>Suivi proposé :</strong> {a.suivi}</p>}>
+        <Row>
           <h2 id="h-perd">Qui perd</h2>
           <p>{a.quiPerd}</p>
+          <p><strong>Suivi proposé :</strong> {a.suivi}</p>
         </Row>
       </section>
 
@@ -89,7 +90,7 @@ function Fiche({ slug }: { slug: string }) {
             Ce texte n'est pas un avis juridique : il doit être relu par un juriste en droit du travail.
           </p>
           <p>
-            Amendement suivant : <a href={`${base}amendements/${next.slug}/`}>{next.titre}</a>. <a href={`${base}#amendements`}>Tous les amendements</a>. <a href={`${base}#sources`}>Toutes les sources</a>.
+            Amendement suivant : <a href={`${base}amendements/${next.slug}/`}>{next.titre}</a>. <a href={`${base}propositions/`}>Tous les amendements</a>. <a href={`${base}methode/#sources`}>Toutes les sources</a>.
           </p>
         </Row>
       </section>
@@ -98,4 +99,4 @@ function Fiche({ slug }: { slug: string }) {
 }
 
 const slug = document.getElementById("root")?.dataset.slug ?? "";
-mount("amendements", <Fiche slug={slug} />);
+mount("propositions", <Fiche slug={slug} />);

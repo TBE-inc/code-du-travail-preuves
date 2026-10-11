@@ -52,6 +52,7 @@ type Scenario = keyof typeof SCENARIOS;
 /** Coût administratif par démarche, avec choix du scénario. */
 export function CostChart() {
   const [k, setK] = useState<Scenario>("mid");
+  const [all, setAll] = useState(false);
   const { rows, max, ticks, total } = useMemo(() => {
     const top = Math.max(...costs.map((d) => d[k]));
     const step = top > 900 ? 400 : top > 450 ? 200 : 100;
@@ -73,7 +74,7 @@ export function CostChart() {
         </div>
       </div>
       <div className="chart">
-        {rows.map((d) => (
+        {rows.filter((d, i) => all || i < 8 || d.target).map((d) => (
           <div className={`crow${d.target ? " target" : ""}`} key={d.label}>
             <span className="lab"><span>{d.label}</span></span>
             <div className="trk"><span className="bar" style={{ left: 0, width: `${pct(d[k], 0, max)}%` }} /></div>
@@ -82,6 +83,9 @@ export function CostChart() {
         ))}
       </div>
       <Ticks values={ticks} min={0} max={max} />
+      <button type="button" className="linklike" style={{ justifySelf: "start", fontSize: 14.5 }} onClick={() => setAll(!all)} aria-expanded={all}>
+        {all ? "Ne montrer que les 8 plus coûteuses" : `Afficher les ${rows.length} démarches`}
+      </button>
       <figcaption>Total du scénario {SCENARIOS[k]} : {fr(total / 1000, 1)} milliards d'euros par an pour les 23 démarches.</figcaption>
     </figure>
   );

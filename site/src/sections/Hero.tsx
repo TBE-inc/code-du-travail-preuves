@@ -1,4 +1,4 @@
-import { Fn, Row } from "../components/ui";
+import { Fn } from "../components/ui";
 
 const folioRows: [string, number, number, number, boolean?][] = [
   ["11 à 24", 1, 10, 10],
@@ -7,32 +7,21 @@ const folioRows: [string, number, number, number, boolean?][] = [
   ["75 à 99", 5, 19, 95],
 ];
 
-const brief: { href: string; before: string; mark: string; after: string; tag: string }[] = [
-  { href: "#chomage", before: "Le chômage pèse ", mark: "cinq fois plus", after: " qu'un CDD sur le bien-être, à revenu égal.", tag: "Données européennes" },
-  { href: "#paperasse", before: "La paperasse du Code coûte ", mark: "1 à 7 milliards d'euros par an", after: ", surtout la paie, les risques, le licenciement et le CSE.", tag: "Modèle de coût" },
-  { href: "#seuil", before: "Le seuil de 50 salariés freine les entreprises : il faut le ", mark: "lisser, pas le relever", after: ".", tag: "Simulateur" },
-  { href: "#licenciement", before: "Faciliter le licenciement ", mark: "ne crée pas d'emplois en soi", after: ", mais rend l'économie plus productive.", tag: "Revue des études" },
-  { href: "#assurance", before: "Les leviers les plus puissants sur le chômage sont ", mark: "hors du Code du travail", after: ".", tag: "Assurance chômage" },
+export const constats: { id: string; titre: string }[] = [
+  { id: "chomage", titre: "Le chômage pèse cinq fois plus qu'un CDD sur le bien-être" },
+  { id: "paperasse", titre: "La paperasse coûte 1 à 7 milliards par an, mais pas là où on le croit" },
+  { id: "seuil", titre: "Le seuil de 50 salariés freine les entreprises : il faut le lisser" },
+  { id: "licenciement", titre: "Faciliter le licenciement ne crée pas d'emplois en soi" },
+  { id: "assurance", titre: "Les vrais leviers sur le chômage sont hors du Code du travail" },
 ];
 
 export function Hero() {
   return (
     <header className="hero">
-      <Row wide>
-        <h1>Le Code du travail, annoté par les preuves</h1>
-        <p className="lede">On a lu ses 11 572 articles, chiffré ce qu'ils coûtent et confronté chaque idée de réforme aux études et aux données. Voici ce qui tient.</p>
-        <p className="byline">Exercice indépendant, octobre 2026. Chaque chiffre renvoie à sa source.</p>
-      </Row>
+      <h1>Le Code du travail, annoté par les preuves</h1>
+      <p className="lede">On a lu ses 11 572 articles, chiffré ce qu'ils coûtent et confronté chaque idée de réforme aux études. Voici ce qui tient.</p>
 
-      <Row
-        style={{ marginTop: 40 }}
-        note={
-          <>
-            <p><strong>Le 50<sup>e</sup> salarié coûte cher.</strong> Le temps de délégation des élus passe d'un coup de 20 à 72 heures par mois, en plus de nouvelles obligations.</p>
-            <p>Des économistes ont mesuré l'effet de ce seuil sur toutes les entreprises françaises : il agit comme une <strong>taxe d'environ 1,3 %</strong> sur le travail, et <strong>les salariés en sont les premiers perdants</strong>.<Fn id="garicano" /></p>
-          </>
-        }
-      >
+      <figure style={{ marginTop: 16 }}>
         <div className="folio" aria-label="Extrait de l'article R2314-1 du Code du travail">
           <div className="runhead"><span>Code du travail</span><span>Partie réglementaire</span></div>
           <div className="arttitle">Article R2314-1</div>
@@ -53,21 +42,18 @@ export function Hero() {
             </tbody>
           </table>
         </div>
-      </Row>
+        <figcaption>
+          Au 50<sup>e</sup> salarié, le temps payé aux élus passe d'un coup de 20 à 72 heures par mois. Mesuré sur toutes les entreprises françaises, ce seuil agit comme une taxe d'environ 1,3 % sur le travail, payée surtout par les salariés.<Fn id="garicano" />
+        </figcaption>
+      </figure>
 
-      <Row style={{ marginTop: 56 }}>
-        <h2>En bref</h2>
-        <ul className="brief">
-          {brief.map((b) => (
-            <li key={b.href}>
-              <a href={b.href}>
-                {b.before}<mark>{b.mark}</mark>{b.after}
-                <span className="go">{b.tag}</span>
-              </a>
-            </li>
+      <nav aria-label="Les cinq constats" style={{ marginTop: 16 }}>
+        <ol className="summary">
+          {constats.map((c) => (
+            <li key={c.id}><a href={`#${c.id}`}>{c.titre}</a></li>
           ))}
-        </ul>
-      </Row>
+        </ol>
+      </nav>
     </header>
   );
 }

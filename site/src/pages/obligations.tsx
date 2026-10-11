@@ -137,7 +137,7 @@ function Explorer() {
 }
 
 mount(
-  "obligations",
+  "outils",
   <>
     <PageHead
       title="Les 2 847 obligations du Code du travail"
@@ -145,9 +145,10 @@ mount(
     />
     <section aria-label="Explorateur">
       <Row
+        label="Comment c'est fait, et ses limites"
         note={
           <>
-            <p><strong>Comment c'est fait.</strong> Un programme a parcouru le Code du 8 octobre 2026<Fn id="code" /> et relevé chaque phrase qui oblige l'employeur. Vérification à la main sur 150 articles tirés au sort : environ <strong>trois sur quatre</strong> sont bien repérés et bien classés.</p>
+            <p> Un programme a parcouru le Code du 8 octobre 2026<Fn id="code" /> et relevé chaque phrase qui oblige l'employeur. Vérification à la main sur 150 articles tirés au sort : environ <strong>trois sur quatre</strong> sont bien repérés et bien classés.</p>
             <p>Les normes techniques de sécurité (machines, échafaudages) sont moins bien repérées. Un tiers des obligations n'ont pas de type.</p>
             <p><a href={`${base}donnees/obligations.csv`}>Télécharger le fichier complet</a></p>
           </>

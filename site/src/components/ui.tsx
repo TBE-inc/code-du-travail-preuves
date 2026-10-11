@@ -9,17 +9,30 @@ export function Fn({ id }: { id: string }) {
   const n = sourceNumber(id);
   return (
     <sup className="fn">
-      <a href={`${import.meta.env.BASE_URL}#s${n}`}>{n}</a>
+      <a href={`${import.meta.env.BASE_URL}methode/#s${n}`} aria-label={`Source ${n}`}>{n}</a>
     </sup>
   );
 }
 
-/** Ligne texte + note de marge. */
-export function Row({ children, note, wide, style }: { children: ReactNode; note?: ReactNode; wide?: boolean; style?: React.CSSProperties }) {
+/** Détail replié : preuves, sources et limites, ouvertes d'un geste. */
+export function Proof({ label = "Preuves et limites", level, children }: { label?: string; level?: "forte" | "moyenne" | "faible"; children: ReactNode }) {
   return (
-    <div className="row" style={style}>
-      <div className={wide ? "main wide" : "main"}>{children}</div>
-      {note && <aside className="note">{note}</aside>}
+    <details className="proof">
+      <summary>
+        {label}
+        {level && <span className={`lvl ${level}`}>Preuve {level}</span>}
+      </summary>
+      <div className="proof-body">{children}</div>
+    </details>
+  );
+}
+
+/** Bloc de lecture ; la note éventuelle est repliée sous le texte. */
+export function Row({ children, note, label }: { children: ReactNode; note?: ReactNode; label?: string }) {
+  return (
+    <div className="stack">
+      {children}
+      {note && <Proof label={label}>{note}</Proof>}
     </div>
   );
 }

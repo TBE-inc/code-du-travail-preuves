@@ -1,9 +1,8 @@
 import { Hero } from "./sections/Hero";
 import { Assurance, Chomage, Licenciement, Paperasse, Seuil } from "./sections/Constats";
-import { Amendements } from "./sections/Amendements";
-import { Explorer, Methode, Sources } from "./sections/Fin";
+import { Explorer, Propositions } from "./sections/Fin";
 
-/** Page d'accueil : le constat, les amendements, la méthode et les sources. */
+/** Accueil : les cinq constats, puis ce qu'on propose et les outils. */
 export default function App() {
   return (
     <>
@@ -13,10 +12,8 @@ export default function App() {
       <Seuil />
       <Licenciement />
       <Assurance />
-      <Amendements />
+      <Propositions />
       <Explorer />
-      <Methode />
-      <Sources />
     </>
   );
 }

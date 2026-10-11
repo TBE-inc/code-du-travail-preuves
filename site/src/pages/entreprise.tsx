@@ -138,7 +138,7 @@ function Simulateur() {
       </div>
 
       <div className="tbl">
-        <table className="plain">
+        <table className="plain sim-table">
           <thead><tr><th>Démarche</th><th>Volume</th><th className="r">Coût estimé par an</th></tr></thead>
           <tbody>
             {r.detail.map((d) => (
@@ -156,7 +156,7 @@ function Simulateur() {
 }
 
 mount(
-  "entreprise",
+  "outils",
   <>
     <PageHead
       title="Ce que le Code du travail coûte à mon entreprise"
@@ -164,6 +164,7 @@ mount(
     />
     <section aria-label="Simulateur">
       <Row
+        label="Comment c'est calculé"
         note={
           <>
             <p><strong>Comment c'est calculé.</strong> Pour chaque démarche : nombre de fois par an × temps passé × coût horaire, moins ce que l'entreprise ferait de toute façon.<Fn id="scmmanual" /> Même modèle que la page principale.<Fn id="scm" /></p>
