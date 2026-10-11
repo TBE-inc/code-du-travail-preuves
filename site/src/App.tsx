@@ -1,6 +1,6 @@
 import { Hero } from "./sections/Hero";
 import { Insights } from "./sections/Insights";
-import { Explorer, Propositions } from "./sections/Fin";
+import { Propositions, Resume } from "./sections/Fin";
 
 /** Accueil : cinq constats en une image chacun, puis ce qu'on propose et les outils. */
 export default function App() {
@@ -9,7 +9,7 @@ export default function App() {
       <Hero />
       <Insights />
       <Propositions />
-      <Explorer />
+      <Resume />
     </>
   );
 }

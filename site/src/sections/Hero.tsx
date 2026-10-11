@@ -1,4 +1,6 @@
-const folioRows: [string, number, number, number, boolean?][] = [
+import { constats } from "../data/constats";
+
+export const folioRows: [string, number, number, number, boolean?][] = [
   ["11 à 24", 1, 10, 10],
   ["25 à 49", 2, 10, 20],
   ["50 à 74", 4, 18, 72, true],
@@ -9,9 +11,22 @@ export function Hero() {
   return (
     <header className="hero">
       <h1>Le Code du travail, annoté par les preuves</h1>
-      <p className="lede">On a lu ses 11 572 articles et confronté chaque idée de réforme aux études. Cinq constats, trois minutes.</p>
+      <p className="lede">Peut-on simplifier le Code du travail sans nuire à l'emploi ni au bien-être ? On a lu ses 11 572 articles et 51 études pour répondre.</p>
+      <ol className="route" aria-label="Le parcours" style={{ marginTop: 16 }}>
+        {constats.map((c) => <li key={c.id}><a href={`#${c.id}`}>{c.question}</a></li>)}
+        <li><a href="#propositions">Que changer dans le Code ?</a></li>
+        <li className="end"><a href="#resume">En résumé, et ce qu'on ne sait pas</a></li>
+      </ol>
 
-      <figure style={{ marginTop: 16 }}>
+
+    </header>
+  );
+}
+
+/** Fac-similé de l'article R2314-1, avec le saut du 50e salarié surligné. */
+export function Folio() {
+  return (
+      <figure>
         <div className="folio" aria-label="Extrait de l'article R2314-1 du Code du travail">
           <div className="runhead"><span>Code du travail</span><span>Partie réglementaire</span></div>
           <div className="arttitle">Article R2314-1</div>
@@ -36,7 +51,5 @@ export function Hero() {
           Au 50<sup>e</sup> salarié, les heures payées aux élus passent d'un coup de 20 à 72 par mois.
         </figcaption>
       </figure>
-
-    </header>
   );
 }

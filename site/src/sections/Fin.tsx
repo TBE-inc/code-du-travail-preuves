@@ -1,6 +1,8 @@
 import { Fn, Row } from "../components/ui";
 import { sources } from "../data/sources";
 import { amendements } from "../data/amendements";
+import { constats } from "../data/constats";
+import { BlockHead } from "./Insights";
 
 const glossary: [string, string][] = [
   ["CDI, CDD", "Contrat sans date de fin, ou avec. 84 % des embauches se font en CDD, souvent de moins d'un mois."],
@@ -30,45 +32,56 @@ const outils: [string, string, string][] = [
   ["pays/", "La France face à ses voisins", "Chômage, emploi, règles du licenciement, bien-être : 12 pays et la moyenne de l'Union."],
 ];
 
-export function Explorer() {
+/** Bloc 6 : ce qu'on propose. */
+export function Propositions() {
   return (
-    <section id="outils" aria-labelledby="h-outils">
-      <div className="stack">
-        <h2 id="h-outils">Vérifier par vous-même</h2>
-        <ul className="linklist">
-          {outils.map(([href, titre, desc]) => (
-            <li key={href}>
-              <a href={`${base}${href}`}>
-                <strong>{titre}</strong>
-                <span className="meta-line">{desc}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <section id="propositions" className="block" aria-labelledby="h-prop">
+      <BlockHead n={constats.length + 1} q="Que changer dans le Code ?" />
+      <h2 id="h-prop">Cinq amendements, chacun avec ses perdants et ses garde-fous</h2>
+      <ul className="linklist">
+        {amendements.map((a) => (
+          <li key={a.slug}>
+            <a href={`${base}amendements/${a.slug}/`}>
+              <strong>{a.titre}</strong>
+              <span className="meta-line"><span className={`v-${a.verdict}`}>{a.verdict === "good" ? "Gagnant partout" : "Sous condition"}.</span> {a.gain}.</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a className="more-link" href={`${base}propositions/`}>Lire les textes et les pistes hors du Code</a>
     </section>
   );
 }
 
-/** Résumé des propositions sur l'accueil. */
-export function Propositions() {
+/** Fin du parcours : la conclusion, les limites, et où vérifier. */
+export function Resume() {
   return (
-    <section id="propositions" aria-labelledby="h-prop">
-      <div className="stack">
-        <h2 id="h-prop">Ce qu'on propose</h2>
-        <p>Simplifier la paperasse, lisser les seuils, assouplir le licenciement seulement en échange d'une vraie sécurité de transition, et <strong>tout tester avant de généraliser</strong>. Cinq amendements, écrits comme de vrais articles.</p>
-        <ul className="linklist">
-          {amendements.map((a) => (
-            <li key={a.slug}>
-              <a href={`${base}amendements/${a.slug}/`}>
-                <strong>{a.titre}</strong>
-                <span className="meta-line"><span className={`v-${a.verdict}`}>{a.verdict === "good" ? "Gagnant partout" : "Sous condition"}.</span> {a.gain}.</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p><a href={`${base}propositions/`}>Voir les textes barrés et soulignés, et les pistes hors du Code</a></p>
-      </div>
+    <section id="resume" className="block end" aria-labelledby="h-resume">
+      <h2 id="h-resume">En résumé</h2>
+      <ul className="plainlist">
+        <li>Le chômage fait bien plus de mal que la précarité. Une réforme se juge d'abord à l'emploi.</li>
+        <li>La paperasse coûte cher, surtout la paie et les seuils. Une partie peut baisser sans toucher aux protections.</li>
+        <li>Faciliter le licenciement n'est utile qu'avec une vraie sécurité de transition.</li>
+        <li>Les leviers les plus forts sont hors du Code : l'accompagnement des chômeurs.</li>
+      </ul>
+      <h3>Ce qu'on ne sait pas</h3>
+      <ul className="plainlist">
+        <li>Le temps réel passé sur plusieurs démarches : il est estimé.</li>
+        <li>L'effet causal en France : les données françaises manquent.</li>
+        <li>La valeur juridique des textes proposés : ils doivent être relus par un juriste.</li>
+      </ul>
+      <h3 id="outils" style={{ scrollMarginTop: 72 }}>Vérifier par vous-même</h3>
+      <ul className="linklist">
+        {outils.map(([href, titre, desc]) => (
+          <li key={href}>
+            <a href={`${base}${href}`}>
+              <strong>{titre}</strong>
+              <span className="meta-line">{desc}</span>
+            </a>
+          </li>
+        ))}
+        <li><a href={`${base}methode/`}><strong>Méthode et 29 sources</strong><span className="meta-line">Comment on a travaillé, ce qu'on a corrigé en route.</span></a></li>
+      </ul>
     </section>
   );
 }

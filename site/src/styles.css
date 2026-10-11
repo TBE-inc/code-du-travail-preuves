@@ -1,8 +1,9 @@
 /* Le Code du travail, annoté par les preuves — système v3. Voir UX.md.
    Une colonne de 680 px. Six tailles. Rouge = le Code. Surligneur = le chiffre clé. */
 :root {
-  --paper: #ffffff;
-  --sunk: #f6f6f4;
+  --paper: #fdfdfd;
+  --card: #ffffff;
+  --sunk: #f4f4f2;
   --ink: #1e2126;
   --muted: #5f636b;
   --rule: #e3e4e7;
@@ -32,19 +33,6 @@
   --r-ctl: 6px;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #16181c; --sunk: #1d2025; --ink: #e9e7e2; --muted: #a2a5ad; --rule: #2d3138;
-    --red: #e8737a; --hl: #7a6200; --good: #7fcf9f; --amber: #e8b75c; --bar: #c9ccd2;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #16181c; --sunk: #1d2025; --ink: #e9e7e2; --muted: #a2a5ad; --rule: #2d3138;
-  --red: #e8737a; --hl: #7a6200; --good: #7fcf9f; --amber: #e8b75c; --bar: #c9ccd2;
-  color-scheme: dark;
-}
-
 /* base */
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -74,7 +62,7 @@ ul.plainlist { padding-left: 1.1em; display: grid; gap: var(--s1); }
 .muted-note { color: var(--muted); }
 
 /* navigation */
-.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--rule); margin-inline: -20px; padding: 0 20px; }
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: rgba(253, 253, 253, .94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); margin-inline: -20px; padding: 0 20px; }
 .nav-inner { max-width: var(--col); margin: 0 auto; display: flex; align-items: center; gap: var(--s2); min-height: 52px; }
 .nav-brand { font-family: var(--serif); font-weight: 700; font-size: 16px; text-decoration: none; margin-right: auto; white-space: nowrap; }
 .nav ul { list-style: none; padding: 0; display: flex; gap: var(--s2); font-size: 15px; }
@@ -307,3 +295,29 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
   dl.verdicts div { flex-direction: column; gap: 2px; }
   dl.verdicts dd { text-align: left; font-size: 19px; }
 }
+
+/* v5 : blocs et parcours */
+main { gap: var(--s4); }
+.block { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 32px; display: grid; gap: var(--s2); box-shadow: 0 1px 2px rgba(30, 33, 38, .04), 0 12px 32px -24px rgba(30, 33, 38, .18); scroll-margin-top: 72px; }
+@media (max-width: 560px) { .block { padding: 22px 18px; border-radius: 12px; margin-inline: -4px; } }
+.block-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: var(--s2); border-bottom: 1px solid var(--rule); }
+.block-n { flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--card); font-family: var(--serif); font-weight: 700; font-size: 15px; transform: translateY(-1px); }
+.block-q { font-size: 16px; font-weight: 600; color: var(--muted); line-height: 1.4; }
+.block h2 { margin-top: var(--s1); }
+.block .bars, .block dl.verdicts { margin-top: var(--s1); }
+.block .more-link { margin-top: var(--s1); }
+.part { font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 18px; text-align: center; margin: var(--s2) 0 calc(-1 * var(--s2)); }
+.route { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; counter-reset: r; }
+.route li { counter-increment: r; border-top: 1px solid var(--rule); }
+.route li:last-child { border-bottom: 1px solid var(--rule); }
+.route a { display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: baseline; padding: 11px 0; text-decoration: none; font-size: 16.5px; line-height: 1.35; }
+.route a::before { content: counter(r); font-family: var(--serif); font-weight: 700; color: var(--muted); text-align: center; }
+.route a:hover { color: var(--red); }
+.route li.end a::before { content: "→"; }
+.block.end { background: var(--sunk); border-top: 3px solid var(--red); }
+.block h3 { margin-top: var(--s2); }
+main > section:not(.block) { background: var(--card); border: 1px solid var(--rule); border-radius: 14px; padding: 32px; box-shadow: 0 1px 2px rgba(30, 33, 38, .04), 0 12px 32px -24px rgba(30, 33, 38, .18); }
+main > section:not(.block) > .stack > h2:first-child, main > section:not(.block) > div > h2:first-child { padding-bottom: var(--s2); border-bottom: 1px solid var(--rule); }
+#amendements article + article { padding-top: var(--s3); border-top: 1px solid var(--rule); }
+@media (max-width: 560px) { main > section:not(.block) { padding: 22px 18px; border-radius: 12px; margin-inline: -4px; } }
+.pager { border-top: 0; }

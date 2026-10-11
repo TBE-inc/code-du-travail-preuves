@@ -114,3 +114,10 @@ Format « insight » retenu (Our World in Data) : sur l'accueil, chaque constat 
 à un seul message (5 barres ou 3 verdicts au plus), une phrase, un lien. Le détail complet (graphiques
 interactifs, tableaux, preuves et limites en clair) vit sur `/constats/<id>/`, avec Précédent / Suivant.
 Accueil mobile : 9 525 px (v3) → 5 900 px environ.
+
+## Décision v5
+
+- Fond blanc cassé `#FDFDFD`, blocs blancs bordés ; palette de la maquette Figma (encre, rouge, surligneur).
+  Mode sombre supprimé : le fond noir suivait le réglage du système et cassait l'identité « page annotée ».
+- Récit factuel en questions-réponses : la question de départ, le parcours (7 étapes), 5 blocs « question,
+  réponse, une preuve visuelle », le bloc 6 « Que changer ? », puis la fin : résumé, ce qu'on ne sait pas, outils.

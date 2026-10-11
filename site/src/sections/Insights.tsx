@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Bars } from "../components/Bars";
 import { constats, type ConstatId } from "../data/constats";
+import { Folio } from "./Hero";
 
 const base = import.meta.env.BASE_URL;
 
@@ -30,13 +31,7 @@ const visuels: Record<ConstatId, ReactNode> = {
       ]}
     />
   ),
-  seuil: (
-    <dl className="verdicts">
-      <div><dt>Heures payées aux élus, de 49 à 50 salariés</dt><dd className="down">+52 h par mois</dd></div>
-      <div><dt>Démarches en plus</dt><dd>2 200 à 14 800 € par an</dd></div>
-      <div><dt>Effet mesuré sur toutes les entreprises</dt><dd className="down">Taxe de 1,3 % sur le travail</dd></div>
-    </dl>
-  ),
+  seuil: <Folio />,
   licenciement: (
     <dl className="verdicts">
       <div><dt>Sur le chômage</dt><dd>Pas d'effet net</dd></div>
@@ -53,12 +48,22 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
 };
 
+/** En-tête d'un bloc : numéro et question. */
+export function BlockHead({ n, q }: { n: number; q: string }) {
+  return (
+    <div className="block-head">
+      <span className="block-n" aria-hidden="true">{n}</span>
+      <p className="block-q">{q}</p>
+    </div>
+  );
+}
+
 export function Insights() {
   return (
     <>
       {constats.map((c, i) => (
-        <section key={c.id} id={c.id} className="insight" aria-labelledby={`h-${c.id}`}>
-          <p className="constat-n">{i + 1} sur {constats.length}</p>
+        <section key={c.id} id={c.id} className="block" aria-labelledby={`h-${c.id}`}>
+          <BlockHead n={i + 1} q={c.question} />
           <h2 id={`h-${c.id}`}>{c.titre}</h2>
           {visuels[c.id]}
           <p className="insight-text">{c.phrase}</p>
