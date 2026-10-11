@@ -331,6 +331,7 @@ main > header + section:not(.band) { border-top: 0; padding-top: 0; }
   .band:nth-of-type(even) .ins-vis { order: -1; }
 }
 .ins-vis .bars { border: 0; padding: 0; }
+.ins-vis .fig-title { color: var(--ink); font-weight: 600; font-size: 16px; line-height: 1.4; }
 .ins-vis .b-row { grid-template-columns: minmax(0, 13rem) 1fr auto; font-size: 16px; }
 .ins-vis .b-trk { height: 18px; }
 .ins-vis dl.verdicts div { padding: 16px 0; }
@@ -497,11 +498,8 @@ dl.legend dd { margin: 0; color: var(--muted); }
 .crit-box li { display: grid; gap: 1px; }
 .crit-box li span { font-size: 14px; color: var(--muted); }
 .crit-rule { margin-top: var(--s3); }
-.ins-why { color: var(--muted); }
-.ins-read, .ins-proof { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
-.ins-proof { margin-top: 6px; }
+.ins-proof { font-size: 13.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
 .ins-proof .lvl { font-size: inherit; }
-@media (max-width: 959px) { .ins .ins-why { order: 0; } }
 @media (max-width: 640px) {
   .terme-bulle { position: fixed; left: 12px; right: 12px; bottom: 16px; top: auto; width: auto; max-width: none; transform: none; padding: 14px 16px; font-size: 15px; }
   .terme:hover:not(.ouvert) .terme-bulle { visibility: hidden; opacity: 0; }

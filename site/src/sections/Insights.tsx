@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 const visuels: Record<ConstatId, ReactNode> = {
   chomage: (
     <Bars
-      title="Satisfaction de vie par rapport à un salarié en CDI, sur 10"
+      title="Écart de satisfaction de vie avec un salarié en CDI, sur 10, à revenu égal"
       unit=" point"
       digits={2}
       rows={[
@@ -20,7 +20,7 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
   paperasse: (
     <Bars
-      title="Coût par an pour toutes les entreprises, en millions d'euros (scénario central)"
+      title="Ce que coûte chaque démarche, par an, à toutes les entreprises"
       unit=" M€"
       rows={[
         { label: "Fiches de paie", value: 759, strong: true },
@@ -32,25 +32,34 @@ const visuels: Record<ConstatId, ReactNode> = {
     />
   ),
   seuil: (
+    <>
+    <p className="fig-title">Ce qui change quand une entreprise passe de 49 à 50 salariés</p>
     <dl className="verdicts">
       <div><dt><Terme id="delegation">Heures de délégation</Terme> des élus, par mois</dt><dd className="down">20 h, puis 72 h</dd></div>
       <div><dt>Équivaut à une taxe sur le travail de</dt><dd className="down">1,3 %</dd></div>
       <div><dt>PIB perdu si les salaires sont rigides</dt><dd className="down">4 à 5 %</dd></div>
     </dl>
+    </>
   ),
   licenciement: (
+    <>
+    <p className="fig-title">Ce que trouvent les études quand on assouplit la protection des <Terme id="cdi">CDI</Terme></p>
     <dl className="verdicts">
       <div><dt>Sur le chômage</dt><dd>Pas d'effet net</dd></div>
       <div><dt>Sur la productivité</dt><dd className="up">En hausse</dd></div>
       <div><dt>Sur les embauches en <Terme id="cdi">CDI</Terme> (Italie, 2015)</dt><dd className="up">En hausse</dd></div>
     </dl>
+    </>
   ),
   assurance: (
+    <>
+    <p className="fig-title">Les réformes des allocations chômage depuis 2021, et leurs effets connus</p>
     <dl className="verdicts">
       <div><dt>Réformes des allocations depuis 2021</dt><dd>3</dd></div>
       <div><dt>Évaluées de façon solide</dt><dd className="down">Aucune</dd></div>
       <div><dt>Accompagnement des chômeurs de longue durée</dt><dd className="up">Efficace après 2 à 3 ans</dd></div>
     </dl>
+    </>
   ),
 };
 
@@ -72,14 +81,12 @@ export function Insights() {
           <BlockHead n={i + 1} q={c.question} />
           <div className="ins">
             <div className="ins-text">
-              <p className="ins-why"><AvecTermes texte={c.pourquoi} /></p>
               <h2 id={`h-${c.id}`}>{c.titre}</h2>
               <p className="insight-text"><AvecTermes texte={c.phrase} /></p>
               <a className="more-link" href={`${base}constats/${c.id}/`}>Voir le détail et les preuves</a>
             </div>
             <div className="ins-vis">
               {visuels[c.id]}
-              <p className="ins-read"><AvecTermes texte={c.lire} /></p>
               <p className="ins-proof"><span className={`lvl ${c.niveau}`}>Preuve {c.niveau}.</span> {c.preuve}</p>
             </div>
           </div>
