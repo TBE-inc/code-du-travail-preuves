@@ -27,6 +27,14 @@ export function Hero() {
             <p className="ech-val">{l.val.replace(/ (?=Md€)/, " ")}</p>
           </div>
         ))}
+        <div className="ech-row ech-axe" aria-hidden="true">
+          <span />
+          <span className="ech-graduations">
+            {[0, 50, 100, 150].map((v) => <span key={v} style={{ left: `${(v / MAX) * 100}%` }}>{v === MAX ? `${v}\u00a0Md€` : v}</span>)}
+          </span>
+          <span />
+        </div>
+        <p className="ech-legende">Partie pleine : estimation basse. Contour : jusqu'à l'estimation haute.</p>
       </figure>
       <p className="hero-liens">
         <a href="#prologue">Commencer la lecture</a>
