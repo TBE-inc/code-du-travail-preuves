@@ -248,7 +248,9 @@ ol.src a { color: var(--ink); }
 input[type=search], input[type=number], select { font: inherit; font-size: 15.5px; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: var(--r-ctl); padding: 8px 10px; min-width: 0; width: 100%; }
 input[type=search]:focus, input[type=number]:focus, select:focus { border-color: var(--ink); outline: none; }
 .count { font-size: 15.5px; }
-.linklike { font: inherit; background: none; border: 0; padding: 0; color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 3px; cursor: pointer; }
+.linklike { font: inherit; border: 0; padding: 0 0 1px; color: var(--ink); cursor: pointer; background-color: transparent; background-image: linear-gradient(var(--hl), var(--hl)), linear-gradient(var(--red), var(--red)); background-repeat: no-repeat; background-position: 0 92%, 0 100%; background-size: 0% 40%, 100% 1.5px; transition: background-size .28s cubic-bezier(.2, .8, .2, 1); }
+.linklike:hover, .linklike:focus-visible { background-size: 100% 40%, 100% 1.5px; }
+.linklike:active { background-size: 100% 85%, 100% 2.5px; transition-duration: .12s; }
 .linklike:hover { color: var(--red); }
 .crow-btn { width: 100%; font: inherit; color: inherit; background: none; border: 0; padding: 2px 0; text-align: left; cursor: pointer; }
 .crow-btn:hover .lab { color: var(--red); }
