@@ -3,7 +3,7 @@ import { sources } from "../data/sources";
 import { glossaire } from "../data/glossaire";
 import { amendements } from "../data/amendements";
 import { constats } from "../data/constats";
-import { BlockHead } from "./Insights";
+import { BlockHead, Fil } from "./Insights";
 
 
 const base = import.meta.env.BASE_URL;
@@ -22,7 +22,7 @@ const outils: [string, string, string][] = [
   ["pays/", "La France face à ses voisins", "Chômage, emploi, règles de licenciement, bien-être : la France comparée à 12 pays européens."],
 ];
 
-/** Bandeau 6 : ce qu'on propose. */
+/** Chapitre 6 : ce qu'on propose. */
 export function Propositions() {
   return (
     <section id="propositions" className="band sunk" aria-labelledby="h-prop">
@@ -42,6 +42,7 @@ export function Propositions() {
         ))}
         <li className="go"><a href={`${base}propositions/`}>Comparer les cinq, et les pistes hors du Code</a></li>
       </ul>
+      <Fil texte="Ces amendements rapportent 100 à 550 M€ par an. Voici l'ensemble en une page." vers="#resume" suite="Conclusion" />
     </section>
   );
 }
@@ -52,6 +53,7 @@ export function Resume() {
     <section id="resume" className="band alt end" aria-labelledby="h-resume">
       <div className="fin-grid">
         <div className="stack">
+          <p className="chap-sur">Conclusion</p>
           <h2 id="h-resume">En résumé</h2>
           <ol className="resume-list">
             <li>Perdre son emploi pèse cinq fois plus sur le bonheur qu'un contrat précaire. Une réforme se juge d'abord à l'emploi.</li>

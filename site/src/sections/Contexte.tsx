@@ -1,52 +1,56 @@
 import { Terme } from "../components/Terme";
+import { Fil } from "./Insights";
 
-const avant: [string, React.ReactNode][] = [
-  ["Le Code du travail", <>Il fixe les règles entre employeurs et salariés : embauche, contrats (<Terme id="cdi">CDI</Terme>, <Terme id="cdd">CDD</Terme>), temps de travail, licenciement, représentants du personnel. Il compte 11 572 articles et environ 1,1 million de mots.</>],
-  ["Ce que nous avons fait", <>Nous l'avons lu en entier et nous avons chiffré ce que ses démarches coûtent. Puis nous avons confronté chaque idée de réforme à 56 études et aux réponses de 40 000 Européens.</>],
-  ["Qui parle", <>Un exercice indépendant, mené avec l'aide d'une intelligence artificielle (Claude). Ce n'est ni un avis juridique, ni une étude relue par des pairs.</>],
-  ["Comment lire", <>Chaque bloc pose une question et donne la réponse en titre. Dessous : la preuve, et son degré de solidité. Les mots soulignés en pointillé sont définis au survol ou au toucher.</>],
+const base = import.meta.env.BASE_URL;
+
+const chiffres: [string, string][] = [
+  ["11 572", "articles du Code, lus du premier au dernier"],
+  ["1,1 million", "de mots dans ces articles"],
+  ["56", "études pour juger chaque idée de réforme"],
+  ["40 000", "Européens interrogés sur leur satisfaction de vie"],
 ];
 
-const objectifs: [string, string][] = [
-  ["Emploi", "surtout des jeunes, des seniors et des chômeurs de longue durée"],
-  ["Pouvoir d'achat", "le revenu du ménage typique"],
-  ["Dynamisme des entreprises", "création, croissance, passage des seuils"],
-  ["Qualité de vie au travail", "autonomie, sécurité ressentie"],
+// Grille de lecture : 03-analyses/preuves-par-levier.md.
+const niveaux: [string, string, string][] = [
+  ["forte", "Forte", "plusieurs études causales concordantes, ou une méta-analyse"],
+  ["moyenne", "Moyenne", "une étude causale solide, ou plusieurs études de qualité inégale"],
+  ["faible", "Faible", "corrélations, témoignages, ou résultats contradictoires"],
 ];
-const gardeFous = ["Santé mentale et bien-être", "Sécurité au travail", "Inégalités", "Finances de l'assurance chômage"];
 
-/** Le contexte avant la première question : de quoi on parle, qui parle, selon quels critères. */
+/** Le prologue : ce que nous avons lu, selon quels critères, comment lire la suite, et qui parle. */
 export function Contexte() {
   return (
-    <>
-      <section id="avant" className="band alt" aria-labelledby="h-avant">
-        <div className="ctx">
-          <div className="stack">
-            <h2 id="h-avant">Avant de lire</h2>
-            <p className="muted-note">D'où viennent les réponses, en quatre points.</p>
-          </div>
-          <dl className="ctx-list">
-            {avant.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}
+    <section id="prologue" className="band alt" aria-labelledby="h-prologue">
+      <div className="prol-tete">
+        <p className="chap-sur">Prologue</p>
+        <h2 id="h-prologue">Nous avons lu le Code en entier, puis confronté chaque idée aux études</h2>
+        <p className="lede-ink">Le Code du travail fixe les règles entre employeurs et salariés : embauche, contrats (<Terme id="cdi">CDI</Terme>, <Terme id="cdd">CDD</Terme>), temps de travail, licenciement, représentants du personnel.</p>
+      </div>
+      <dl className="prol-chiffres">
+        {chiffres.map(([n, d]) => <div key={n}><dt>{n}</dt><dd>{d}</dd></div>)}
+      </dl>
+      <div className="prol-cols">
+        <div className="prol-col">
+          <h3>Nos critères, fixés avant les preuves</h3>
+          <p><strong className="crit-up">Améliorer :</strong> l'emploi, surtout des jeunes, des seniors et des chômeurs de longue durée. Et aussi le pouvoir d'achat, le dynamisme des entreprises, la qualité de vie au travail.</p>
+          <p><strong className="crit-down">Sans dégrader :</strong> la santé mentale, la sécurité au travail, les inégalités, les finances de l'assurance chômage.</p>
+        </div>
+        <div className="prol-col">
+          <h3>Comment lire chaque chapitre</h3>
+          <p>La question ouvre le chapitre, la réponse est le titre. Sous le graphique, la solidité de la preuve :</p>
+          <dl className="prol-niveaux">
+            {niveaux.map(([k, t, d]) => <div key={k}><dt className={`lvl ${k}`}>{t}</dt><dd>{d}</dd></div>)}
           </dl>
+          <p>Les mots soulignés en pointillé, comme <Terme id="cdi">CDI</Terme>, sont définis au survol ou au toucher.</p>
         </div>
-      </section>
-      <section id="criteres" className="band sunk" aria-labelledby="h-criteres">
-        <div className="stack">
-          <h2 id="h-criteres">Nos critères</h2>
-          <p className="lede-ink">Une réforme est bonne si elle rend le pays plus prospère et plus heureux, durablement. Nous avons fixé ces critères avant de regarder les preuves.</p>
-        </div>
-        <div className="crit-grid">
-          <div className="crit-box">
-            <h3 className="crit-up">Ce qu'on veut améliorer</h3>
-            <ul>{objectifs.map(([t, d]) => <li key={t}><strong>{t}</strong><span>{d}</span></li>)}</ul>
-          </div>
-          <div className="crit-box">
-            <h3 className="crit-down">Ce qu'on ne doit pas dégrader</h3>
-            <ul>{gardeFous.map((t) => <li key={t}><strong>{t}</strong></li>)}</ul>
-          </div>
-        </div>
-        <p className="crit-rule"><strong>Règle :</strong> une mesure est retenue si elle améliore au moins un objectif sans dégrader aucun garde-fou.</p>
-      </section>
-    </>
+        <aside className="prol-qui" aria-labelledby="h-qui">
+          <h3 id="h-qui">Qui parle</h3>
+          <p>Un exercice indépendant, mené avec l'aide d'une intelligence artificielle (Claude).</p>
+          <p>Ce n'est ni un avis juridique, ni une étude relue par des pairs. Chaque chiffre renvoie à sa source.</p>
+          <a href={`${base}methode/`}>Voir la méthode</a>
+        </aside>
+      </div>
+      <Fil texte="Nous commençons par ce qui pèse le plus sur la vie des gens : l'emploi." vers="#chomage" suite="Chapitre 1 : L'emploi d'abord" />
+    </section>
   );
 }

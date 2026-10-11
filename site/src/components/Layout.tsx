@@ -24,7 +24,7 @@ export function Layout({ page, children }: { page: PageId; children: ReactNode }
           <div className="foot-cols">
             <nav aria-label="Comprendre">
               <p className="foot-h">Comprendre</p>
-              <a href={base}>Les cinq questions</a>
+              <a href={base}>Les chapitres</a>
               <a href={`${base}propositions/`}>Les propositions</a>
               <a href={`${base}methode/`}>Méthode et sources</a>
             </nav>

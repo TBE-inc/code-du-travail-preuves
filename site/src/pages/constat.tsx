@@ -15,11 +15,11 @@ function Page({ id }: { id: string }) {
   const prev = constats[i - 1], next = constats[i + 1];
   return (
     <>
-      <PageHead title={c.titre} lede={<><AvecTermes texte={c.pourquoi} /> <AvecTermes texte={c.phrase} /></>} crumb={<><a href={`${base}#${c.id}`}>Les cinq questions</a> / Question {i + 1} sur {constats.length} : {c.question}</>} />
+      <PageHead title={c.titre} lede={<><AvecTermes texte={c.pourquoi} /> <AvecTermes texte={c.phrase} /></>} crumb={<><a href={`${base}#${c.id}`}>Les chapitres</a> / Chapitre {i + 1} : {c.question}</>} />
       <Contenu />
-      <nav className="pager" aria-label="Les cinq questions">
+      <nav className="pager" aria-label="Les chapitres">
         {prev ? <a href={`${base}constats/${prev.id}/`}><span className="meta">Précédent</span>{prev.titre}</a> : <a href={base}><span className="meta">Retour</span>L'accueil et le parcours</a>}
-        <ol className="dots" aria-label={`Constat ${i + 1} sur ${constats.length}`}>
+        <ol className="dots" aria-label={`Chapitre ${i + 1} sur ${constats.length}`}>
           {constats.map((k, j) => <li key={k.id}><a href={`${base}constats/${k.id}/`} aria-current={j === i ? "page" : undefined} title={k.court}><span className="sr">{k.court}</span></a></li>)}
         </ol>
         {next ? <a className="r" href={`${base}constats/${next.id}/`}><span className="meta">Suivant</span>{next.titre}</a> : <a className="r" href={`${base}propositions/`}><span className="meta">Ensuite</span>Ce qu'on propose</a>}

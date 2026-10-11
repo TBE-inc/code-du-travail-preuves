@@ -29,7 +29,7 @@ export function Hero() {
         ))}
       </figure>
       <p className="hero-liens">
-        <a href="#chomage">Commencer par la question 1</a>
+        <a href="#prologue">Commencer la lecture</a>
         <a href={`${base}constats/paperasse/#h-audela`}>Voir le calcul complet</a>
       </p>
     </header>

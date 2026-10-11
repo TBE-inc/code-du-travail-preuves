@@ -63,12 +63,22 @@ const visuels: Record<ConstatId, ReactNode> = {
   ),
 };
 
-/** Ouverture d'un bloc : filet, grand numéro et question (les questions 1 à 5, puis « Que changer »). */
+/** Ouverture d'un chapitre : grand numéro, « Chapitre n » et la question (chapitres 1 à 5, puis « Que changer »). */
 export function BlockHead({ n, q }: { n: number; q: string }) {
   return (
     <div className="chap">
       <span className="chap-n" aria-hidden="true">{n}</span>
-      <p className="chap-q"><span className="chap-sur">Question {n} sur {constats.length + 1}</span>{q}</p>
+      <p className="chap-q"><span className="chap-sur">Chapitre {n}</span>{q}</p>
+    </div>
+  );
+}
+
+/** Fin d'un chapitre : la phrase de passage et le lien vers la suite. */
+export function Fil({ texte, vers, suite }: { texte: string; vers: string; suite: string }) {
+  return (
+    <div className="fil">
+      <p className="fil-texte">{texte}</p>
+      <a href={vers}>{suite}</a>
     </div>
   );
 }
@@ -90,6 +100,9 @@ export function Insights() {
               <p className="ins-proof"><span className={`lvl ${c.niveau}`}>Preuve {c.niveau}.</span> {c.preuve}</p>
             </div>
           </div>
+          {i + 1 < constats.length
+            ? <Fil texte={c.fil} vers={`#${constats[i + 1].id}`} suite={`Chapitre ${i + 2} : ${constats[i + 1].court}`} />
+            : <Fil texte={c.fil} vers="#propositions" suite={`Chapitre ${i + 2} : Que changer`} />}
         </section>
       ))}
     </>

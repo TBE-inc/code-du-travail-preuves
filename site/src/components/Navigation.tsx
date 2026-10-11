@@ -9,7 +9,7 @@ const base = import.meta.env.BASE_URL;
 type Etape = { id: string; n: string; label: string; href: string };
 
 const pages: { href: string; label: string; sous?: boolean }[] = [
-  { href: base, label: "Les cinq questions" },
+  { href: base, label: "Les chapitres" },
   { href: `${base}propositions/`, label: "Propositions" },
   { href: `${base}obligations/`, label: "Les 2 847 obligations", sous: true },
   { href: `${base}mon-entreprise/`, label: "Ce que le Code coûte à mon entreprise", sous: true },
@@ -19,10 +19,10 @@ const pages: { href: string; label: string; sous?: boolean }[] = [
 
 function etapes(accueil: boolean): Etape[] {
   return [
-    { id: "avant", n: "", label: "Avant de lire", href: `${accueil ? "" : base}#avant` },
+    { id: "prologue", n: "", label: "Prologue", href: `${accueil ? "" : base}#prologue` },
     ...constats.map((c, i) => ({ id: c.id, n: String(i + 1), label: c.court, href: accueil ? `#${c.id}` : `${base}constats/${c.id}/` })),
     { id: "propositions", n: String(constats.length + 1), label: "Que changer", href: accueil ? "#propositions" : `${base}propositions/` },
-    { id: "resume", n: "✓", label: "En résumé", href: `${accueil ? "" : base}#resume` },
+    { id: "resume", n: "", label: "Conclusion", href: `${accueil ? "" : base}#resume` },
   ];
 }
 
