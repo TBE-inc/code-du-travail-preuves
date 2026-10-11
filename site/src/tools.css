@@ -36,7 +36,7 @@
 .tools .sim-n-row { display: flex; align-items: baseline; gap: 10px; font-family: var(--serif); font-size: 22px; }
 .tools .sim-n-row input[type=text] {
   width: 4.2em; font-family: var(--serif); font-size: 32px; font-weight: 700; line-height: 1.1;
-  padding: 4px 8px; border-radius: var(--r-ctl); color: var(--ink); font-variant-numeric: tabular-nums lining-nums;
+  padding: 4px 8px; border-radius: var(--r-ctl); color: var(--ink); font-variant-numeric: proportional-nums lining-nums;
 }
 .sim-aide { font-size: var(--t-meta); color: var(--muted); }
 
@@ -50,7 +50,7 @@ details.sim-flux legend { padding: 0 0 4px; font-size: var(--t-meta); color: var
 /* libellé à gauche, champ à droite : un libellé sur deux lignes ne décale plus rien */
 details.sim-flux label { grid-template-columns: minmax(0, 1fr) 5.5em; align-items: center; gap: 12px; }
 details.sim-flux label > span { color: var(--ink); font-weight: 400; line-height: 1.3; }
-details.sim-flux input[type=number] { text-align: right; font-variant-numeric: tabular-nums; }
+details.sim-flux input[type=number] { text-align: right; font-variant-numeric: proportional-nums; }
 details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
 
 .tools .sim-result { display: grid; gap: 4px; padding: 0; border: 0; }
@@ -61,7 +61,7 @@ details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
 .sim-hours { font-family: var(--serif); font-size: var(--t-lede); line-height: 1.4; }
 .tools .formula { font-size: var(--t-meta); color: var(--muted); }
 .sim-deleg { font-size: 15.5px; padding-top: var(--s2); border-top: 1px solid var(--rule); }
-.sim-threshold { border-left: 3px solid var(--amber); background: var(--sunk); padding: 12px 16px; font-size: 15.5px; }
+.sim-threshold { border: 1px solid var(--rule); border-radius: 10px; background: var(--sunk); padding: 12px 16px; font-size: 15.5px; }
 .sim-h { font-size: var(--t-h3); line-height: 1.3; margin-top: var(--s2); }
 .tools .sim-table td:first-child { min-width: 12em; }
 @media (max-width: 560px) { .tools .sim-table th:nth-child(2), .tools .sim-table td:nth-child(2) { display: none; } }
@@ -73,7 +73,7 @@ details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
   .sim-sticky-bar {
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 10px 14px;
     background: var(--card); border: 1px solid var(--rule); border-radius: 0 0 10px 10px;
-    box-shadow: 0 8px 20px -14px rgba(30, 33, 38, .45); font-size: 15px; font-variant-numeric: tabular-nums;
+    box-shadow: 0 8px 20px -14px rgba(30, 33, 38, .45); font-size: 15px; font-variant-numeric: proportional-nums;
     opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .15s, transform .15s, visibility .15s;
   }
   .sim-sticky.on .sim-sticky-bar { opacity: 1; visibility: visible; transform: none; }
@@ -108,7 +108,7 @@ details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
   background: none; border: 0; border-radius: 4px; cursor: pointer;
 }
 @media (pointer: coarse) { .cat { min-height: 44px; } }
-.cat-val { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--muted); }
+.cat-val { font-variant-numeric: proportional-nums; font-weight: 600; color: var(--muted); }
 .cat-trk { grid-column: 1 / -1; height: 5px; background: var(--sunk); border-radius: 1px; }
 .cat-trk span { display: block; height: 100%; background: var(--bar); border-radius: 1px; }
 .cat:hover .cat-lab { color: var(--red); }
@@ -129,7 +129,7 @@ details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
 .chips button:hover { border-color: var(--red); }
 .chips button:hover span { color: var(--red); }
 @media (pointer: coarse) { .chips button:not(.linklike) { min-height: 44px; } }
-.obl-empty { display: grid; gap: 8px; padding: 12px 16px; background: var(--sunk); border-left: 3px solid var(--amber); }
+.obl-empty { display: grid; gap: 8px; padding: 12px 16px; background: var(--sunk); border: 1px solid var(--rule); border-radius: 10px; }
 .obl-empty ul { margin: 0; padding-left: 1.1em; display: grid; gap: 2px; }
 .tools ol.oblist li:first-child { padding-top: 12px; }
 
@@ -144,10 +144,10 @@ details.sim-flux .linklike { justify-self: start; font-size: 14.5px; }
 .ind-list button {
   display: flex; align-items: center; min-height: 44px; padding: 6px 12px; width: 100%;
   font: inherit; font-size: 14.5px; line-height: 1.3; color: var(--muted); text-align: left;
-  background: none; border: 1px solid transparent; border-left: 3px solid transparent; border-radius: 0 6px 6px 0; cursor: pointer;
+  background: none; border: 0; border-radius: 8px; cursor: pointer;
 }
 .ind-list button:hover { color: var(--ink); background: var(--sunk); }
-.ind-list button[aria-checked="true"] { color: var(--ink); font-weight: 600; background: var(--sunk); border-left-color: var(--red); }
+.ind-list button[aria-checked="true"] { color: #fff; font-weight: 600; background: var(--ink); }
 
 .rank { display: grid; gap: 4px; }
 .rank-fig { font-family: var(--serif); font-weight: 700; font-size: 40px; line-height: 1.1; color: var(--red); font-variant-numeric: lining-nums; }

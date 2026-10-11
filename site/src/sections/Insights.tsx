@@ -56,10 +56,7 @@ const visuels: Record<ConstatId, ReactNode> = {
 /** En-tête d'un bloc : numéro et question. */
 export function BlockHead({ n, q }: { n: number; q: string }) {
   return (
-    <div className="block-head">
-      <span className="block-n" aria-hidden="true">{n}</span>
-      <p className="block-q">{q}</p>
-    </div>
+    <p className="block-q">{n}. {q}</p>
   );
 }
 

@@ -106,7 +106,7 @@ function Comparateur() {
             {ind.mieux ? (
               <p className="rank-fig">France : {rangFr}<sup>{rangFr === 1 ? "er" : "e"}</sup> sur {pays.length}</p>
             ) : (
-              <p className="rank-fig">France : {vFr !== undefined ? val(vFr, 2) : "—"}</p>
+              <p className="rank-fig">France : {vFr !== undefined ? val(vFr, 2) : "n. d."}</p>
             )}
             <p className="rank-sub">
               {ind.nom}{vFr !== undefined && ind.mieux ? <>, {val(vFr, 2)}</> : null} ({ind.unite}).{" "}
@@ -149,7 +149,7 @@ function Comparateur() {
               {Object.entries(d.pays).map(([g, nom]) => (
                 <tr key={g} className={g === "FR" ? "fr" : g === "EU27_2020" ? "eu" : undefined}>
                   <td>{nom}</td>
-                  {d.indicateurs.map((i) => <td key={i.id} className="r">{i.valeurs[g] ? val(i.valeurs[g].valeur) : "—"}</td>)}
+                  {d.indicateurs.map((i) => <td key={i.id} className="r">{i.valeurs[g] ? val(i.valeurs[g].valeur) : "n. d."}</td>)}
                 </tr>
               ))}
             </tbody>

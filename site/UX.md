@@ -46,8 +46,8 @@ en diagonale (NN/g : 79 % des lecteurs scannent).
 3. **Grille large, texte étroit.** Conteneur de 1200 px ; le texte courant reste à 68 caractères ; graphiques, outils et grilles prennent la largeur.
 4. **Une couleur, un sens.** Rouge = le Code (références d'articles, texte de loi, la France dans les graphiques).
    Surligneur = le chiffre clé d'un constat, et rien d'autre. Vert et ambre = verdicts seulement.
-5. **Peu de tailles.** Six tailles de texte, pas quatorze. Le serif pour les titres, les chiffres et le texte de
-   loi ; le sans-serif pour tout le reste.
+5. **Peu de tailles.** Six tailles de texte, pas quatorze. Libre Caslon Text pour les titres, les chiffres et le texte de
+   loi ; Schibsted Grotesk pour tout le reste.
 6. **L'accueil raconte, les pages approfondissent.** Les propositions, la méthode et les sources ont leur page.
 7. **Ce qui bouge répond.** Un seul mouvement automatique (le surlignage de l'article au chargement) ; le reste
    répond à une action, et respecte `prefers-reduced-motion`.

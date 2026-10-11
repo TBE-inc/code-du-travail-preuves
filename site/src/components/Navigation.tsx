@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, MotionConfig, motion, type Variants } from "framer-motion";
 import { constats } from "../data/constats";
 import type { PageId } from "./Layout";
 
@@ -44,13 +45,35 @@ function useEtapeActive(page: PageId, liste: Etape[]) {
   return actif;
 }
 
+// Ouverture : ressort court et amorti, contenu en léger décalé. Fermeture : plus rapide, sans rebond.
+const panneau: Variants = {
+  ferme: { opacity: 0, y: -6, scale: 0.98, transition: { duration: 0.14, ease: [0.4, 0, 1, 1] } },
+  ouvert: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 520, damping: 38, mass: 0.8, staggerChildren: 0.016, delayChildren: 0.03 } },
+};
+const element: Variants = {
+  ferme: { opacity: 0, y: 4, transition: { duration: 0.08 } },
+  ouvert: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 600, damping: 40 } },
+};
+
+/** Icône menu : les deux traits extérieurs pivotent en croix, celui du milieu s'efface. */
+function IconeMenu({ ouvert }: { ouvert: boolean }) {
+  const t = { type: "spring" as const, stiffness: 520, damping: 32 };
+  return (
+    <span className="ico-menu" aria-hidden="true">
+      <motion.span initial={false} animate={ouvert ? { y: 5, rotate: 45 } : { y: 0, rotate: 0 }} transition={t} />
+      <motion.span initial={false} animate={{ opacity: ouvert ? 0 : 1, scaleX: ouvert ? 0.2 : 1 }} transition={{ duration: 0.12 }} />
+      <motion.span initial={false} animate={ouvert ? { y: -5, rotate: -45 } : { y: 0, rotate: 0 }} transition={t} />
+    </span>
+  );
+}
+
 /** Navigation unique du site : une capsule flottante avec le menu des pages et les étapes du parcours. */
 export function Navigation({ page }: { page: PageId }) {
   const accueil = page === "accueil";
   const [liste] = useState(() => etapes(accueil));
   const actif = useEtapeActive(page, liste);
   const [ouvert, setOuvert] = useState(false);
-  const racine = useRef<HTMLElement>(null);
+  const racine = useRef<HTMLDivElement>(null);
   const rangee = useRef<HTMLOListElement>(null);
   const panneauId = useId();
   const chemin = location.pathname;
@@ -74,16 +97,18 @@ export function Navigation({ page }: { page: PageId }) {
 
   const lienEtape = (e: Etape, inPanel = false) => (
     <a href={e.href} aria-current={actif === e.id ? "step" : undefined} onClick={() => inPanel && setOuvert(false)}>
-      <span className={`rn${e.n === "✓" ? " end" : ""}`}>{e.n}</span>
+      {e.n !== "✓" && <span className="rn">{e.n}</span>}
       {e.label}
     </a>
   );
 
   return (
-    <nav className="capsule-wrap" aria-label="Navigation" ref={racine}>
+    <MotionConfig reducedMotion="user">
+    <nav className="capsule-wrap" aria-label="Navigation">
+      <div className="cap-anchor" ref={racine}>
       <div className="capsule">
         <button type="button" className="cap-menu" aria-expanded={ouvert} aria-controls={panneauId} onClick={() => setOuvert(!ouvert)}>
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d={ouvert ? "M3.5 3.5l9 9M12.5 3.5l-9 9" : "M2 4h12M2 8h12M2 12h12"} stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /></svg>
+          <IconeMenu ouvert={ouvert} />
           Menu
         </button>
         <span className="cap-sep" aria-hidden="true" />
@@ -91,27 +116,31 @@ export function Navigation({ page }: { page: PageId }) {
           {liste.map((e) => <li key={e.id}>{lienEtape(e)}</li>)}
         </ol>
         <button type="button" className="cap-current" aria-expanded={ouvert} aria-controls={panneauId} onClick={() => setOuvert(!ouvert)}>
-          {courante ? <><span className={`rn${courante.n === "✓" ? " end" : ""}`}>{courante.n}</span>{courante.label}<span className="cap-count">{liste.indexOf(courante) + 1}/{liste.length}</span></> : <>Le parcours<span className="cap-count">{liste.length} étapes</span></>}
+          {courante ? <>{courante.n !== "✓" && <span className="rn">{courante.n}</span>}{courante.label}<span className="cap-count">{liste.indexOf(courante) + 1}/{liste.length}</span></> : <>Le parcours<span className="cap-count">{liste.length} étapes</span></>}
         </button>
       </div>
-      {ouvert && (
-        <div className="cap-panel" id={panneauId}>
-          <div className="cap-group cap-group-steps">
-            <p className="cap-h">Le parcours</p>
-            <ol>{liste.map((e) => <li key={e.id}>{lienEtape(e, true)}</li>)}</ol>
-          </div>
-          <div className="cap-group">
-            <p className="cap-h">Le site</p>
-            <ul>
-              {pages.map((p) => (
-                <li key={p.href} className={p.sous ? "sous" : undefined}>
-                  <a href={p.href} aria-current={chemin === p.href || (p.href === base && page === "constat") ? "page" : undefined} onClick={() => setOuvert(false)}>{p.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {ouvert && (
+          <motion.div className="cap-panel" id={panneauId} variants={panneau} initial="ferme" animate="ouvert" exit="ferme">
+            <div className="cap-group cap-group-steps">
+              <motion.p className="cap-h" variants={element}>Le parcours</motion.p>
+              <ol>{liste.map((e) => <motion.li key={e.id} variants={element}>{lienEtape(e, true)}</motion.li>)}</ol>
+            </div>
+            <div className="cap-group">
+              <motion.p className="cap-h" variants={element}>Le site</motion.p>
+              <ul>
+                {pages.map((p) => (
+                  <motion.li key={p.href} className={p.sous ? "sous" : undefined} variants={element}>
+                    <a href={p.href} aria-current={chemin === p.href || (p.href === base && page === "constat") ? "page" : undefined} onClick={() => setOuvert(false)}>{p.label}</a>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      </div>
     </nav>
+    </MotionConfig>
   );
 }
