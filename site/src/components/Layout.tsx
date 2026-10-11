@@ -1,6 +1,7 @@
-import { StrictMode, useEffect, useRef, type ReactNode } from "react";
+import { StrictMode, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
+import { Navigation } from "./Navigation";
 
 const base = import.meta.env.BASE_URL;
 
@@ -12,46 +13,10 @@ const outils: [string, string][] = [
   [`${base}pays/`, "La France et ses voisins"],
 ];
 
-/** Menu déroulant des outils, refermé au clic extérieur ou avec Échap. */
-function Menu({ current }: { current: boolean }) {
-  const ref = useRef<HTMLDetailsElement>(null);
-  useEffect(() => {
-    const close = (e: Event) => {
-      const d = ref.current;
-      if (d?.open && (e.type === "keydown" ? (e as KeyboardEvent).key === "Escape" : !d.contains(e.target as Node))) d.open = false;
-    };
-    document.addEventListener("click", close);
-    document.addEventListener("keydown", close);
-    return () => { document.removeEventListener("click", close); document.removeEventListener("keydown", close); };
-  }, []);
-  return (
-    <details className="menu" ref={ref}>
-      <summary aria-current={current ? "page" : undefined}>Outils</summary>
-      <ul>{outils.map(([h, l]) => <li key={h}><a href={h}>{l}</a></li>)}</ul>
-    </details>
-  );
-}
-
 export function Layout({ page, children }: { page: PageId; children: ReactNode }) {
-  const cur = (ids: PageId[]) => (ids.includes(page) ? "page" : undefined);
   return (
     <>
-      <nav className="nav" aria-label="Pages du site">
-        <div className="nav-inner">
-          <a className="nav-brand" href={base}>
-            <span className="long">Le Code du travail, annoté</span>
-            <span className="short">Le Code annoté</span>
-          </a>
-          <ul>
-            <li><a href={base} aria-current={cur(["accueil", "constat"])}>Constats</a></li>
-            <li><a href={`${base}propositions/`} aria-current={cur(["propositions"])}>Propositions</a></li>
-            <li>
-              <Menu current={page === "outils"} />
-            </li>
-            <li><a href={`${base}methode/`} aria-current={cur(["methode"])}>Méthode</a></li>
-          </ul>
-        </div>
-      </nav>
+      <Navigation page={page} />
       <div className={`page ${page}`}>
         <main>{children}</main>
         <footer>

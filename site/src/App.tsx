@@ -1,5 +1,4 @@
 import { Hero } from "./sections/Hero";
-import { Parcours } from "./sections/Parcours";
 import { Insights } from "./sections/Insights";
 import { Propositions, Resume } from "./sections/Fin";
 
@@ -7,7 +6,6 @@ import { Propositions, Resume } from "./sections/Fin";
 export default function App() {
   return (
     <>
-      <Parcours />
       <Hero />
       <Insights />
       <Propositions />
