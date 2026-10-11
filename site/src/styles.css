@@ -31,11 +31,12 @@
 
   --col: 680px;
   --r-ctl: 6px;
-  color-scheme: light;
+  color-scheme: only light;
 }
 /* base */
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+html { background: #fdfdfd; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--t-body); line-height: 1.6; padding-inline: 20px; padding-block: 0; }
 .page { max-width: var(--col); margin: 0 auto; padding-block: var(--s4) var(--s5); }
 main { display: grid; gap: var(--s5); }
