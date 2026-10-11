@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, MotionConfig, motion, type Variants } from "framer-motion";
 import { constats } from "../data/constats";
 import type { PageId } from "./Layout";
+import { useGlisser } from "./useGlisser";
 
 const base = import.meta.env.BASE_URL;
 
@@ -76,6 +77,7 @@ export function Navigation({ page }: { page: PageId }) {
   const [ouvert, setOuvert] = useState(false);
   const racine = useRef<HTMLDivElement>(null);
   const rangee = useRef<HTMLOListElement>(null);
+  useGlisser(rangee);
   const panneauId = useId();
   const chemin = location.pathname;
   const courante = actif ? liste.find((e) => e.id === actif) : undefined;

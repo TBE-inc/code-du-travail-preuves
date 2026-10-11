@@ -512,3 +512,13 @@ dl.legend dd { margin: 0; color: var(--muted); }
   .terme-bulle { position: fixed; left: 12px; right: 12px; bottom: 16px; top: auto; width: auto; max-width: none; transform: none; padding: 14px 16px; font-size: 15px; }
   .terme:hover:not(.ouvert) .terme-bulle { visibility: hidden; opacity: 0; }
 }
+
+/* rangée d'étapes : glisser pour défiler quand elle déborde */
+.cap-steps.glissable { cursor: grab; }
+.cap-steps.glissable a { cursor: pointer; }
+.cap-steps.en-glisse, .cap-steps.en-glisse a { cursor: grabbing; user-select: none; }
+.cap-steps.en-glisse a { pointer-events: none; }
+.cap-steps.bord-d { mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.cap-steps.bord-g { mask-image: linear-gradient(to right, transparent, #000 40px); }
+.cap-steps.bord-g.bord-d { mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
+.cap-steps a { -webkit-user-drag: none; }
