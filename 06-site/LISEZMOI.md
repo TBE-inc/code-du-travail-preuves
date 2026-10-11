@@ -37,3 +37,17 @@ Vérifier l'aperçu avant de poster : coller l'adresse dans un brouillon de post
 
 Le pied de page indique que l'analyse a été réalisée avec l'assistance d'une IA et que ce n'est ni un avis juridique
 ni une étude relue par des pairs. À garder : c'est ce qui rend le travail honnête et vérifiable.
+
+## GitHub Pages (déjà en ligne)
+
+Le site est publié sur https://tbe-inc.github.io/code-du-travail-preuves/ à partir de la branche `gh-pages`,
+qui contient uniquement le dossier `06-site`. Après une modification du site, sur la branche `main` :
+
+```
+git add -A && git commit -m "Mise à jour du site"
+git push
+git subtree push --prefix 06-site origin gh-pages
+```
+
+Les balises `og:image` et `twitter:image` pointent vers l'image publiée sur GitHub Pages. Si le site est déployé
+ailleurs (Vercel), les remplacer par la nouvelle adresse.
